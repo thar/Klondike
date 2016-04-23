@@ -15,7 +15,10 @@ public:
         return *this;
     }
 
-    virtual bool isSameColor(const Suit& suit) const = 0;
+    bool isSameColor(const Suit& suit) const
+    {
+        return static_cast<const CardProperty&>(*this) == static_cast<const CardProperty&>(suit);
+    }
 
 protected:
 private:

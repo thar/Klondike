@@ -6,54 +6,28 @@
 #include <vector>
 #include <memory>
 
+class DeckBuilder;
 class Card
 {
 public:
     Card(const std::shared_ptr<Value> value, const std::shared_ptr<Suit> suit)
-            : value_(value), suit_(suit), isFaceOver_(false)
+            : value_(value), suit_(suit), faceUp_(false)
     {}
 
-    bool isNextValue(const Card& card) const
-    {
-        return value_->isNextValue(*card.value_);
-    }
-
-    bool isPrevValue(const Card& card) const
-    {
-        return value_->isPrevValue(*card.value_);
-    }
-
-    bool isSameValue(const Value& value) const
-    {
-        return *value_ == value;
-    }
-
-    bool isSameSuit(const Card& card) const
-    {
-        return *card.suit_ == *suit_;
-    }
-
-    bool isSameColor(const Card& card) const
-    {
-        return suit_->isSameColor(*card.suit_);
-    }
-
-    bool isFaceOver() const
-    {
-        return isFaceOver_;
-    }
-
-    void turnFaceOver()
-    {
-        isFaceOver_ = !isFaceOver_;
-    }
+    bool isNextValue(const Card& card) const;
+    bool isPrevValue(const Card& card) const;
+    bool isSameValue(const Value& value) const;
+    bool isSameSuit(const Card& card) const;
+    bool isSameColor(const Card& card) const;
+    bool isFaceUp() const;
+    void turnCard();
 
 protected:
 
 private:
     std::shared_ptr<Value> value_;
     std::shared_ptr<Suit> suit_;
-    bool isFaceOver_;
+    bool faceUp_;
 
     friend std::ostream& operator<<(std::ostream& os, const Card& obj);
 };

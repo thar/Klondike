@@ -16,6 +16,11 @@ public:
         return *this;
     }
 
+    operator int()
+    {
+        return getValue();
+    }
+
     bool isNextValue(const Value& value) const
     {
         return (value.getValue() == (getValue() + 1));

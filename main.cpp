@@ -1,40 +1,71 @@
 #include <iostream>
-#include "models/DeckFactory.h"
+#include "models/GameDeck.h"
+#include "models/Stock.h"
+#include "models/Waist.h"
+#include "models/StockToWaistCommand.h"
+#include "models/WaistToStockCommand.h"
 
 int main() {
-    DeckFactory::getInstance().createDeckContainers("french");
-    Pile pile = DeckFactory::getInstance().getFullPile();
+    GameDeck spanishDeck("config/decks/spanishDeck.txt");
+    GameDeck frenchDeck("config/decks/frenchDeck.txt");
 
-    Card kingCard = pile.getTopmostCard();
-    Card aceCard = pile.getFirstCard();
-    kingCard.turnFaceOver();
-    aceCard.turnFaceOver();
+    Pile pile = frenchDeck.getPile();
+
+    Card kingCard = pile.back();
+    Card aceCard = pile.front();
+    kingCard.turnCard();
+    aceCard.turnCard();
     std::cout << kingCard << "] is king? " <<
-            (DeckFactory::getInstance().isKingValue(kingCard) ? std::string("yes") : std::string("no")) << std::endl;
+            (frenchDeck.isKing(kingCard) ? std::string("yes") : std::string("no")) << std::endl;
     std::cout << aceCard << "] is king? " <<
-    (DeckFactory::getInstance().isKingValue(aceCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (frenchDeck.isKing(aceCard) ? std::string("yes") : std::string("no")) << std::endl;
     std::cout << kingCard << "] is ace? " <<
-    (DeckFactory::getInstance().isAceValue(kingCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (frenchDeck.isAce(kingCard) ? std::string("yes") : std::string("no")) << std::endl;
     std::cout << aceCard << "] is ace? " <<
-    (DeckFactory::getInstance().isAceValue(aceCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (frenchDeck.isAce(aceCard) ? std::string("yes") : std::string("no")) << std::endl;
 
     pile.shuffle();
-    pile.turnUpmostCard();
+    pile.back().turnCard();
     std::cout << pile << std::endl;
 
-    DeckFactory::getInstance().createDeckContainers("spanish");
-    pile = DeckFactory::getInstance().getFullPile();
+    std::cout << "======================" << std::endl;
+
+    pile = spanishDeck.getPile();
     pile.shuffle();
-    pile.turnUpmostCard();
-    std::cout << pile << std::endl;
 
-    Pile tempPile = pile.popPile(5);
-    std::cout << tempPile << std::endl;
-    pile.turnUpmostCard();
-    std::cout << pile << std::endl;
+    Stock stock(pile);
+    Waist waist;
 
-    pile.appendPile(tempPile);
-    std::cout << pile << std::endl;
+    StockToWaistCommand command(stock, waist);
+    WaistToStockCommand command2(stock, waist);
+
+    command.validate();
+    command.execute();
+
+    std::cout << stock << std::endl;
+    std::cout << waist << std::endl;
+
+    command.undo();
+
+    std::cout << stock << std::endl;
+    std::cout << waist << std::endl;
+
+    while(command.validate())
+    {
+        command.execute();
+        std::cout << stock << std::endl;
+        std::cout << waist << std::endl;
+    }
+
+    if(command2.validate())
+    {
+        command2.execute();
+        std::cout << stock << std::endl;
+        std::cout << waist << std::endl;
+        command2.undo();
+        std::cout << stock << std::endl;
+        std::cout << waist << std::endl;
+    }
 
     return 0;
 }

@@ -9,16 +9,12 @@ public:
     CardProperty(const int& value, const std::string& propertyString) : value_(value), propertyString_(propertyString)
     {}
 
-    bool isPair() const
-    {
-        return (value_ % 2) == 0;
-    }
-
-protected:
     int getValue() const
     {
         return value_;
     }
+
+protected:
 
 private:
     int value_;
