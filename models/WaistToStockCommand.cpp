@@ -3,32 +3,32 @@
 void WaistToStockCommand::execute()
 {
     assert(valid_);
-    faceUpCards_ = 0;
-    Pile tempPile = waist_.actionPop();
+    cardsToMove_ = 0;
+    Pile tempPile = origin_.actionPopAll(Waist::pileIndex);
     for(const auto& card : tempPile)
     {
         if (card.isFaceUp())
         {
-            faceUpCards_++;
+            cardsToMove_++;
         }
     }
     tempPile.turnCardsDown();
     tempPile.reverse();
-    stock_.actionPush(tempPile);
+    destiny_.actionPush(tempPile, Stock::pileIndex);
 }
 
 void WaistToStockCommand::undo()
 {
-    Pile tempPile = stock_.actionPop();
+    Pile tempPile = destiny_.actionPopAll(Stock::pileIndex);
     tempPile.turnCardsDown();
     tempPile.reverse();
-    Pile faceUpPile = tempPile.popPile(faceUpCards_);
+    Pile faceUpPile = tempPile.popPile(cardsToMove_);
     faceUpPile.turnCardsUp();
     tempPile.appendPile(faceUpPile);
-    waist_.actionPush(tempPile);
+    origin_.actionPush(tempPile, Waist::pileIndex);
 }
 
 void WaistToStockCommand::__validate()
 {
-    valid_ = stock_.getRemainingCards() == 0;
+    valid_ = origin_.getRemainingCards(Stock::pileIndex) == 0;
 }

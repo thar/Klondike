@@ -3,21 +3,18 @@
 
 
 #include "Pile.h"
+#include "PilesGroup.h"
 
-class Stock
+class Stock : public PilesGroup
 {
 public:
     Stock(Pile pile);
-    void actionPush(Pile& pile);
-    Pile actionPop(unsigned int numberOfCards);
-    Pile actionPop();
-    unsigned int getRemainingCards();
+    static const unsigned int pileIndex;
 
 protected:
 private:
-    Pile stockPile_;
+    static const unsigned int pilesSize;
 
-    friend std::ostream& operator<<(std::ostream& os, const Stock& obj);
 };
 
 

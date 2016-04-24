@@ -2,8 +2,16 @@
 #define KLONDIKE_TABLEAU_H
 
 
-class Tableau
+#include "Pile.h"
+#include "PilesGroup.h"
+
+class Tableau : public PilesGroup
 {
+public:
+    Tableau(Pile& pile);
+
+protected:
+private:
 
 };
 

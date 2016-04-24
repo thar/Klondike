@@ -3,22 +3,25 @@
 void StockToWaistCommand::execute()
 {
     assert(valid_);
-    Pile tempPile = stock_.actionPop(3);
+    Pile tempPile = origin_.actionPop(3, Stock::pileIndex);
     tempPile.turnCardsUp();
     tempPile.reverse();
-    movedCards_ = tempPile.size();
-    waist_.actionPush(tempPile);
+    cardsToMove_ = tempPile.size();
+    Pile waistPile = destiny_.actionPopAll(Waist::pileIndex);
+    waistPile.turnCardsDown();
+    waistPile.appendPile(tempPile);
+    destiny_.actionPush(waistPile, Waist::pileIndex);
 }
 
 void StockToWaistCommand::undo()
 {
-    Pile tempPile = waist_.actionPop(movedCards_);
+    Pile tempPile = destiny_.actionPop(cardsToMove_, Waist::pileIndex);
     tempPile.turnCardsDown();
     tempPile.reverse();
-    stock_.actionPush(tempPile);
+    origin_.actionPush(tempPile, Stock::pileIndex);
 }
 
 void StockToWaistCommand::__validate()
 {
-    valid_ = stock_.getRemainingCards() > 0;
+    valid_ = origin_.getRemainingCards(Stock::pileIndex) > 0;
 }

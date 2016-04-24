@@ -3,31 +3,18 @@
 
 
 #include "Pile.h"
+#include "PilesGroup.h"
 
-class Waist
+class Waist : public  PilesGroup
 {
 public:
-    Waist() {};
-    void actionPush(Pile pile)
-    {
-        waistPile_.turnCardsDown();
-        waistPile_.appendPile(pile);
-    };
+    Waist() : PilesGroup(pilesSize) {};
+    static const unsigned int pileIndex;
 
-    Pile actionPop(unsigned int numberOfCards)
-    {
-        return waistPile_.popPile(numberOfCards);
-    };
-
-    Pile actionPop()
-    {
-        return waistPile_.popPile(waistPile_.size());
-    };
 protected:
 private:
-    Pile waistPile_;
+    static const unsigned int pilesSize;
 
-    friend std::ostream& operator<<(std::ostream& os, const Waist& obj);
 };
 
 

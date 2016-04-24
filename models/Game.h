@@ -10,12 +10,17 @@
 class Game
 {
 public:
+    Game(GameDeck gameDeck);
 protected:
 private:
-    Waist waist_;
-    Stock stock_;
+    GameDeck gameDeck_;
+    Pile gamePile_;
     Foundation foundation_;
     Tableau tableau_;
+    Stock stock_;
+    Waist waist_;
+
+    friend std::ostream& operator<<(std::ostream& os, const Game& obj);
 
 };
 

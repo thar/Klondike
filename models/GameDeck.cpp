@@ -65,3 +65,8 @@ Pile GameDeck::getPile() const
 {
     return deckPile_;
 }
+
+unsigned int GameDeck::getNumberOfSuits() const
+{
+    return static_cast<unsigned int>(suits_.size());
+}

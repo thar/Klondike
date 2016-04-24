@@ -9,15 +9,13 @@
 class WaistToStockCommand : public KlondikeCommand
 {
 public:
-    WaistToStockCommand(Stock& stock, Waist& waist) : stock_(stock), waist_(waist) {}
+    WaistToStockCommand(Stock& stock, Waist& waist) : KlondikeCommand(waist, stock) {}
     void execute();
     void undo();
     void __validate();
 
 private:
-    Stock& stock_;
-    Waist& waist_;
-    unsigned int faceUpCards_;
+
 };
 
 

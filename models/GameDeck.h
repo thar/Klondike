@@ -11,7 +11,7 @@ public:
     GameDeck(std::string deckFilePath);
     bool isAce(const Card& card) const;
     bool isKing(const Card& card) const;
-    int getNumberOfSuits() const;
+    unsigned int getNumberOfSuits() const;
     Pile getPile() const;
 
 protected:

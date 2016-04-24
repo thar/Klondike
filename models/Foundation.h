@@ -5,22 +5,18 @@
 #include <memory>
 #include "Pile.h"
 #include "GameDeck.h"
+#include "PilesGroup.h"
 
-class Foundation
+class Foundation : public PilesGroup
 {
 public:
-    Foundation(int numberOfSuits) : foundationPiles_(numberOfSuits)
-    {};
-    void pushAction()
+    Foundation(unsigned int numberOfSuits) : PilesGroup(numberOfSuits)
     {
     };
-    void popAction()
-    {};
+
 protected:
 private:
-    std::vector<Pile> foundationPiles_;
 
-    friend std::ostream& operator<<(std::ostream& os, const Foundation& obj);
 };
 
 

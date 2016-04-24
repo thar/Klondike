@@ -4,6 +4,7 @@
 #include "models/Waist.h"
 #include "models/StockToWaistCommand.h"
 #include "models/WaistToStockCommand.h"
+#include "models/Game.h"
 
 int main() {
     GameDeck spanishDeck("config/decks/spanishDeck.txt");
@@ -37,7 +38,6 @@ int main() {
     Waist waist;
 
     StockToWaistCommand command(stock, waist);
-    WaistToStockCommand command2(stock, waist);
 
     command.validate();
     command.execute();
@@ -57,6 +57,7 @@ int main() {
         std::cout << waist << std::endl;
     }
 
+    WaistToStockCommand command2(stock, waist);
     if(command2.validate())
     {
         command2.execute();
@@ -66,6 +67,11 @@ int main() {
         std::cout << stock << std::endl;
         std::cout << waist << std::endl;
     }
+
+    std::cout << "======================" << std::endl;
+
+    Game game(spanishDeck);
+    std::cout << game << std::endl;
 
     return 0;
 }
