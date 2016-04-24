@@ -11,11 +11,6 @@ public:
     Value(int value, const std::string & propertyString) : CardProperty(value, propertyString)
     {}
 
-    operator CardProperty&()
-    {
-        return *this;
-    }
-
     operator int()
     {
         return getValue();

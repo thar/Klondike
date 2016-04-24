@@ -10,11 +10,6 @@ public:
     Suit(const int& value, const std::string & propertyString) : CardProperty(value, propertyString)
     {}
 
-    operator CardProperty&()
-    {
-        return *this;
-    }
-
     bool isSameColor(const Suit& suit) const
     {
         return static_cast<const CardProperty&>(*this) == static_cast<const CardProperty&>(suit);
