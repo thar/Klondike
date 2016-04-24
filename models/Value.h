@@ -11,11 +11,6 @@ public:
     Value(int value, const std::string & propertyString) : CardProperty(value, propertyString)
     {}
 
-    operator int()
-    {
-        return getValue();
-    }
-
     bool isNextValue(const Value& value) const
     {
         return (value.getValue() == (getValue() + 1));

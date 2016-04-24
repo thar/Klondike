@@ -9,12 +9,11 @@ public:
     CardProperty(const int& value, const std::string& propertyString) : value_(value), propertyString_(propertyString)
     {}
 
+protected:
     int getValue() const
     {
         return value_;
     }
-
-protected:
 
 private:
     int value_;
