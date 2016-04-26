@@ -10,7 +10,7 @@
 class Foundation : public PilesGroup
 {
 public:
-    Foundation(unsigned int numberOfSuits) : PilesGroup(numberOfSuits)
+    Foundation(std::set<std::string> suitsNames) : PilesGroup(suitsNames, "palo")
     {
     };
 

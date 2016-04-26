@@ -8,8 +8,8 @@
 class Waist : public  PilesGroup
 {
 public:
-    Waist() : PilesGroup(pilesSize) {};
-    static const unsigned int pileIndex;
+    Waist() : PilesGroup({Waist::pileName}, "descarte") {};
+    static const std::string pileName;
 
 protected:
 private:

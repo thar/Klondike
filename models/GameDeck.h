@@ -4,6 +4,7 @@
 
 #include <string>
 #include "Pile.h"
+#include <set>
 
 class GameDeck
 {
@@ -11,7 +12,7 @@ public:
     GameDeck(std::string deckFilePath);
     bool isAce(const Card& card) const;
     bool isKing(const Card& card) const;
-    unsigned int getNumberOfSuits() const;
+    std::set<std::string> getSuitsNames() const;
     Pile getPile() const;
 
 protected:

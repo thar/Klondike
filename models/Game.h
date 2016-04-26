@@ -1,24 +1,19 @@
 #ifndef KLONDIKE_GAME_H
 #define KLONDIKE_GAME_H
 
-
-#include "Waist.h"
-#include "Stock.h"
-#include "Foundation.h"
-#include "Tableau.h"
+#include "GameBoard.h"
+#include "KlondikeCommandShop.h"
 
 class Game
 {
 public:
     Game(GameDeck gameDeck);
+    std::shared_ptr<KlondikeCommand> getCommand(unsigned int index);
 protected:
 private:
-    GameDeck gameDeck_;
-    Pile gamePile_;
-    Foundation foundation_;
-    Tableau tableau_;
-    Stock stock_;
-    Waist waist_;
+    GameBoard gameBoard_;
+    int score_;
+    KlondikeCommandShop gameCommandShop_;
 
     friend std::ostream& operator<<(std::ostream& os, const Game& obj);
 

@@ -1,22 +1,33 @@
 #ifndef KLONDIKE_PILESGROUP_H
 #define KLONDIKE_PILESGROUP_H
 
-#include <vector>
+#include <map>
+#include <set>
 #include "Pile.h"
 
 class PilesGroup
 {
 public:
-    PilesGroup(unsigned int numberOfPiles);
-    void actionPush(Pile& pile, unsigned int pileIndex);
-    Pile actionPop(unsigned int numberOfCards, unsigned int pileIndex);
-    Pile actionPopAll(unsigned int pileIndex);
-    unsigned int getRemainingCards(unsigned int pileIndex);
+    PilesGroup(std::set<std::string> pilesName, std::string pilesGroupName);
+    void actionPush(Pile &pile, const std::string pileName);
+    Pile actionPop(unsigned int numberOfCards, std::string pileName);
+    Pile actionPopAll(std::string pileName);
+    unsigned int getRemainingCards(std::string pileName);
 protected:
-    Pile& getPile(unsigned int pileIndex);
-    unsigned int getNumberOfPiles() const { return static_cast<unsigned int>(piles_.size()); }
+    Pile& getPile(std::string pileName);
+    unsigned int getNumberOfPiles() const { return static_cast<unsigned int>(pilesMap_.size()); }
+    std::set<std::string> getPilesNames() const
+    {
+        std::set<std::string> keys;
+        for(const auto it : pilesMap_)
+        {
+            keys.insert(it.first);
+        }
+        return keys;
+    }
 private:
-    std::vector<Pile> piles_;
+    std::map<std::string, Pile> pilesMap_;
+    std::string pilesGroupName_;
 
     friend std::ostream& operator<<(std::ostream& os, const PilesGroup& obj);
 

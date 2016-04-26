@@ -66,7 +66,14 @@ Pile GameDeck::getPile() const
     return deckPile_;
 }
 
-unsigned int GameDeck::getNumberOfSuits() const
+std::set<std::string> GameDeck::getSuitsNames() const
 {
-    return static_cast<unsigned int>(suits_.size());
+    std::set<std::string> suitsNames;
+    for (auto&& it : suits_)
+    {
+        std::ostringstream stream;
+        stream << *it;
+        suitsNames.insert(stream.str());
+    }
+    return suitsNames;
 }
