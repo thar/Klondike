@@ -9,11 +9,10 @@ class Stock : public PilesGroup
 {
 public:
     Stock(Pile pile);
-    static const unsigned int pileIndex;
+    static const std::string pileName;
 
 protected:
 private:
-    static const unsigned int pilesSize;
 
 };
 

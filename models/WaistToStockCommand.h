@@ -9,10 +9,11 @@
 class WaistToStockCommand : public KlondikeCommand
 {
 public:
-    WaistToStockCommand(Stock& stock, Waist& waist) : KlondikeCommand(waist, stock) {}
+    WaistToStockCommand(Stock& stock, Waist& waist, int& score) : KlondikeCommand(waist, stock, score, 0) {}
     void execute();
     void undo();
     void __validate();
+    std::shared_ptr<KlondikeCommand> clone();
 
 private:
 

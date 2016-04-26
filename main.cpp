@@ -37,7 +37,8 @@ int main() {
     Stock stock(pile);
     Waist waist;
 
-    StockToWaistCommand command(stock, waist);
+    int score = 0;
+    StockToWaistCommand command(stock, waist, score);
 
     command.validate();
     command.execute();
@@ -57,7 +58,8 @@ int main() {
         std::cout << waist << std::endl;
     }
 
-    WaistToStockCommand command2(stock, waist);
+    score = 0;
+    WaistToStockCommand command2(stock, waist, score);
     if(command2.validate())
     {
         command2.execute();
@@ -72,6 +74,15 @@ int main() {
 
     Game game(spanishDeck);
     std::cout << game << std::endl;
+    std::shared_ptr<KlondikeCommand> commandAbstract = game.getCommand(0);
+
+    if(commandAbstract->validate())
+    {
+        commandAbstract->execute();
+        std::cout << game << std::endl;
+        commandAbstract->undo();
+        std::cout << game << std::endl;
+    }
 
     return 0;
 }

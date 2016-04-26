@@ -1,46 +1,58 @@
 #include <iostream>
 #include "PilesGroup.h"
 
-PilesGroup::PilesGroup(unsigned int numberOfPiles) : piles_(numberOfPiles)
-{}
-
-void PilesGroup::actionPush(Pile &pile, unsigned int pileIndex)
+PilesGroup::PilesGroup(std::set<std::string> pilesName, std::string pilesGroupName)
+        : pilesGroupName_(pilesGroupName)
 {
-    assert(pileIndex <= getNumberOfPiles());
-    Pile& destinyPile = getPile(pileIndex);
+    for(const auto& name : pilesName)
+    {
+        pilesMap_[name] = Pile();
+    }
+}
+
+void PilesGroup::actionPush(Pile &pile, const std::string pileName)
+{
+    assert(getPilesNames().count(pileName) == 1);
+    Pile& destinyPile = getPile(pileName);
     destinyPile.appendPile(pile);
 }
 
-Pile PilesGroup::actionPop(unsigned int numberOfCards, unsigned int pileIndex)
+Pile PilesGroup::actionPop(unsigned int numberOfCards, std::string pileName)
 {
-    assert(pileIndex <= getNumberOfPiles());
-    Pile& destinyPile = getPile(pileIndex);
+    assert(getPilesNames().count(pileName) == 1);
+    Pile& destinyPile = getPile(pileName);
     return destinyPile.popPile(numberOfCards);
 }
 
-Pile PilesGroup::actionPopAll(unsigned int pileIndex)
+Pile PilesGroup::actionPopAll(std::string pileName)
 {
-    assert(pileIndex <= getNumberOfPiles());
-    Pile& destinyPile = getPile(pileIndex);
+    assert(getPilesNames().count(pileName) == 1);
+    Pile& destinyPile = getPile(pileName);
     return destinyPile.popPile(destinyPile.size());
 }
 
-Pile& PilesGroup::getPile(unsigned int pileIndex) {
-    assert(pileIndex <= getNumberOfPiles());
-    return piles_[pileIndex];
+Pile& PilesGroup::getPile(std::string pileName)
+{
+    assert(getPilesNames().count(pileName) == 1);
+    return pilesMap_[pileName];
 }
 
-unsigned int PilesGroup::getRemainingCards(unsigned int pileIndex)
+unsigned int PilesGroup::getRemainingCards(std::string pileName)
 {
-    return piles_[pileIndex].size();
+    return pilesMap_[pileName].size();
 }
 
 std::ostream& operator<<(std::ostream& os, const PilesGroup& obj)
 {
-    for(auto it = obj.piles_.begin(); it != obj.piles_.end() - 1; it++)
+    int i = 0;
+    for(auto it = obj.pilesMap_.begin(); it != obj.pilesMap_.end(); it++)
     {
-        os << *it << std::endl;
+        if(i != 0)
+        {
+            os << std::endl;
+        }
+        os << obj.pilesGroupName_ << " " << it->first << " " << it->second;
+        i++;
     }
-    os << obj.piles_.back();
     return os;
 }

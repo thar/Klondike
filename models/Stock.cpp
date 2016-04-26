@@ -1,9 +1,8 @@
 #include "Stock.h"
 
-const unsigned int Stock::pileIndex = 0;
-const unsigned int Stock::pilesSize = 1;
+const std::string Stock::pileName = "";
 
-Stock::Stock(Pile pile) : PilesGroup(Stock::pilesSize)
+Stock::Stock(Pile pile) : PilesGroup({Stock::pileName}, "baraja")
 {
-    actionPush(pile, Stock::pileIndex);
+    actionPush(pile, Stock::pileName);
 }

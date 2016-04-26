@@ -2,6 +2,7 @@
 #define KLONDIKE_KLONDIKECOMMAND_H
 
 #include "PilesGroup.h"
+#include <memory>
 
 class KlondikeCommand
 {
@@ -14,16 +15,21 @@ public:
         __validate();
         return valid_;
     };
+    virtual std::shared_ptr<KlondikeCommand> clone() = 0;
 
 protected:
-    KlondikeCommand(PilesGroup& origin, PilesGroup& destiny)
-            : valid_(false), origin_(origin), destiny_(destiny), cardsToMove_(0)
+    KlondikeCommand(PilesGroup& origin, PilesGroup& destiny, int& score, int movementScore)
+            : valid_(false), origin_(origin), destiny_(destiny), score_(score), cardsToMove_(0),
+              movementScore_(movementScore)
     {}
     virtual void __validate() = 0;
+
     bool valid_;
     PilesGroup& origin_;
     PilesGroup& destiny_;
+    int& score_;
     unsigned int cardsToMove_;
+    const int movementScore_;
 };
 
 

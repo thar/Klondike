@@ -1,17 +1,19 @@
-#include <iostream>
 #include "Game.h"
+#include "KlondikeCommandShopBuilder.h"
 
 Game::Game(GameDeck gameDeck)
-        : gameDeck_(gameDeck), gamePile_(gameDeck_.getPile()),
-          foundation_(gameDeck_.getNumberOfSuits()), tableau_(gamePile_), stock_(gamePile_)
+        : gameBoard_(gameDeck.getSuitsNames(), gameDeck.getPile()), score_(0),
+          gameCommandShop_(KlondikeCommandShopBuilder::createCommandShop(gameBoard_, score_))
 {
+}
+
+std::shared_ptr<KlondikeCommand> Game::getCommand(unsigned int index)
+{
+    return gameCommandShop_.getCommand(index);
 }
 
 std::ostream& operator<<(std::ostream& os, const Game& obj)
 {
-    os << "STOCK" << std::endl << obj.stock_ << std::endl;
-    os << "WAIST" << std::endl << obj.waist_ << std::endl;
-    os << "FOUNDATION" << std::endl << obj.foundation_ << std::endl;
-    os << "TABLEAU" << std::endl << obj.tableau_;
+    os << obj.gameBoard_;
     return os;
 }
