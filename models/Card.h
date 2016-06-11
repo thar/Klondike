@@ -19,6 +19,12 @@ public:
     bool isSameValue(const Value& value) const;
     bool isSameSuit(const Card& card) const;
     bool isSameColor(const Card& card) const;
+
+    bool isAce() const;
+
+    bool isKing() const;
+
+    const std::string getSuitName() const;
     bool isFaceUp() const;
     void turnCard();
 

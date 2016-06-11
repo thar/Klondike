@@ -17,13 +17,13 @@ int main() {
     kingCard.turnCard();
     aceCard.turnCard();
     std::cout << kingCard << "] is king? " <<
-            (frenchDeck.isKing(kingCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (kingCard.isKing() ? std::string("yes") : std::string("no")) << std::endl;
     std::cout << aceCard << "] is king? " <<
-    (frenchDeck.isKing(aceCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (aceCard.isKing() ? std::string("yes") : std::string("no")) << std::endl;
     std::cout << kingCard << "] is ace? " <<
-    (frenchDeck.isAce(kingCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (kingCard.isAce() ? std::string("yes") : std::string("no")) << std::endl;
     std::cout << aceCard << "] is ace? " <<
-    (frenchDeck.isAce(aceCard) ? std::string("yes") : std::string("no")) << std::endl;
+    (aceCard.isAce() ? std::string("yes") : std::string("no")) << std::endl;
 
     pile.shuffle();
     pile.back().turnCard();
@@ -83,6 +83,26 @@ int main() {
         commandAbstract->undo();
         std::cout << game << std::endl;
     }
+
+
+    if (commandAbstract->validate())
+    {
+        commandAbstract->execute();
+        std::cout << game << std::endl;
+        commandAbstract = game.getCommand(2);
+        if (commandAbstract->validate())
+        {
+            commandAbstract->execute();
+            std::cout << game << std::endl;
+            commandAbstract->undo();
+            std::cout << game << std::endl;
+        }
+        else
+        {
+            std::cout << "invalid movement" << std::endl;
+        }
+    }
+
 
     return 0;
 }

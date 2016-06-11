@@ -27,6 +27,8 @@ public:
     Card& back();
     unsigned int size() const;
 
+    const std::string getSuit() const;
+
     iterator begin() { return cards_.begin(); }
     iterator end() { return cards_.end(); }
 

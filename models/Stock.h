@@ -11,6 +11,9 @@ public:
     Stock(Pile pile);
     static const std::string pileName;
 
+    bool isCardPushable(const std::string &pileName, Card &card)
+    { return false; }
+
 protected:
 private:
 

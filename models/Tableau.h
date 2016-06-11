@@ -10,6 +10,8 @@ class Tableau : public PilesGroup
 public:
     Tableau(Pile& pile);
 
+    bool isCardPushable(const std::string &pileName, Card &card);
+
 protected:
 private:
 

@@ -30,9 +30,24 @@ bool Card::isFaceUp() const
     return faceUp_;
 }
 
+bool Card::isAce() const
+{
+    return value_->isAce();
+}
+
+bool Card::isKing() const
+{
+    return value_->isKing();
+}
+
 void Card::turnCard()
 {
     faceUp_ = !faceUp_;
+}
+
+const std::string Card::getSuitName() const
+{
+    return suit_->getSuitName();
 }
 
 std::ostream& operator<<(std::ostream& os, const Card& obj)

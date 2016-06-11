@@ -2,7 +2,7 @@
 
 Tableau::Tableau(Pile &pile) : PilesGroup({"1", "2", "3", "4", "5", "6", "7"}, "trabajo")
 {
-    int i=1;
+    unsigned int i = 1;
     for(const auto name : getPilesNames())
     {
         Pile tempPile = pile.popPile(i);
@@ -12,4 +12,15 @@ Tableau::Tableau(Pile &pile) : PilesGroup({"1", "2", "3", "4", "5", "6", "7"}, "
         actionPush(tempPile, name);
         i++;
     }
+}
+
+bool Tableau::isCardPushable(const std::string &pileName, Card &card)
+{
+    Pile &destinyPile = getPile(pileName);
+    if (destinyPile.size() == 0 && card.isKing())
+        return true;
+    Card &topDestinyCard = destinyPile.front();
+    if (card.isPrevValue(topDestinyCard) && !card.isSameColor(topDestinyCard))
+        return true;
+    return false;
 }

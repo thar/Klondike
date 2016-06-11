@@ -9,13 +9,19 @@
 class WaistToFoundationCommand : public KlondikeCommand
 {
 public:
-    WaistToFoundationCommand(Waist& waist, Foundation& foundation, int& score) : KlondikeCommand(waist, foundation, score, 10) {}
+    WaistToFoundationCommand(Waist &waist, Foundation &foundation, int &score) : KlondikeCommand(score, 10),
+                                                                                 origin_(waist), destiny_(foundation)
+    {
+        originPile_ = Waist::pileName;
+    }
     void execute();
     void undo();
     void __validate();
     std::shared_ptr<KlondikeCommand> clone();
 
 private:
+    Waist &origin_;
+    Foundation &destiny_;
 
 };
 

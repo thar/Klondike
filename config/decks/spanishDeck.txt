@@ -1,14 +1,14 @@
 VALUES
-1 1
-2 2
-3 3
-4 4
-5 5
-6 6
-7 7
-8 Sota
-9 Caballo
-10 Rey
+1 1 yes no
+2 2 no no
+3 3 no no
+4 4 no no
+5 5 no no
+6 6 no no
+7 7 no no
+8 Sota no no
+9 Caballo no no
+10 Rey no yes
 SUITS
 1 Oros
 2 Copas

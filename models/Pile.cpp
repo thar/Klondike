@@ -59,6 +59,24 @@ unsigned int Pile::size() const
     return static_cast<unsigned int>(cards_.size());
 }
 
+const std::string Pile::getSuit() const
+{
+    auto oneCard = cards_.back();
+    bool sameSuit = true;
+    for (auto &&card : cards_)
+    {
+        if (!oneCard.isSameSuit(card))
+        {
+            sameSuit = false;
+        }
+    }
+    if (sameSuit)
+    {
+        return oneCard.getSuitName();
+    }
+    return "";
+}
+
 void Pile::reverse()
 {
     std::reverse(cards_.begin(),cards_.end());
