@@ -14,6 +14,15 @@ public:
     {
     };
 
+    bool isCardPushable(Card &card)
+    {
+        return isCardPushable(card.getSuitName(), card);
+    }
+
+    bool isCardPushable(const std::string &pileName, Card &card);
+
+    void pushCard(Card &card);
+
 protected:
 private:
 

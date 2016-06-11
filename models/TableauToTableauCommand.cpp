@@ -1,29 +1,26 @@
-#include "WaistToFoundationCommand.h"
+#include "TableauToTableauCommand.h"
 
-void WaistToFoundationCommand::execute()
+void TableauToTableauCommand::execute()
 {
     assert(valid_);
-    cardsToMove_ = 1;
     Pile tempPile = origin_.actionPop(cardsToMove_, originPile_);
-    destinyPile_ = tempPile.getSuit();
-    destiny_.pushCard(tempPile.back());
+    destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void WaistToFoundationCommand::undo()
+void TableauToTableauCommand::undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     origin_.actionPush(tempPile, originPile_);
 }
 
-void WaistToFoundationCommand::__validate()
+void TableauToTableauCommand::__validate()
 {
-    cardsToMove_ = 1;
     Pile tempPile = origin_.actionPop(cardsToMove_, originPile_);
     if (tempPile.size() == 0)
     {
         valid_ = false;
     }
-    else if (destiny_.isCardPushable(tempPile.front()))
+    else if (destiny_.isCardPushable(destinyPile_, tempPile.front()))
     {
         valid_ = true;
     }
@@ -34,7 +31,7 @@ void WaistToFoundationCommand::__validate()
     origin_.actionPush(tempPile, originPile_);
 }
 
-std::shared_ptr<KlondikeCommand> WaistToFoundationCommand::clone()
+std::shared_ptr<KlondikeCommand> TableauToTableauCommand::clone()
 {
-    return std::make_shared<WaistToFoundationCommand>(*this);
+    return std::make_shared<TableauToTableauCommand>(*this);
 }

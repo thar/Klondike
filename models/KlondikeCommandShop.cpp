@@ -13,3 +13,8 @@ std::shared_ptr<KlondikeCommand> KlondikeCommandShop::getCommand(unsigned int co
 {
     return commands_[commandIndex]->clone();
 }
+
+unsigned int KlondikeCommandShop::size() const
+{
+    return static_cast<unsigned int>(commands_.size());
+}

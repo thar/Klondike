@@ -42,6 +42,11 @@ unsigned int PilesGroup::getRemainingCards(std::string pileName)
     return pilesMap_[pileName].size();
 }
 
+bool PilesGroup::hasPileName(std::string pileName) const
+{
+    return getPilesNames().count(pileName) == 1;
+}
+
 std::ostream& operator<<(std::ostream& os, const PilesGroup& obj)
 {
     int i = 0;

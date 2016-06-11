@@ -1,6 +1,5 @@
 #include "GameDeck.h"
 #include <fstream>
-#include <sstream>
 #include <iostream>
 
 GameDeck::GameDeck(std::string deckFilePath)
@@ -29,10 +28,13 @@ GameDeck::GameDeck(std::string deckFilePath)
             std::istringstream iss(line);
             int propertyValue;
             std::string propertyString;
-            iss >> propertyValue >> propertyString;
+            std::string isAceString;
+            std::string isKingString;
+            iss >> propertyValue >> propertyString >> isAceString >> isKingString;
             if(addToValues)
             {
-                values_.push_back(std::make_shared<Value>(propertyValue, propertyString));
+                values_.push_back(std::make_shared<Value>(propertyValue, propertyString, isAceString == "yes",
+                                                          isKingString == "yes"));
             }
             else if(addToSuits)
             {
@@ -47,18 +49,6 @@ GameDeck::GameDeck(std::string deckFilePath)
             deckPile_.appendCard(Card(value, suit));
         }
     }
-}
-
-bool GameDeck::isKing(const Card& card) const
-{
-    assert(values_.size() > 0);
-    return card.isSameValue(*values_.back());
-}
-
-bool GameDeck::isAce(const Card& card) const
-{
-    assert(values_.size() > 0);
-    return card.isSameValue(*values_.front());
 }
 
 Pile GameDeck::getPile() const

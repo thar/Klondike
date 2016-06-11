@@ -9,6 +9,7 @@ Game::Game(GameDeck gameDeck)
 
 std::shared_ptr<KlondikeCommand> Game::getCommand(unsigned int index)
 {
+    assert(index < gameCommandShop_.size());
     return gameCommandShop_.getCommand(index);
 }
 

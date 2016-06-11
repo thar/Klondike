@@ -13,9 +13,13 @@ public:
     Pile actionPop(unsigned int numberOfCards, std::string pileName);
     Pile actionPopAll(std::string pileName);
     unsigned int getRemainingCards(std::string pileName);
+
+    bool hasPileName(std::string pileName) const;
+
+    virtual bool isCardPushable(const std::string &pileName, Card &card) = 0;
+
 protected:
     Pile& getPile(std::string pileName);
-    unsigned int getNumberOfPiles() const { return static_cast<unsigned int>(pilesMap_.size()); }
     std::set<std::string> getPilesNames() const
     {
         std::set<std::string> keys;

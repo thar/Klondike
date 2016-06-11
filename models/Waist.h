@@ -11,6 +11,9 @@ public:
     Waist() : PilesGroup({Waist::pileName}, "descarte") {};
     static const std::string pileName;
 
+    bool isCardPushable(const std::string &pileName, Card &card)
+    { return true; }
+
 protected:
 private:
     static const unsigned int pilesSize;
