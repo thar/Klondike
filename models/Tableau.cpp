@@ -19,8 +19,8 @@ bool Tableau::isCardPushable(const std::string &pileName, Card &card)
     Pile &destinyPile = getPile(pileName);
     if (destinyPile.size() == 0 && card.isKing())
         return true;
-    Card &topDestinyCard = destinyPile.front();
-    if (card.isPrevValue(topDestinyCard) && !card.isSameColor(topDestinyCard))
+    Card &topDestinyCard = destinyPile.back();
+    if (card.isNextValue(topDestinyCard) && !card.isSameColor(topDestinyCard))
         return true;
     return false;
 }

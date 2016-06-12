@@ -11,7 +11,8 @@ class TableauToFoundationCommand : public KlondikeCommand
 public:
     TableauToFoundationCommand(Tableau &tableau, Foundation &foundation, int &score) : KlondikeCommand(score, 10),
                                                                                        origin_(tableau),
-                                                                                       destiny_(foundation)
+                                                                                       destiny_(foundation),
+                                                                                       turnOriginCard_(false)
     { }
 
     void execute();
@@ -25,6 +26,7 @@ public:
 private:
     Tableau &origin_;
     Foundation &destiny_;
+    bool turnOriginCard_;
 };
 
 
