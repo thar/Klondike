@@ -10,7 +10,8 @@ class TableauToTableauCommand : public KlondikeCommand
 public:
     TableauToTableauCommand(Tableau &tableauOrigin, Tableau &tableauDestiny, int &score) : KlondikeCommand(score, 0),
                                                                                            origin_(tableauOrigin),
-                                                                                           destiny_(tableauDestiny)
+                                                                                           destiny_(tableauDestiny),
+                                                                                           turnOriginCard_(false)
     { }
 
     void execute();
@@ -24,6 +25,7 @@ public:
 private:
     Tableau &origin_;
     Tableau &destiny_;
+    bool turnOriginCard_;
 };
 
 
