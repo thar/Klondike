@@ -5,7 +5,6 @@
 #include "ConfigurationController.h"
 #include "../OperationControllerVisitor.h"
 #include "../PlayerSeleccionController.h"
-#include "State.h"
 
 namespace controllers
 {

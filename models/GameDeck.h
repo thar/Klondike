@@ -9,7 +9,7 @@
 class GameDeck
 {
 public:
-    GameDeck(std::string deckFilePath);
+    GameDeck(const std::string deckFilePath);
     std::set<std::string> getSuitsNames() const;
     Pile getPile() const;
 

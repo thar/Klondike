@@ -5,11 +5,10 @@
 #include "../../Logic.h"
 #include "LocalDemoPlayer.h"
 #include "LocalUserPlayer.h"
-#include "../Player.h"
+#include "../PlayerController.h"
 #include "LocalOperationController.h"
 #include "LocalPlayerSelectionController.h"
 #include "LocalExitGameController.h"
-#include "State.h"
 
 namespace controllers
 {
@@ -45,9 +44,6 @@ namespace controllers
                 /*
                 switch (state_)
                 {
-                    case ASK_PLAYERS:
-                        return localPlayerSelectionController_;
-                        break;
                     case CHOOSE_NEW_OR_LOAD:
                         break;
                     case ASK_DECK:
@@ -101,7 +97,7 @@ namespace controllers
                 player_ = nullptr;
             }
         private:
-            std::shared_ptr<Player> player_;
+            std::shared_ptr<PlayerController> player_;
             bool exitGame_;
             //State state_;
             //std::shared_ptr<Game> game_;
