@@ -4,6 +4,10 @@
 #include "models/StockToWaistCommand.h"
 #include "models/Game.h"
 
+#include "controllers/local/LocalLogic.h"
+#include "views/console/ConsoleView.h"
+#include "Klondike.h"
+
 unsigned int showMenu()
 {
     unsigned int option = 1;
@@ -129,6 +133,7 @@ int main() {
     }
     */
 
+    /*
     Game game(spanishDeck);
     std::shared_ptr<KlondikeCommand> gameCommand;
     unsigned int option = 0;
@@ -204,6 +209,12 @@ int main() {
             }
         }
     }
+    */
+
+    views::console::ConsoleView view;
+    controllers::local::LocalLogic logic;
+    Klondike klondike(logic, view);
+    klondike.play();
 
     return 0;
 }
