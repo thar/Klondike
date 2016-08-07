@@ -25,17 +25,21 @@ namespace views
         public:
             void interact(controllers::OperationController &operationController) {
                 operationController.accept(*this);
-            };
+            }
 
             void visit(controllers::PlayerSeleccionController &playerSelectionController) {
                 PlayerSelectionView().interact(playerSelectionController);
-            };
+            }
+
+            void visit(controllers::NewGameController &newGameController) {
+                NewGameView().interact(newGameController);
+            }
+
+            void visit(controllers::ChooseDeckController &chooseDeckController) {
+                DeckSelectionView().interact(chooseDeckController);
+            }
 
             /*
-            void visit(controllers::local::LocalLoadAskController &localLoadAskController) {
-                loadAskView_.interact(localLoadAskController);
-            };
-
             void visit(controllers::local::LocalNewGameController &localNewGameController) {
                 newGameView_.interact(localNewGameController);
             };

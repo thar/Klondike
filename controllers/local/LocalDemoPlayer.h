@@ -2,9 +2,9 @@
 #define KLONDIKE_LOCALDEMOPLAYER_H
 
 
-#include "../Player.h"
+#include "../PlayerController.h"
 
-class LocalDemoPlayer : public Player
+class LocalDemoPlayer : public PlayerController
 {
 public:
     bool isGameFinished()

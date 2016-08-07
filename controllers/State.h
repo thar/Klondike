@@ -3,14 +3,12 @@
 
 enum State
 {
-    ASK_PLAYERS,
-    CHOOSE_NEW_OR_LOAD,
-    ASK_DECK,
-    ASK_LOAD,
+    NEW_GAME,
+    LOAD_GAME,
     IN_GAME,
     SAVE,
     GIVE_UP,
-    EXIT
+    GAME_FINISHED
 };
 
 
