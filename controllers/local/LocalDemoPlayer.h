@@ -2,15 +2,12 @@
 #define KLONDIKE_LOCALDEMOPLAYER_H
 
 
-#include "../PlayerController.h"
+#include "LocalPlayerController.h"
 
-class LocalDemoPlayer : public PlayerController
+class LocalDemoPlayer : public LocalPlayerController
 {
 public:
-    bool isGameFinished()
-    {
-        return true;
-    }
+    LocalDemoPlayer() { state_ = State::GAME_FINISHED; }
     std::shared_ptr<controllers::OperationController> getOperationController()
     {
         return nullptr;

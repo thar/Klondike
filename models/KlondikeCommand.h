@@ -2,6 +2,7 @@
 #define KLONDIKE_KLONDIKECOMMAND_H
 
 #include "PilesGroup.h"
+#include "KlondikeCommandVisitor.h"
 #include <memory>
 
 class KlondikeCommand
@@ -9,6 +10,7 @@ class KlondikeCommand
 public:
     virtual void execute() = 0;
     virtual void undo() = 0;
+    virtual void accept(KlondikeCommandVisitor& visitor) = 0;
     bool validate()
     {
         valid_ = false;

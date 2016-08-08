@@ -16,6 +16,7 @@ public:
     }
     void execute();
     void undo();
+    void accept(KlondikeCommandVisitor& visitor) { visitor.visit(*this); }
     void __validate();
     std::shared_ptr<KlondikeCommand> clone();
 
