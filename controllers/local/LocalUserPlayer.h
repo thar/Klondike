@@ -1,20 +1,14 @@
 #ifndef KLONDIKE_LOCALUSERPLAYER_H
 #define KLONDIKE_LOCALUSERPLAYER_H
 
-
-#include "../PlayerController.h"
-#include "../State.h"
 #include "../NewGameController.h"
 #include "../ChooseDeckController.h"
+#include "LocalPlayerController.h"
 
-class LocalUserPlayer : public PlayerController
+class LocalUserPlayer : public LocalPlayerController
 {
 public:
     LocalUserPlayer() { state_ = State::NEW_GAME; }
-    bool isGameFinished()
-    {
-        return state_ == State::GAME_FINISHED;
-    }
     std::shared_ptr<controllers::OperationController> getOperationController()
     {
         switch (state_)
