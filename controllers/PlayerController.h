@@ -8,7 +8,6 @@
 class PlayerController
 {
 public:
-    //TODO: All the functions to interact with the game
     virtual bool isGameFinished() = 0;
     virtual std::shared_ptr<controllers::OperationController> getOperationController() = 0;
     virtual void setLoadGame() = 0;
@@ -16,6 +15,10 @@ public:
     virtual void setDeck(std::string deck) = 0;
     virtual void undoMovement() = 0;
     virtual void redoMovement() = 0;
+    virtual void giveUpGame() = 0;
+    virtual void saveGame() = 0;
+    virtual void getOriginPile() = 0;
+    virtual void getDestinyPile() = 0;
 protected:
 private:
 };

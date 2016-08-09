@@ -25,8 +25,6 @@ public:
     {
         gameDeck_ = std::make_shared<GameDeck>(deckName);
         game_ = std::make_shared<Game>(*gameDeck_);
-
-        state_ = State::GAME_FINISHED;
     }
 
     void undoMovement()
@@ -43,13 +41,25 @@ public:
         redoStack_.top()->execute();
     }
 
+    void giveUpGame()
+    {
+
+        state_ = State::GAME_FINISHED;
+    }
+
+    void saveGame()
+    {
+        state_ = State::SAVE;
+    }
+
+protected:
+
     void clearRedoStack()
     {
         std::stack<std::shared_ptr<KlondikeCommand>> tempStack;
         std::swap(redoStack_, tempStack);
     }
 
-protected:
     std::shared_ptr<GameDeck> gameDeck_;
     std::shared_ptr<Game> game_;
     std::stack<std::shared_ptr<KlondikeCommand>> undoStack_;

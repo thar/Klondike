@@ -39,10 +39,11 @@ namespace views
                 DeckSelectionView().interact(chooseDeckController);
             }
 
+            void visit(controllers::GameActionController &gameActionController) {
+                GameActionView().interact(gameActionController);
+            }
+
             /*
-            void visit(controllers::local::LocalNewGameController &localNewGameController) {
-                newGameView_.interact(localNewGameController);
-            };
 
             void visit(controllers::local::LocalLoadGameController &localLoadGameController) {
                 loadGameView_.interact(localLoadGameController);
@@ -54,10 +55,6 @@ namespace views
 
             void visit(controllers::local::LocalStartGameController &localStartGameController) {
                 startGameView_.interact(localStartGameController);
-            };
-
-            void visit(controllers::local::LocalGameActionController &localGameActionController) {
-                gameActionView_.interact(localGameActionController);
             };
 
             void visit(controllers::local::LocalSaveGameController &localSaveGameController) {

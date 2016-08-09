@@ -4,6 +4,7 @@
 #include "../NewGameController.h"
 #include "../ChooseDeckController.h"
 #include "LocalPlayerController.h"
+#include "LocalGameActionController.h"
 
 class LocalUserPlayer : public LocalPlayerController
 {
@@ -21,15 +22,15 @@ public:
                 if (!game_)
                     return std::make_shared<controllers::ChooseDeckController>(*this);
                 else
-                    return nullptr;
-            case State::GIVE_UP:
-                return nullptr;
+                    return std::make_shared<controllers::local::LocalGameActionController>(*this);
             case State::SAVE:
                 return nullptr;
             case State::GAME_FINISHED:
                 return nullptr;
         }
     }
+    void getOriginPile() {}
+    void getDestinyPile() {}
 protected:
 private:
 };
