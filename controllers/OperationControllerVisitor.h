@@ -8,6 +8,7 @@ namespace controllers
     class ExitGameController;
     class NewGameController;
     class ChooseDeckController;
+    class GameActionController;
 
     class OperationControllerVisitor
     {
@@ -16,6 +17,7 @@ namespace controllers
         virtual void visit(ExitGameController &playerSeleccionController) = 0;
         virtual void visit(NewGameController &newGameController) = 0;
         virtual void visit(ChooseDeckController &newGameController) = 0;
+        virtual void visit(GameActionController &gameActionController) = 0;
 
     protected:
     private:

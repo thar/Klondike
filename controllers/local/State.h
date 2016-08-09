@@ -7,7 +7,6 @@ enum State
     LOAD_GAME,
     IN_GAME,
     SAVE,
-    GIVE_UP,
     GAME_FINISHED
 };
 

@@ -12,6 +12,8 @@ public:
     {
         return nullptr;
     }
+    void getOriginPile() {}
+    void getDestinyPile() {}
 protected:
 private:
 };
