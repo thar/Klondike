@@ -14,22 +14,18 @@ namespace views
         public:
             void interact(controllers::GameActionController &controller)
             {
+                std::cout << controller.getGame() << std::endl;
                 unsigned int action = showMenu();
                 switch (action)
                 {
                     case 1:
-                        break;
                     case 2:
-                        break;
                     case 3:
-                        break;
                     case 4:
-                        break;
                     case 5:
-                        break;
                     case 6:
-                        break;
                     case 7:
+                        controller.executeKlondikeCommand(action - 1);
                         break;
                     case 8:
                         controller.undoMovement();

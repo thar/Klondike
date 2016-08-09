@@ -17,6 +17,7 @@ public:
     virtual void redoMovement() = 0;
     virtual void giveUpGame() = 0;
     virtual void saveGame() = 0;
+    virtual void executeKlondikeCommand(unsigned int action) = 0;
     virtual void getOriginPile() = 0;
     virtual void getDestinyPile() = 0;
 protected:

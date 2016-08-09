@@ -9,7 +9,7 @@
 #include "../ChooseDeckController.h"
 #include <stack>
 
-class LocalPlayerController : public PlayerController
+class LocalPlayerController : public PlayerController, KlondikeCommandVisitor
 {
 public:
     bool isGameFinished()
@@ -29,27 +29,43 @@ public:
 
     void undoMovement()
     {
-        redoStack_.push(undoStack_.top());
-        undoStack_.pop();
-        redoStack_.top()->undo();
+        if(!undoStack_.empty())
+        {
+            redoStack_.push(undoStack_.top());
+            undoStack_.pop();
+            redoStack_.top()->undo();
+        }
     }
 
     void redoMovement()
     {
-        undoStack_.push(redoStack_.top());
-        redoStack_.pop();
-        redoStack_.top()->execute();
+        if(!redoStack_.empty())
+        {
+            undoStack_.push(redoStack_.top());
+            redoStack_.pop();
+            undoStack_.top()->execute();
+        }
     }
 
     void giveUpGame()
     {
-
         state_ = State::GAME_FINISHED;
     }
 
     void saveGame()
     {
         state_ = State::SAVE;
+    }
+    void executeKlondikeCommand(unsigned int action)
+    {
+        std::shared_ptr<KlondikeCommand> command = game_->getCommand(action);
+        command->accept(*this);
+        if (command->validate())
+        {
+            command->execute();
+            clearRedoStack();
+            undoStack_.push(command);
+        }
     }
 
 protected:
