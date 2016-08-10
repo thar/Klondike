@@ -2,15 +2,15 @@
 #define KLONDIKE_NEWGAMECONTROLLER_H
 
 #include "OperationController.h"
-#include "PlayerController.h"
+#include "ConfigurationController.h"
 
 namespace controllers
 {
-    class NewGameController : public OperationController
+    class NewOrLoadController : public OperationController
     {
     public:
-        NewGameController(PlayerController &playerController)
-                : playerController_(playerController)
+        NewOrLoadController(ConfigurationController &configurationController)
+                : configurationController_(configurationController)
         {
         }
 
@@ -21,17 +21,17 @@ namespace controllers
 
         void setLoadGame()
         {
-            playerController_.setLoadGame();
+            configurationController_.setLoadGame();
         }
 
         void setNewGame()
         {
-            playerController_.setNewGame();
+            configurationController_.setNewGame();
         }
 
     protected:
     private:
-        PlayerController& playerController_;
+        ConfigurationController& configurationController_;
 
     };
 }

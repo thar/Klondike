@@ -31,8 +31,8 @@ namespace views
                 PlayerSelectionView().interact(playerSelectionController);
             }
 
-            void visit(controllers::NewGameController &newGameController) {
-                NewGameView().interact(newGameController);
+            void visit(controllers::NewOrLoadController &newOrLoadController) {
+                NewGameView().interact(newOrLoadController);
             }
 
             void visit(controllers::ChooseDeckController &chooseDeckController) {

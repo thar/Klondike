@@ -3,14 +3,16 @@
 
 #include "OperationController.h"
 #include "PlayerController.h"
+#include "../models/Game.h"
+#include <memory>
 
 namespace controllers
 {
     class ChooseDeckController : public OperationController
     {
     public:
-        ChooseDeckController(PlayerController &playerController)
-                : playerController_(playerController)
+        ChooseDeckController(std::shared_ptr<Game> &game)
+                : game_(game)
         {
         }
 
@@ -21,12 +23,12 @@ namespace controllers
 
         void setDeck(std::string deckName)
         {
-            playerController_.setDeck(deckName);
+            game_ = std::make_shared<Game>(deckName);
         }
 
     protected:
     private:
-        PlayerController& playerController_;
+        std::shared_ptr<Game>& game_;
 
     };
 }

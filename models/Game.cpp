@@ -13,6 +13,17 @@ std::shared_ptr<KlondikeCommand> Game::getCommand(unsigned int index)
     return gameCommandShop_.getCommand(index);
 }
 
+bool Game::isFinished()
+{
+    //TODO
+    return givedUp_ || false;
+}
+
+void Game::giveUp()
+{
+    givedUp_ = true;
+}
+
 std::ostream& operator<<(std::ostream& os, const Game& obj)
 {
     os << obj.gameBoard_;

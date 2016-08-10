@@ -1,7 +1,7 @@
 #ifndef KLONDIKE_LOCALEXITGAMECONTROLLER_H
 #define KLONDIKE_LOCALEXITGAMECONTROLLER_H
 
-#include "ConfigurationController.h"
+#include "../ConfigurationController.h"
 #include "../ExitGameController.h"
 
 namespace controllers
@@ -11,7 +11,7 @@ namespace controllers
         class LocalExitGameController : public ExitGameController
         {
         public:
-            LocalExitGameController(LocalConfigurationController& configurationController) :
+            LocalExitGameController(ConfigurationController& configurationController) :
                     configurationController_(configurationController)
             {}
 
@@ -32,7 +32,7 @@ namespace controllers
 
         protected:
         private:
-            LocalConfigurationController& configurationController_;
+            ConfigurationController& configurationController_;
         };
     }
 }
