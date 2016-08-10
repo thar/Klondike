@@ -6,6 +6,7 @@ enum State
     NEW_GAME,
     LOAD_GAME,
     IN_GAME,
+    KLONDIKE_COMMAND,
     SAVE,
     GAME_FINISHED
 };

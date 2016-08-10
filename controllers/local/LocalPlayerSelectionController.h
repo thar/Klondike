@@ -2,7 +2,7 @@
 #define KLONDIKE_LOCALPLAYERSELECTIONCONTROLLER_H
 
 
-#include "ConfigurationController.h"
+#include "../ConfigurationController.h"
 #include "../OperationControllerVisitor.h"
 #include "../PlayerSeleccionController.h"
 
@@ -13,7 +13,7 @@ namespace controllers
         class LocalPlayerSelectionController : public PlayerSeleccionController
         {
         public:
-            LocalPlayerSelectionController(LocalConfigurationController& configurationController)
+            LocalPlayerSelectionController(ConfigurationController& configurationController)
                     : configurationController_(configurationController)
             {
 
@@ -30,7 +30,7 @@ namespace controllers
 
         protected:
         private:
-            LocalConfigurationController& configurationController_;
+            ConfigurationController& configurationController_;
 
         };
     }

@@ -2,7 +2,7 @@
 #define KLONDIKE_NEWGAMEVIEW_H
 
 #include <iostream>
-#include "../../controllers/NewGameController.h"
+#include "../../controllers/NewOrLoadController.h"
 
 namespace views
 {
@@ -11,7 +11,7 @@ namespace views
         class NewGameView
         {
         public:
-            void interact(controllers::NewGameController &controller)
+            void interact(controllers::NewOrLoadController &controller)
             {
                 unsigned int userChoose = 0;
                 do

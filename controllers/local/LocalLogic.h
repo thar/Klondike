@@ -2,24 +2,39 @@
 #define KLONDIKE_LOCALLOGIC_H
 
 #include <memory>
+#include "../../models/GameDeck.h"
+#include "../../models/Game.h"
 #include "../../Logic.h"
 #include "LocalDemoPlayer.h"
 #include "LocalUserPlayer.h"
 #include "../PlayerController.h"
+#include "../ConfigurationController.h"
 #include "LocalOperationController.h"
 #include "LocalPlayerSelectionController.h"
 #include "LocalExitGameController.h"
 
+enum LogicState
+{
+    CHOOSE_ACTION,
+    EXEC_ACTION
+};
+
+enum GameDeckState
+{
+    UNINITIALIZED,
+    NEW_GAME_1,
+    LOAD_GAME_1,
+};
 namespace controllers
 {
     namespace local
     {
 
-        class LocalLogic : public ::Logic, public LocalConfigurationController
+        class LocalLogic : public ::Logic, public controllers::ConfigurationController
         {
         public:
 
-            LocalLogic() : player_(nullptr), exitGame_(false)
+            LocalLogic() : player_(nullptr), exitGame_(false), logicState_(LogicState::CHOOSE_ACTION), gameDeckState_(GameDeckState::UNINITIALIZED)
             {
             };
 
@@ -33,48 +48,37 @@ namespace controllers
                 {
                     return std::make_shared<LocalPlayerSelectionController>(*this);
                 }
-                else if (!player_->isGameFinished())
+                else if (nullptr == game_)
                 {
-                    return player_->getOperationController();
+                    switch (gameDeckState_)
+                    {
+                        case GameDeckState::UNINITIALIZED:
+                            return std::make_shared<controllers::NewOrLoadController>(*this);
+                        case GameDeckState::LOAD_GAME_1:
+                            return nullptr;
+                        case GameDeckState::NEW_GAME_1:
+                            return std::make_shared<controllers::ChooseDeckController>(game_);
+                    }
+                }
+                else if (!game_->isFinished())
+                {
+                    return std::make_shared<controllers::GameActionController>(*player_, *game_);
                 }
                 else
                 {
                     return std::make_shared<LocalExitGameController>(*this);
                 }
-                /*
-                switch (state_)
-                {
-                    case CHOOSE_NEW_OR_LOAD:
-                        break;
-                    case ASK_DECK:
-                        return localDeckSelectionController_;
-                        break;
-                    case ASK_LOAD:
-                        break;
-                    case IN_GAME:
-                        break;
-                    case SAVE:
-                        return localSaveGameController_;
-                        break;
-                    case GIVE_UP:
-                        return localGiveUpGameController_;
-                        break;
-                    case EXIT:
-                        return localExitGameController_;
-                        break;
-                }
-                */
             }
 
             void initDemoPlayer(bool isDemoPlayer)
             {
                 if (isDemoPlayer)
                 {
-                    player_ = std::make_shared<LocalDemoPlayer>();
+                    player_ = std::make_shared<LocalDemoPlayer>(game_);
                 }
                 else
                 {
-                    player_ = std::make_shared<LocalUserPlayer>();
+                    player_ = std::make_shared<LocalUserPlayer>(game_);
                 }
             }
 
@@ -90,6 +94,17 @@ namespace controllers
                 exitGame_ = false;
             }
 
+            void setLoadGame() { gameDeckState_ = GameDeckState::LOAD_GAME_1;  }
+
+            void setNewGame() {
+                gameDeckState_ = GameDeckState::NEW_GAME_1; }
+
+            void setDeck(const std::string deckName)
+            {
+                game_ = std::make_shared<Game>(GameDeck(deckName));
+                logicState_ = LogicState::CHOOSE_ACTION;
+            }
+
         protected:
             void resetPlayer()
             {
@@ -97,22 +112,11 @@ namespace controllers
                 player_ = nullptr;
             }
         private:
+            LogicState logicState_;
+            GameDeckState gameDeckState_;
             std::shared_ptr<PlayerController> player_;
+            std::shared_ptr<Game> game_;
             bool exitGame_;
-            //State state_;
-            //std::shared_ptr<Game> game_;
-            //std::shared_ptr<LocalPlayerSelectionController> localPlayerSelectionController_;
-            /*
-            std::shared_ptr<LocalLoadAskController> localLoadAskController_;
-            std::shared_ptr<LocalNewGameController> localNewGameController_;
-            std::shared_ptr<LocalLoadGameController> localLoadGameController_;
-            std::shared_ptr<LocalDeckSelectionController> localDeckSelectionController_;
-            std::shared_ptr<LocalStartGameController> localStartGameController_;
-            std::shared_ptr<LocalGameActionController> localGameActionController_;
-            std::shared_ptr<LocalSaveGameController> localSaveGameController_;
-            std::shared_ptr<LocalGiveUpGameController> localGiveUpGameController_;
-            */
-            //std::shared_ptr<LocalExitGameController> localExitGameController_;
         };
     }
 }

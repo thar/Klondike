@@ -21,7 +21,7 @@ namespace controllers
 
         void giveUpGame()
         {
-            playerController_.giveUpGame();
+            game_.giveUp();
         }
         void undoMovement()
         {

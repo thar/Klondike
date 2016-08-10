@@ -5,26 +5,17 @@
 #include "../../models/GameDeck.h"
 #include "../../models/Game.h"
 #include "State.h"
-#include "../NewGameController.h"
+#include "../NewOrLoadController.h"
 #include "../ChooseDeckController.h"
 #include <stack>
 
-class LocalPlayerController : public PlayerController, KlondikeCommandVisitor
+class LocalPlayerController : public PlayerController
 {
 public:
+    LocalPlayerController(std::shared_ptr<Game>& game) : game_(game) {}
     bool isGameFinished()
     {
         return state_ == State::GAME_FINISHED;
-    }
-
-    void setLoadGame() { state_ = State::LOAD_GAME; }
-
-    void setNewGame() { state_ = State::IN_GAME; }
-
-    void setDeck(const std::string deckName)
-    {
-        gameDeck_ = std::make_shared<GameDeck>(deckName);
-        game_ = std::make_shared<Game>(*gameDeck_);
     }
 
     void undoMovement()
@@ -59,7 +50,7 @@ public:
     void executeKlondikeCommand(unsigned int action)
     {
         std::shared_ptr<KlondikeCommand> command = game_->getCommand(action);
-        command->accept(*this);
+        //command->accept(*this);
         if (command->validate())
         {
             command->execute();
@@ -76,8 +67,7 @@ protected:
         std::swap(redoStack_, tempStack);
     }
 
-    std::shared_ptr<GameDeck> gameDeck_;
-    std::shared_ptr<Game> game_;
+    std::shared_ptr<Game>& game_;
     std::stack<std::shared_ptr<KlondikeCommand>> undoStack_;
     std::stack<std::shared_ptr<KlondikeCommand>> redoStack_;
     State state_;
