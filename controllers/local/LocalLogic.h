@@ -14,26 +14,26 @@
 #include "LocalExitGameController.h"
 #include "LocalGameActionController.h"
 
-enum LogicState
-{
-    INIT_PLAYER,
-    INIT_GAME,
-    CHOOSE_ACTION,
-    EXEC_ACTION,
-    EXIT,
-    EXIT_ABRUPT
-};
-
-enum GameDeckState
-{
-    UNINITIALIZED,
-    NEW_GAME_1,
-    LOAD_GAME_1,
-};
 namespace controllers
 {
     namespace local
     {
+        enum LogicState
+        {
+            INIT_PLAYER,
+            INIT_GAME,
+            CHOOSE_ACTION,
+            EXEC_ACTION,
+            EXIT,
+            EXIT_ABRUPT
+        };
+
+        enum GameDeckState
+        {
+            UNINITIALIZED,
+            NEW_GAME,
+            LOAD_GAME,
+        };
 
         class LocalLogic : public ::Logic, public controllers::ConfigurationController
         {
@@ -81,18 +81,18 @@ namespace controllers
 
             void setLoadGame()
             {
-                gameDeckState_ = GameDeckState::LOAD_GAME_1;
+                gameDeckState_ = GameDeckState::LOAD_GAME;
             }
 
             void setNewGame()
             {
-                gameDeckState_ = GameDeckState::NEW_GAME_1;
+                gameDeckState_ = GameDeckState::NEW_GAME;
             }
 
             void setSelectDeck()
             {
                 logicState_ = INIT_GAME;
-                gameDeckState_ = GameDeckState::NEW_GAME_1;
+                gameDeckState_ = GameDeckState::NEW_GAME;
             }
 
         protected:
@@ -103,9 +103,9 @@ namespace controllers
                 {
                     case GameDeckState::UNINITIALIZED:
                         return std::make_shared<controllers::NewOrLoadController>(*this);
-                    case GameDeckState::LOAD_GAME_1:
+                    case GameDeckState::LOAD_GAME:
                         return nullptr;
-                    case GameDeckState::NEW_GAME_1:
+                    case GameDeckState::NEW_GAME:
                         logicState_ = LogicState::CHOOSE_ACTION;
                         return std::make_shared<controllers::ChooseDeckController>(*(localGameActionController_->getPlayerController()));
                 }
