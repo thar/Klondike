@@ -36,35 +36,13 @@ namespace views
             }
 
             void visit(controllers::ChooseDeckController &chooseDeckController) {
-                DeckSelectionView().interact(chooseDeckController);
+                DeckSelectionView().interact(chooseDeckController.getPlayer());
             }
 
             void visit(controllers::GameActionController &gameActionController) {
-                GameActionView().interact(gameActionController);
+                GameActionView gameActionView = GameActionView(gameActionController.getGame());
+                gameActionView.interact(*(gameActionController.getPlayerController()));
             }
-
-            /*
-
-            void visit(controllers::local::LocalLoadGameController &localLoadGameController) {
-                loadGameView_.interact(localLoadGameController);
-            };
-
-            void visit(controllers::local::LocalDeckSelectionController &localDeckSelectionController) {
-                deckSelectionView_.interact(localDeckSelectionController);
-            };
-
-            void visit(controllers::local::LocalStartGameController &localStartGameController) {
-                startGameView_.interact(localStartGameController);
-            };
-
-            void visit(controllers::local::LocalSaveGameController &localSaveGameController) {
-                saveGameView_.interact(localSaveGameController);
-            };
-
-            void visit(controllers::local::LocalGiveUpGameController &localGiveUpGameController) {
-                giveUpGameView_.interact(localGiveUpGameController);
-            };
-            */
 
             void visit(controllers::ExitGameController &exitGameController) {
                 ExitGameView().interact(exitGameController);
@@ -72,19 +50,6 @@ namespace views
 
         protected:
         private:
-            /*
-            PlayerSelectionView playerSelectionView_;
-            LoadAskView loadAskView_;
-            NewGameView newGameView_;
-            LoadGameView loadGameView_;
-            DeckSelectionView deckSelectionView_;
-            StartGameView startGameView_;
-            GameActionView gameActionView_;
-            SaveGameView saveGameView_;
-            GiveUpGameView giveUpGameView_;
-            ExitGameView exitGameView_;
-            */
-
         };
     }
 }

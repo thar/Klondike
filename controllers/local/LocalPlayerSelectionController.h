@@ -5,6 +5,7 @@
 #include "../ConfigurationController.h"
 #include "../OperationControllerVisitor.h"
 #include "../PlayerSeleccionController.h"
+#include "LocalGameActionController.h"
 
 namespace controllers
 {
@@ -13,8 +14,8 @@ namespace controllers
         class LocalPlayerSelectionController : public PlayerSeleccionController
         {
         public:
-            LocalPlayerSelectionController(ConfigurationController& configurationController)
-                    : configurationController_(configurationController)
+            LocalPlayerSelectionController(ConfigurationController& configurationController, LocalGameActionController& controller)
+                    : configurationController_(configurationController), controller_(controller)
             {
 
             }
@@ -25,12 +26,15 @@ namespace controllers
 
             void selectPlayer(::controllers::PlayerType player)
             {
-                configurationController_.initDemoPlayer(::controllers::PlayerType::DEMO == player);
+                if(::controllers::PlayerType::DEMO == player)
+                    configurationController_.setNewGame();
+                controller_.initDemoPlayer(::controllers::PlayerType::DEMO == player);
             }
 
         protected:
         private:
             ConfigurationController& configurationController_;
+            LocalGameActionController& controller_;
 
         };
     }

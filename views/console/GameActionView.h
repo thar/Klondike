@@ -1,77 +1,51 @@
 #ifndef KLONDIKE_GAMEACTIONVIEW_H
 #define KLONDIKE_GAMEACTIONVIEW_H
 
-
-#include <iostream>
-#include "../../controllers/GameActionController.h"
+#include "PlayerInteractionView.h"
+#include "../../controllers/local/DeckOption.h"
+#include "../../controllers/local/KlondikeCommandGameAction.h"
+#include "../../controllers/local/ExitGameAction.h"
+#include "../../controllers/local/GiveUpGameAction.h"
+#include "../../controllers/local/RedoGameAction.h"
+#include "../../controllers/local/UndoGameAction.h"
 
 namespace views
 {
     namespace console
     {
-        class GameActionView
+        class GameActionView : public PlayerInteractionView
         {
         public:
-            void interact(controllers::GameActionController &controller)
+            GameActionView(Game& game) : game_(game) {}
+            std::shared_ptr<MenuEntry> getAutomaticInput(LocalDemoPlayer& player)
             {
-                std::cout << controller.getGame() << std::endl;
-                unsigned int action = showMenu();
-                switch (action)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                        controller.executeKlondikeCommand(action - 1);
-                        break;
-                    case 8:
-                        controller.undoMovement();
-                        break;
-                    case 9:
-                        controller.redoMovement();
-                        break;
-                    case 10:
-                        controller.saveGame();
-                        break;
-                    case 11:
-                        controller.giveUpGame();
-                        break;
-                    case 12:
-                        break;
-                    default:
-                        break;
-                }
+                return player.getRandomMove();
             }
+
+            void showMenuHeader()
+            {
+                std::cout << game_ << std::endl;
+            }
+
+            void getMenuEntriesPtr(LocalPlayerController& player)
+            {
+                player.getActionsMenuEntriesPtr(entries_);
+            }
+
+            void visit(KlondikeCommandGameAction &entry)
+            {
+                entry.init();
+                //KlondikeCommandGameActionView.interact(entry);
+            }
+
+            void visit(UndoGameAction &entry) {}
+            void visit(RedoGameAction &entry) {}
+            void visit(GiveUpGameAction &entry) {}
+            void visit(ExitGameAction &entry) {}
+            void visit(DeckOption &entry) {}
         protected:
         private:
-            unsigned int showMenu()
-            {
-                unsigned int option = 1;
-                do
-                {
-                    if (0 >= option || 12 < option)
-                        std::cout << "Please, chose an option in range" << std::endl;
-                    std::cout << "1. Move from Waist to Stock" << std::endl;
-                    std::cout << "2. Move from Stock to Waist" << std::endl;
-                    std::cout << "3. Move from Waist to Foundation" << std::endl;
-                    std::cout << "4. Move from Waist to Tableau" << std::endl;
-                    std::cout << "5. Move from Tableau to Foundation" << std::endl;
-                    std::cout << "6. Move from Tableau to Tableau" << std::endl;
-                    std::cout << "7. Move from Foundation to Tableau" << std::endl;
-                    std::cout << "8. Undo movement" << std::endl;
-                    std::cout << "9. Redo movement" << std::endl;
-                    std::cout << "10. Save game" << std::endl;
-                    std::cout << "11. Give up game" << std::endl;
-                    std::cout << "12. Exit" << std::endl;
-                    std::cout << "----------------------------------" << std::endl;
-                    std::cout << "Option? [1-12]: ";
-                    std::cin >> option;
-                } while (0 >= option || 12 < option);
-                return option;
-            }
+            Game& game_;
         };
     }
 }
