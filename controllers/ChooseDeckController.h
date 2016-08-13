@@ -4,6 +4,8 @@
 #include "OperationController.h"
 #include "PlayerController.h"
 #include "../models/Game.h"
+#include "ConfigurationController.h"
+#include "GameActionController.h"
 #include <memory>
 
 namespace controllers
@@ -11,8 +13,8 @@ namespace controllers
     class ChooseDeckController : public OperationController
     {
     public:
-        ChooseDeckController(std::shared_ptr<Game> &game)
-                : game_(game)
+        ChooseDeckController(PlayerController& player)
+                : player_(player)
         {
         }
 
@@ -21,22 +23,14 @@ namespace controllers
             operationControllerVisitor.visit(*this);
         }
 
-        void setDeck(std::string deckName)
-        {
-            game_ = std::make_shared<Game>(deckName);
-        }
+        PlayerController& getPlayer() { return player_; }
 
     protected:
     private:
-        std::shared_ptr<Game>& game_;
+        PlayerController& player_;
 
     };
 }
-
-class ChooseDeckController
-{
-
-};
 
 
 #endif //KLONDIKE_CHOOSEDECKCONTROLLER_H

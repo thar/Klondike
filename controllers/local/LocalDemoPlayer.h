@@ -7,14 +7,17 @@
 class LocalDemoPlayer : public LocalPlayerController
 {
 public:
-    LocalDemoPlayer(std::shared_ptr<Game> &game) : LocalPlayerController(game)
-    { state_ = State::GAME_FINISHED; }
-    std::shared_ptr<controllers::OperationController> getOperationController()
+    LocalDemoPlayer(controllers::GameActionController& gameActionController)
+            : LocalPlayerController(gameActionController)
+    {}
+
+    std::shared_ptr<MenuEntry> getRandomDeck() { return availableDecks_[0]; }
+    std::shared_ptr<MenuEntry> getRandomMove() { return nullptr; }
+
+    void accept(PlayerControllerVisitor& playerControllerVisitor)
     {
-        return nullptr;
+        playerControllerVisitor.visit(*this);
     }
-    void getOriginPile() {}
-    void getDestinyPile() {}
 protected:
 private:
 };

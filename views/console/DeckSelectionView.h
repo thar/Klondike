@@ -3,35 +3,34 @@
 
 #include <iostream>
 #include "../../controllers/ChooseDeckController.h"
+#include "../../controllers/PlayerControllerVisitor.h"
+#include "../../controllers/local/LocalUserPlayer.h"
+#include "../../controllers/local/LocalDemoPlayer.h"
+#include "PlayerInteractionView.h"
 
 namespace views
 {
     namespace console
     {
-        class DeckSelectionView
+        class DeckSelectionView : public PlayerInteractionView
         {
         public:
-            void interact(controllers::ChooseDeckController &controller)
+            std::shared_ptr<MenuEntry> getAutomaticInput(LocalDemoPlayer& player)
             {
-                unsigned int userChoose = 0;
-                do
-                {
-                    std::cout << "Choose deck" << std::endl;
-                    std::cout << "1. Spanish" << std::endl << "2. French" << std::endl;
-
-                    std::cin >> userChoose;
-                } while (userChoose < 1 || userChoose > 2);
-                std::string choosedDeck;
-                if (userChoose == 1)
-                {
-                    choosedDeck = "config/decks/spanishDeck.txt";
-                }
-                else
-                {
-                    choosedDeck = "config/decks/frenchDeck.txt";
-                }
-                controller.setDeck(choosedDeck);
+                return player.getRandomDeck();
             }
+
+            void getMenuEntriesPtr(LocalPlayerController& player)
+            {
+                player.getDecksMenuEntriesPtr(entries_);
+            }
+
+            void visit(KlondikeCommandGameAction &entry) {}
+            void visit(UndoGameAction &entry) {}
+            void visit(RedoGameAction &entry) {}
+            void visit(GiveUpGameAction &entry) {}
+            void visit(ExitGameAction &entry) {}
+            void visit(DeckOption &entry) {}
         protected:
         private:
         };

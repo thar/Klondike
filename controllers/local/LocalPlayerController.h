@@ -4,73 +4,38 @@
 #include "../PlayerController.h"
 #include "../../models/GameDeck.h"
 #include "../../models/Game.h"
-#include "State.h"
 #include "../NewOrLoadController.h"
 #include "../ChooseDeckController.h"
+#include "../DeckOptionsVisitor.h"
+#include "DeckOption.h"
 #include <stack>
 
 class LocalPlayerController : public PlayerController
 {
 public:
-    LocalPlayerController(std::shared_ptr<Game>& game) : game_(game) {}
-    bool isGameFinished()
+    LocalPlayerController(controllers::GameActionController& gameActionController) : gameActionController_(gameActionController)
     {
-        return state_ == State::GAME_FINISHED;
+        availableDecks_.push_back(std::make_shared<DeckOption>(gameActionController_, "Spanish", "config/decks/spanishDeck.txt"));
+        availableDecks_.push_back(std::make_shared<DeckOption>(gameActionController_, "French", "config/decks/frenchDeck.txt"));
+    }
+    void getActionsMenuEntriesPtr(std::vector<std::shared_ptr<MenuEntry>>* &entriesPtr) { entriesPtr = &availableActions_; }
+    void getDecksMenuEntriesPtr(std::vector<std::shared_ptr<MenuEntry>>* &entriesPtr) { entriesPtr = &availableDecks_; }
+
+    void addGameAction(std::shared_ptr<MenuEntry> gameAction)
+    {
+        availableActions_.push_back(gameAction);
     }
 
-    void undoMovement()
-    {
-        if(!undoStack_.empty())
-        {
-            redoStack_.push(undoStack_.top());
-            undoStack_.pop();
-            redoStack_.top()->undo();
-        }
-    }
-
-    void redoMovement()
-    {
-        if(!redoStack_.empty())
-        {
-            undoStack_.push(redoStack_.top());
-            redoStack_.pop();
-            undoStack_.top()->execute();
-        }
-    }
-
-    void giveUpGame()
-    {
-        state_ = State::GAME_FINISHED;
-    }
-
-    void saveGame()
-    {
-        state_ = State::SAVE;
-    }
-    void executeKlondikeCommand(unsigned int action)
-    {
-        std::shared_ptr<KlondikeCommand> command = game_->getCommand(action);
-        //command->accept(*this);
-        if (command->validate())
-        {
-            command->execute();
-            clearRedoStack();
-            undoStack_.push(command);
-        }
-    }
+    std::stack<std::shared_ptr<KlondikeCommand>>& getUndoStack() { return undoStack_; }
+    std::stack<std::shared_ptr<KlondikeCommand>>& getRedoStack() { return redoStack_; }
 
 protected:
-
-    void clearRedoStack()
-    {
-        std::stack<std::shared_ptr<KlondikeCommand>> tempStack;
-        std::swap(redoStack_, tempStack);
-    }
-
-    std::shared_ptr<Game>& game_;
+    controllers::GameActionController& gameActionController_;
     std::stack<std::shared_ptr<KlondikeCommand>> undoStack_;
     std::stack<std::shared_ptr<KlondikeCommand>> redoStack_;
-    State state_;
+    std::vector<std::shared_ptr<MenuEntry>> availableActions_;
+    std::vector<std::shared_ptr<MenuEntry>> availableDecks_;
+
 private:
 };
 
