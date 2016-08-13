@@ -15,12 +15,12 @@ namespace views
         class DeckSelectionView : public PlayerInteractionView
         {
         public:
-            std::shared_ptr<MenuEntry> getAutomaticInput(LocalDemoPlayer& player)
+            std::shared_ptr<MenuEntry> getAutomaticInput(controllers::local::LocalDemoPlayer& player)
             {
                 return player.getRandomDeck();
             }
 
-            void getMenuEntriesPtr(LocalPlayerController& player)
+            void getMenuEntriesPtr(controllers::local::LocalPlayerController& player)
             {
                 player.getDecksMenuEntriesPtr(entries_);
             }

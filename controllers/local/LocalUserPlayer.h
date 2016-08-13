@@ -5,24 +5,31 @@
 #include "../GameActionController.h"
 #include "../ConfigurationController.h"
 
-class LocalUserPlayer : public LocalPlayerController
+namespace controllers
 {
-public:
-    LocalUserPlayer(controllers::GameActionController& gameActionController,
-                    controllers::ConfigurationController& configurationController) :
-            LocalPlayerController(gameActionController),
-            configurationController_(configurationController)
+    namespace local
     {
-    }
+        class LocalUserPlayer : public LocalPlayerController
+        {
+        public:
+            LocalUserPlayer(controllers::GameActionController &gameActionController,
+                            controllers::ConfigurationController &configurationController) :
+                    LocalPlayerController(gameActionController),
+                    configurationController_(configurationController)
+            {
+            }
 
-    void accept(PlayerControllerVisitor& playerControllerVisitor)
-    {
-        playerControllerVisitor.visit(*this);
+            void accept(PlayerControllerVisitor &playerControllerVisitor)
+            {
+                playerControllerVisitor.visit(*this);
+            }
+
+        protected:
+        private:
+            controllers::ConfigurationController &configurationController_;
+        };
     }
-protected:
-private:
-    controllers::ConfigurationController& configurationController_;
-};
+}
 
 
 #endif //KLONDIKE_LOCALUSERPLAYER_H

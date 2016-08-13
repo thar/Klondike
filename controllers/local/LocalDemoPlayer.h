@@ -4,23 +4,33 @@
 
 #include "LocalPlayerController.h"
 
-class LocalDemoPlayer : public LocalPlayerController
+namespace controllers
 {
-public:
-    LocalDemoPlayer(controllers::GameActionController& gameActionController)
-            : LocalPlayerController(gameActionController)
-    {}
-
-    std::shared_ptr<MenuEntry> getRandomDeck() { return availableDecks_[0]; }
-    std::shared_ptr<MenuEntry> getRandomMove() { return nullptr; }
-
-    void accept(PlayerControllerVisitor& playerControllerVisitor)
+    namespace local
     {
-        playerControllerVisitor.visit(*this);
+        class LocalDemoPlayer : public LocalPlayerController
+        {
+        public:
+            LocalDemoPlayer(controllers::GameActionController &gameActionController)
+                    : LocalPlayerController(gameActionController)
+            { }
+
+            std::shared_ptr<MenuEntry> getRandomDeck()
+            { return availableDecks_[0]; }
+
+            std::shared_ptr<MenuEntry> getRandomMove()
+            { return nullptr; }
+
+            void accept(PlayerControllerVisitor &playerControllerVisitor)
+            {
+                playerControllerVisitor.visit(*this);
+            }
+
+        protected:
+        private:
+        };
     }
-protected:
-private:
-};
+}
 
 
 #endif //KLONDIKE_LOCALDEMOPLAYER_H

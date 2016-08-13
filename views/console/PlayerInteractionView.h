@@ -11,16 +11,16 @@ namespace views
 {
     namespace console
     {
-        class PlayerInteractionView : public PlayerControllerVisitor, public MenuEntryVisitor
+        class PlayerInteractionView : public controllers::PlayerControllerVisitor, public MenuEntryVisitor
         {
         public:
-            void interact(PlayerController &player)
+            void interact(controllers::PlayerController &player)
             {
                 player_ = &player;
                 player.accept(*this);
             }
 
-            void visit(LocalDemoPlayer& player)
+            void visit(controllers::local::LocalDemoPlayer& player)
             {
                 getMenuEntriesPtr(player);
                 showMenuHeader();
@@ -30,7 +30,7 @@ namespace views
                 entry->doAction();
             }
 
-            void visit(LocalUserPlayer& player)
+            void visit(controllers::local::LocalUserPlayer& player)
             {
                 getMenuEntriesPtr(player);
                 showMenuHeader();
@@ -41,9 +41,9 @@ namespace views
 
         protected:
             virtual void showMenuHeader() {};
-            virtual void getMenuEntriesPtr(LocalPlayerController& player) = 0;
-            virtual std::shared_ptr<MenuEntry> getAutomaticInput(LocalDemoPlayer& player) = 0;
-            PlayerController* player_;
+            virtual void getMenuEntriesPtr(controllers::local::LocalPlayerController& player) = 0;
+            virtual std::shared_ptr<MenuEntry> getAutomaticInput(controllers::local::LocalDemoPlayer& player) = 0;
+            controllers::PlayerController* player_;
             std::vector<std::shared_ptr<MenuEntry>> *entries_;
 
         private:
