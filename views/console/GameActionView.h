@@ -2,6 +2,7 @@
 #define KLONDIKE_GAMEACTIONVIEW_H
 
 #include "PlayerInteractionView.h"
+#include "KlondikeCommandGameActionView.h"
 #include "../../controllers/local/DeckOption.h"
 #include "../../controllers/local/KlondikeCommandGameAction.h"
 #include "../../controllers/local/ExitGameAction.h"
@@ -35,7 +36,7 @@ namespace views
             void visit(KlondikeCommandGameAction &entry)
             {
                 entry.init();
-                //KlondikeCommandGameActionView.interact(entry);
+                KlondikeCommandGameActionView().interact(entry);
             }
 
             void visit(UndoGameAction &entry) {}
