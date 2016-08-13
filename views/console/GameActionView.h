@@ -18,7 +18,7 @@ namespace views
         {
         public:
             GameActionView(Game& game) : game_(game) {}
-            std::shared_ptr<MenuEntry> getAutomaticInput(LocalDemoPlayer& player)
+            std::shared_ptr<MenuEntry> getAutomaticInput(controllers::local::LocalDemoPlayer& player)
             {
                 return player.getRandomMove();
             }
@@ -28,7 +28,7 @@ namespace views
                 std::cout << game_ << std::endl;
             }
 
-            void getMenuEntriesPtr(LocalPlayerController& player)
+            void getMenuEntriesPtr(controllers::local::LocalPlayerController& player)
             {
                 player.getActionsMenuEntriesPtr(entries_);
             }

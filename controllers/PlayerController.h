@@ -3,14 +3,17 @@
 
 
 #include "PlayerControllerVisitor.h"
-
-class PlayerController
+namespace controllers
 {
-public:
-    virtual void accept(PlayerControllerVisitor& playerControllerVisitor) = 0;
-protected:
-private:
-};
+    class PlayerController
+    {
+    public:
+        virtual void accept(PlayerControllerVisitor &playerControllerVisitor) = 0;
+
+    protected:
+    private:
+    };
+}
 
 
 #endif //KLONDIKE_PLAYER_H
