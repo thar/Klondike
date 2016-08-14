@@ -3,18 +3,11 @@
 
 
 #include "../../View.h"
-#include "PlayerSelectionView.h"
-#include "LoadAskView.h"
-#include "NewGameView.h"
-#include "LoadGameView.h"
 #include "DeckSelectionView.h"
-#include "StartGameView.h"
-#include "GameActionView.h"
-#include "SaveGameView.h"
-#include "GiveUpGameView.h"
-#include "ExitGameView.h"
-#include "../../controllers/PlayerSeleccionController.h"
-#include "../../controllers/ExitGameController.h"
+#include "AutomaticActionListView.h"
+#include "../../controllers/local/UserActionListController.h"
+#include "../../controllers/local/AutomaticDeckActionListController.h"
+
 
 namespace views
 {
@@ -27,26 +20,21 @@ namespace views
                 operationController.accept(*this);
             }
 
-            void visit(controllers::PlayerSeleccionController &playerSelectionController) {
-                PlayerSelectionView().interact(playerSelectionController);
-            }
 
-            void visit(controllers::NewOrLoadController &newOrLoadController) {
-                NewGameView().interact(newOrLoadController);
+            void visit(controllers::local::UserActionListController& controller)
+            {
+                DeckSelectionView().interact(controller);
             }
-
-            void visit(controllers::ChooseDeckController &chooseDeckController) {
-                DeckSelectionView().interact(chooseDeckController.getPlayer());
+            void visit(controllers::local::AutomaticDeckActionListController& controller)
+            {
+                AutomaticActionListView().interact(controller);
             }
-
-            void visit(controllers::GameActionController &gameActionController) {
-                GameActionView gameActionView = GameActionView(gameActionController.getGame());
-                gameActionView.interact(*(gameActionController.getPlayerController()));
+            /*
+            void visit(local::AutomaticCommandActionListController& controller)
+            {
+                AutomaticActionListView().interact(controller);
             }
-
-            void visit(controllers::ExitGameController &exitGameController) {
-                ExitGameView().interact(exitGameController);
-            };
+             */
 
         protected:
         private:

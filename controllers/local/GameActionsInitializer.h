@@ -1,9 +1,7 @@
 #ifndef KLONDIKE_GAMEACTIONSINITIALIZER_H
 #define KLONDIKE_GAMEACTIONSINITIALIZER_H
 
-#include "LocalDemoPlayer.h"
-#include "LocalUserPlayer.h"
-#include "../ConfigurationController.h"
+#include "../GameController.h"
 #include "KlondikeCommandGameAction.h"
 #include "UndoGameAction.h"
 #include "RedoGameAction.h"
@@ -14,8 +12,9 @@ namespace controllers
 {
     namespace local
     {
-        class GameActionsInitializer : public PlayerControllerVisitor
+        class GameActionsInitializer
         {
+            /*
         public:
             GameActionsInitializer(PlayerController &playerController, Game &game,
                                    controllers::ConfigurationController &configurationController) : playerController_(
@@ -76,6 +75,7 @@ namespace controllers
             PlayerController &playerController_;
             Game &game_;
             controllers::ConfigurationController &configurationController_;
+             */
         };
     }
 }
