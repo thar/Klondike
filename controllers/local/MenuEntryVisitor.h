@@ -7,7 +7,7 @@ class UndoGameAction;
 class RedoGameAction;
 class GiveUpGameAction;
 class ExitGameAction;
-class DeckOption;
+class DeckAction;
 
 
 class MenuEntryVisitor
@@ -18,7 +18,7 @@ public:
     virtual void visit(RedoGameAction &action) = 0;
     virtual void visit(GiveUpGameAction &action) = 0;
     virtual void visit(ExitGameAction &action) = 0;
-    virtual void visit(DeckOption &action) = 0;
+    virtual void visit(DeckAction &action) = 0;
 };
 
 

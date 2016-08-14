@@ -2,19 +2,19 @@
 #define KLONDIKE_EXITGAMEACTION_H
 
 #include "../../utils/MenuEntry.h"
-#include "../ConfigurationController.h"
+#include "../GameController.h"
 
 class ExitGameAction : public MenuEntry
 {
 public:
-    ExitGameAction(controllers::ConfigurationController& configurationController) :
-            MenuEntry("Exit game"), configurationController_(configurationController)
+    ExitGameAction(controllers::GameController& controller) :
+            MenuEntry("Exit game"), controller_(controller)
     {}
-    void doAction() { configurationController_.setExitGame(); }
+    void doAction() { controller_.exitGame(); }
     void accept(MenuEntryVisitor &menuEntryVisitor) {}
 protected:
 private:
-    controllers::ConfigurationController& configurationController_;
+    controllers::GameController& controller_;
 };
 
 #endif //KLONDIKE_EXITGAMEACTION_H

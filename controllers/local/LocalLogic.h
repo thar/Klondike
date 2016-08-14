@@ -2,119 +2,87 @@
 #define KLONDIKE_LOCALLOGIC_H
 
 #include <memory>
+#include "../GameController.h"
+#include "../ActionListController.h"
+#include "../AutomaticActionListController.h"
+#include "../AbandonController.h"
+#include "../ExitController.h"
+#include "DeckControllerBuilder.h"
+#include "PlayerChooseControllerBuilder.h"
+
 #include "../../models/GameDeck.h"
 #include "../../models/Game.h"
 #include "../../Logic.h"
-#include "LocalDemoPlayer.h"
-#include "LocalUserPlayer.h"
-#include "../PlayerController.h"
-#include "../ConfigurationController.h"
-#include "LocalOperationController.h"
-#include "LocalPlayerSelectionController.h"
-#include "LocalExitGameController.h"
-#include "LocalGameActionController.h"
 
 namespace controllers
 {
     namespace local
     {
-        enum LogicState
-        {
-            INIT_PLAYER,
-            INIT_GAME,
-            CHOOSE_ACTION,
-            EXEC_ACTION,
-            EXIT,
-            EXIT_ABRUPT
-        };
-
-        enum GameDeckState
-        {
-            UNINITIALIZED,
-            NEW_GAME,
-            LOAD_GAME,
-        };
-
-        class LocalLogic : public ::Logic, public controllers::ConfigurationController
+        class LocalLogic : public ::Logic, public controllers::GameController
         {
         public:
-
-            LocalLogic() : logicState_(LogicState::INIT_PLAYER),
-                           gameDeckState_(GameDeckState::UNINITIALIZED),
-                           localGameActionController_(std::make_shared<LocalGameActionController>(*this))
+            LocalLogic() : playerType_(UNINITIALIZED), deckController_(nullptr), gameActionsController_(nullptr),
+                           loadGameController_(nullptr), abandonController_(nullptr), exitController_(nullptr),
+                           game_(nullptr), abruptExit_(false)
             {
+                playerChooseController_ = PlayerChooseControllerBuilder(*this).getPlayerChooseController();
             };
 
             std::shared_ptr<controllers::OperationController> getOperationController()
             {
-                switch(logicState_)
+                if(UNINITIALIZED == playerType_)
+                    return playerChooseController_;
+                else if(!game_)
                 {
-                    case INIT_PLAYER:
-                        logicState_ = INIT_GAME;
-                        return std::make_shared<LocalPlayerSelectionController>(*this, *localGameActionController_);
-                    case INIT_GAME:
-                        return getInitGameController();
-                    case CHOOSE_ACTION:
-                        return localGameActionController_;
-                    case EXEC_ACTION:
-                        return nullptr;
-                    case EXIT:
-                        return std::make_shared<LocalExitGameController>(*this);
-                    case EXIT_ABRUPT:
-                        return nullptr;
+                    if (!loadGameController_)
+                        return deckController_;
+                    else
+                        return loadGameController_;
                 }
+                else if(!game_->isFinished())
+                    return gameActionsController_;
+                else if(!abruptExit_)
+                    return abandonController_;
+                else
+                    return exitController_;
             }
 
-            void giveUpGame()
+            void setPlayer(PlayerType playerType)
             {
-                logicState_ = EXIT;
+                playerType_ = playerType;
+                deckController_ = DeckControllerBuilder(*this, playerType_).getDeckController();
+                //loadGameController_ = LoadGameControllerBuilder(*playerController_, *this).getGameControllerBuilder():
             }
-            void setExitGame()
+            void setDeck(std::string deckPath)
             {
-                logicState_ = EXIT_ABRUPT;
+                game_ = std::make_shared<Game>(GameDeck(deckPath));
+                //gameActionsController_ = GameActionsControllerBuilder(game_, playerType_).getGameActionsController();
             }
-
-            void setContinueGame()
+            void exitGame()
             {
-                logicState_ = INIT_PLAYER;
+                playerType_ = UNINITIALIZED;
+                game_.reset();
+                abruptExit_ = true;
             }
-
-            void setLoadGame()
+            void abandonGame()
             {
-                gameDeckState_ = GameDeckState::LOAD_GAME;
-            }
-
-            void setNewGame()
-            {
-                gameDeckState_ = GameDeckState::NEW_GAME;
-            }
-
-            void setSelectDeck()
-            {
-                logicState_ = INIT_GAME;
-                gameDeckState_ = GameDeckState::NEW_GAME;
+                playerType_ = UNINITIALIZED;
+                game_.reset();
+                abruptExit_ = false;
             }
 
         protected:
 
-            std::shared_ptr<controllers::OperationController> getInitGameController()
-            {
-                switch (gameDeckState_)
-                {
-                    case GameDeckState::UNINITIALIZED:
-                        return std::make_shared<controllers::NewOrLoadController>(*this);
-                    case GameDeckState::LOAD_GAME:
-                        return nullptr;
-                    case GameDeckState::NEW_GAME:
-                        logicState_ = LogicState::CHOOSE_ACTION;
-                        return std::make_shared<controllers::ChooseDeckController>(*(localGameActionController_->getPlayerController()));
-                }
-            }
-
         private:
-            LogicState logicState_;
-            GameDeckState gameDeckState_;
-            std::shared_ptr<LocalGameActionController> localGameActionController_;
+            PlayerType playerType_;
+            std::shared_ptr<controllers::ActionListController> playerChooseController_;
+            std::shared_ptr<controllers::ActionListController> deckController_;
+            std::shared_ptr<controllers::ActionListController> gameActionsController_;
+            std::shared_ptr<controllers::ActionListController> loadGameController_;
+            std::shared_ptr<controllers::AbandonController> abandonController_;
+            std::shared_ptr<controllers::ExitController> exitController_;
+            std::shared_ptr<Game> game_;
+            bool abruptExit_;
         };
     }
 }

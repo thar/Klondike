@@ -4,23 +4,22 @@
 
 namespace controllers
 {
-    class PlayerSeleccionController;
-    class ExitGameController;
-    class NewOrLoadController;
-    class ChooseDeckController;
-    class GameActionController;
-
+    namespace local
+    {
+        class UserActionListController;
+        class AutomaticDeckActionListController;
+        class AutomaticCommandActionListController;
+        class ExitController;
+        class AbandonController;
+    }
     class OperationControllerVisitor
     {
     public:
-        virtual void visit(PlayerSeleccionController &playerSeleccionController) = 0;
-        virtual void visit(ExitGameController &playerSeleccionController) = 0;
-        virtual void visit(NewOrLoadController &newOrLoadController) = 0;
-        virtual void visit(ChooseDeckController &newGameController) = 0;
-        virtual void visit(GameActionController &gameActionController) = 0;
-
-    protected:
-    private:
+        virtual void visit(local::UserActionListController&) = 0;
+        virtual void visit(local::AutomaticDeckActionListController&) = 0;
+        //virtual void visit(local::AutomaticCommandActionListController&) = 0;
+        //virtual void visit(local::ExitController&) = 0;
+        //virtual void visit(local::AbandonController&) = 0;
     };
 }
 
