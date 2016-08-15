@@ -6,15 +6,13 @@ namespace controllers
     namespace local
     {
         class StringActionListHeader;
-        //class UserActionListHeader;
-        //class GameActionListHeader;
+        class GameActionListHeader;
     }
     class ActionListHeaderVisitor
     {
     public:
         virtual void visit(controllers::local::StringActionListHeader&) = 0;
-        //virtual void visit(controllers::local::UserActionListHeader&) = 0;
-        //virtual void visit(GameActionListHeader&) = 0;
+        virtual void visit(controllers::local::GameActionListHeader&) = 0;
     };
 }
 

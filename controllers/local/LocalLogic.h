@@ -9,6 +9,7 @@
 #include "../ExitController.h"
 #include "DeckControllerBuilder.h"
 #include "PlayerChooseControllerBuilder.h"
+#include "GameActionsControllerBuilder.h"
 
 #include "../../models/GameDeck.h"
 #include "../../models/Game.h"
@@ -30,7 +31,9 @@ namespace controllers
 
             std::shared_ptr<controllers::OperationController> getOperationController()
             {
-                if(UNINITIALIZED == playerType_)
+                if(abruptExit_)
+                    return exitController_;
+                else if(UNINITIALIZED == playerType_)
                     return playerChooseController_;
                 else if(!game_)
                 {
@@ -41,10 +44,8 @@ namespace controllers
                 }
                 else if(!game_->isFinished())
                     return gameActionsController_;
-                else if(!abruptExit_)
-                    return abandonController_;
                 else
-                    return exitController_;
+                    return abandonController_;
             }
 
             void setPlayer(PlayerType playerType)
@@ -56,7 +57,7 @@ namespace controllers
             void setDeck(std::string deckPath)
             {
                 game_ = std::make_shared<Game>(GameDeck(deckPath));
-                //gameActionsController_ = GameActionsControllerBuilder(game_, playerType_).getGameActionsController();
+                gameActionsController_ = GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
             }
             void exitGame()
             {

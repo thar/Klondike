@@ -4,6 +4,7 @@
 #include "../../controllers/local/ActionListHeaderVisitor.h"
 #include "../../controllers/ActionListHeader.h"
 #include "../../controllers/local/StringActionListHeader.h"
+#include "../../controllers/local/GameActionListHeader.h"
 
 namespace views
 {
@@ -14,7 +15,7 @@ namespace views
         public:
             void show(controllers::ActionListHeader& header);
             void visit(controllers::local::StringActionListHeader & header);
-            //void visit(StringActionListHeader& header);
+            void visit(controllers::local::GameActionListHeader & header);
         protected:
         private:
         };

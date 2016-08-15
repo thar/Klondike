@@ -6,15 +6,15 @@
 #include "../../models/KlondikeCommand.h"
 #include "MenuEntryVisitor.h"
 #include "../../utils/MenuEntry.h"
+#include "../UndoRedoController.h"
 
 class KlondikeCommandGameAction : public MenuEntry
 {
 public:
     KlondikeCommandGameAction(std::string gameActionName, std::shared_ptr<KlondikeCommand> gameCommand,
-                    std::stack<std::shared_ptr<KlondikeCommand>> &undoStack,
-                    std::stack<std::shared_ptr<KlondikeCommand>> &redoStack) :
+                              std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
             MenuEntry(gameActionName), gameCommandPrototype_(gameCommand), gameCommand_(nullptr),
-            undoStack_(undoStack), redoStack_(redoStack)
+            undoRedoController_(undoRedoController)
     {}
     void init()
     {
@@ -25,8 +25,7 @@ public:
         if (gameCommand_->validate())
         {
             gameCommand_->execute();
-            clearRedoStack();
-            undoStack_.push(gameCommand_);
+            undoRedoController_->addCommand(gameCommand_);
         }
     }
     void accept(MenuEntryVisitor &menuEntryVisitor) { menuEntryVisitor.visit(*this); }
@@ -36,17 +35,10 @@ public:
     }
 
 protected:
-    void clearRedoStack()
-    {
-        std::stack<std::shared_ptr<KlondikeCommand>> tempStack;
-        std::swap(redoStack_, tempStack);
-    }
-
 private:
     std::shared_ptr<KlondikeCommand> gameCommandPrototype_;
     std::shared_ptr<KlondikeCommand> gameCommand_;
-    std::stack<std::shared_ptr<KlondikeCommand>> &undoStack_;
-    std::stack<std::shared_ptr<KlondikeCommand>> &redoStack_;
+    std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
 
 };
 

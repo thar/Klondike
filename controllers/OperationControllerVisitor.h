@@ -8,7 +8,7 @@ namespace controllers
     {
         class UserActionListController;
         class AutomaticDeckActionListController;
-        class AutomaticCommandActionListController;
+        class AutomaticGameActionListController;
         class ExitController;
         class AbandonController;
     }
@@ -17,7 +17,7 @@ namespace controllers
     public:
         virtual void visit(local::UserActionListController&) = 0;
         virtual void visit(local::AutomaticDeckActionListController&) = 0;
-        //virtual void visit(local::AutomaticCommandActionListController&) = 0;
+        virtual void visit(local::AutomaticGameActionListController&) = 0;
         //virtual void visit(local::ExitController&) = 0;
         //virtual void visit(local::AbandonController&) = 0;
     };
