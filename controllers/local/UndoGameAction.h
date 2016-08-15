@@ -3,33 +3,25 @@
 
 #include "../../utils/MenuEntry.h"
 #include "../../models/KlondikeCommand.h"
+#include "../UndoRedoController.h"
 #include <memory>
-#include <stack>
 
 class UndoGameAction : public MenuEntry
 {
 public:
-    UndoGameAction(std::stack<std::shared_ptr<KlondikeCommand>> &undoStack,
-                   std::stack<std::shared_ptr<KlondikeCommand>> &redoStack) :
-            MenuEntry("Undo movement"),
-            undoStack_(undoStack), redoStack_(redoStack)
+    UndoGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
+            MenuEntry("Undo movement"), undoRedoController_(undoRedoController)
     {}
 
     void doAction()
     {
-        if(!undoStack_.empty())
-        {
-            redoStack_.push(undoStack_.top());
-            undoStack_.pop();
-            redoStack_.top()->undo();
-        }
+        undoRedoController_->undo();
     }
     void accept(MenuEntryVisitor &menuEntryVisitor) {}
 
 protected:
 private:
-    std::stack<std::shared_ptr<KlondikeCommand>> &undoStack_;
-    std::stack<std::shared_ptr<KlondikeCommand>> &redoStack_;
+    std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
 };
 
 

@@ -9,3 +9,7 @@ void views::console::HeaderActionListView::visit(controllers::local::StringActio
 {
     std::cout << header.getMenuHeader() << std::endl;
 }
+void views::console::HeaderActionListView::visit(controllers::local::GameActionListHeader & header)
+{
+    std::cout << header.getGame() << std::endl;
+}

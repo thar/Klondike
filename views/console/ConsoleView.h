@@ -7,6 +7,7 @@
 #include "AutomaticActionListView.h"
 #include "../../controllers/local/UserActionListController.h"
 #include "../../controllers/local/AutomaticDeckActionListController.h"
+#include "../../controllers/local/AutomaticGameActionListController.h"
 
 
 namespace views
@@ -29,12 +30,10 @@ namespace views
             {
                 AutomaticActionListView().interact(controller);
             }
-            /*
-            void visit(local::AutomaticCommandActionListController& controller)
+            void visit(controllers::local::AutomaticGameActionListController& controller)
             {
                 AutomaticActionListView().interact(controller);
             }
-             */
 
         protected:
         private:

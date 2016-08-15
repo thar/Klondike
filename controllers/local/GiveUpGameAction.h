@@ -2,7 +2,7 @@
 #define KLONDIKE_GIVEUPGAMEACTION_H
 
 #include "../../utils/MenuEntry.h"
-#include "../GameController.h.h"
+#include "../GameController.h"
 
 class GiveUpGameAction : public MenuEntry
 {
