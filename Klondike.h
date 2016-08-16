@@ -9,16 +9,8 @@
 class Klondike
 {
 public:
-    Klondike(Logic& logic, View& view) : logic_(logic), view_(view) {};
-    void play()
-    {
-        std::shared_ptr<controllers::OperationController> controller = logic_.getOperationController();
-        while (controller)
-        {
-            view_.interact(*controller);
-            controller = logic_.getOperationController();
-        }
-    };
+    Klondike(Logic& logic, View& view);
+    void play();
 
 protected:
 private:
