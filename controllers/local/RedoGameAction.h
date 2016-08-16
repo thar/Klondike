@@ -6,23 +6,30 @@
 #include "../UndoRedoController.h"
 #include <memory>
 
-class RedoGameAction : public MenuEntry
+namespace controllers
 {
-public:
-    RedoGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
-            MenuEntry("Redo movement"), undoRedoController_(undoRedoController)
-    {}
-
-    void doAction()
+    namespace local
     {
-        undoRedoController_->redo();
-    }
-    void accept(MenuEntryVisitor &menuEntryVisitor) {}
+        class RedoGameAction : public MenuEntry
+        {
+        public:
+            RedoGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
+                    MenuEntry("Redo movement"), undoRedoController_(undoRedoController)
+            {}
 
-protected:
-private:
-    std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
-};
+            void doAction()
+            {
+                undoRedoController_->redo();
+            }
+            void accept(MenuEntryVisitor &menuEntryVisitor) {}
+
+        protected:
+        private:
+            std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
+        };
+    }
+}
+
 
 
 #endif //KLONDIKE_REDOGAMEACTION_H

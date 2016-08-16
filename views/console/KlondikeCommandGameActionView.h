@@ -14,7 +14,7 @@
 class KlondikeCommandGameActionView : public KlondikeCommandVisitor
 {
 public:
-    void interact(KlondikeCommandGameAction &entry)
+    void interact(controllers::local::KlondikeCommandGameAction &entry)
     {
         entry.accept(*this);
     }
