@@ -22,7 +22,8 @@ std::shared_ptr<controllers::ActionListController> controllers::local::GameActio
     {
         case USER:
             gameActionsController =
-                    std::make_shared<controllers::local::UserActionListController>(std::make_shared<GameActionListHeader>(game_));
+                    std::make_shared<controllers::local::UserActionListController>();
+            gameActionsController->setHeader(std::make_shared<GameActionListHeader>(game_));
             break;
         case DEMO:
             gameActionsController = std::make_shared<controllers::local::AutomaticGameActionListController>(game_);

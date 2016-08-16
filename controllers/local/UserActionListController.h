@@ -3,25 +3,19 @@
 
 #include <memory>
 #include <vector>
-#include "../ActionListController.h"
-#include "../../utils/MenuEntry.h"
+#include "LocalActionListController.h"
 
 namespace controllers
 {
     namespace local
     {
-        class UserActionListController : public ActionListController
+        class UserActionListController : public LocalActionListController
         {
         public:
-            UserActionListController(std::shared_ptr<ActionListHeader> actionListHeader);
-            std::vector<std::shared_ptr<MenuEntry>>& getActionList();
-            void addAction(std::shared_ptr<MenuEntry> action);
+            std::shared_ptr<MenuEntry> getAutomaticAction();
             void accept(controllers::OperationControllerVisitor& visitor);
-            ActionListHeader& getHeader();
         protected:
         private:
-            std::vector<std::shared_ptr<MenuEntry>> entryList_;
-            std::shared_ptr<ActionListHeader> actionListHeader_;
         };
     }
 }

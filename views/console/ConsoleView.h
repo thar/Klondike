@@ -3,8 +3,7 @@
 
 
 #include "../../View.h"
-#include "DeckSelectionView.h"
-#include "AutomaticActionListView.h"
+#include "ActionListView.h"
 #include "../../controllers/local/UserActionListController.h"
 #include "../../controllers/local/AutomaticDeckActionListController.h"
 #include "../../controllers/local/AutomaticGameActionListController.h"
@@ -17,23 +16,10 @@ namespace views
         class ConsoleView : public View
         {
         public:
-            void interact(controllers::OperationController &operationController) {
-                operationController.accept(*this);
-            }
-
-
-            void visit(controllers::local::UserActionListController& controller)
-            {
-                DeckSelectionView().interact(controller);
-            }
-            void visit(controllers::local::AutomaticDeckActionListController& controller)
-            {
-                AutomaticActionListView().interact(controller);
-            }
-            void visit(controllers::local::AutomaticGameActionListController& controller)
-            {
-                AutomaticActionListView().interact(controller);
-            }
+            void interact(controllers::OperationController &operationController);
+            void visit(controllers::local::UserActionListController& controller);
+            void visit(controllers::local::AutomaticDeckActionListController& controller);
+            void visit(controllers::local::AutomaticGameActionListController& controller);
 
         protected:
         private:
