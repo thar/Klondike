@@ -18,7 +18,6 @@ namespace controllers
         typedef ActionList::iterator iterator;
         typedef ActionList::const_iterator const_iterator;
 
-        virtual ActionList& getActionList() = 0;
         virtual void addAction(std::shared_ptr<MenuEntry> action) = 0;
         virtual void accept(controllers::OperationControllerVisitor& visitor) = 0;
         virtual ActionListHeader& getHeader() = 0;

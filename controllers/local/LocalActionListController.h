@@ -12,7 +12,6 @@ namespace controllers
         {
         public:
             LocalActionListController();
-            ActionList& getActionList();
             void addAction(std::shared_ptr<MenuEntry> action);
             ActionListHeader& getHeader();
             void setHeader(std::shared_ptr<ActionListHeader> header);
