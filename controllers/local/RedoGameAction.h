@@ -13,15 +13,9 @@ namespace controllers
         class RedoGameAction : public MenuEntry
         {
         public:
-            RedoGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
-                    MenuEntry("Redo movement"), undoRedoController_(undoRedoController)
-            {}
-
-            void doAction()
-            {
-                undoRedoController_->redo();
-            }
-            void accept(MenuEntryVisitor &menuEntryVisitor) {}
+            RedoGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController);
+            void doAction();
+            void accept(MenuEntryVisitor &menuEntryVisitor);
 
         protected:
         private:

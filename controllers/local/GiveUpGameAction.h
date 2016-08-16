@@ -11,11 +11,9 @@ namespace controllers
         class GiveUpGameAction : public MenuEntry
         {
         public:
-            GiveUpGameAction(controllers::GameController& controller) :
-                    MenuEntry("Give up game"), controller_(controller)
-            {}
-            void doAction() { controller_.abandonGame(); }
-            void accept(MenuEntryVisitor &menuEntryVisitor) {}
+            GiveUpGameAction(controllers::GameController& controller);
+            void doAction();
+            void accept(MenuEntryVisitor &menuEntryVisitor);
         protected:
         private:
             controllers::GameController& controller_;
