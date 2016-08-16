@@ -19,16 +19,16 @@ namespace views
             void interact(controllers::ActionListController &controller);
             void automaticInteract(controllers::ActionListController &controller);
 
-            void visit(KlondikeCommandGameAction &entry)
+            void visit(controllers::local::KlondikeCommandGameAction &entry)
             {
                 entry.init();
                 KlondikeCommandGameActionView().interact(entry);
             }
-            void visit(UndoGameAction &entry) {}
-            void visit(RedoGameAction &entry) {}
-            void visit(GiveUpGameAction &entry) {}
-            void visit(ExitGameAction &entry) {}
-            void visit(DeckAction &entry) {}
+            void visit(controllers::local::UndoGameAction &entry) {}
+            void visit(controllers::local::RedoGameAction &entry) {}
+            void visit(controllers::local::GiveUpGameAction &entry) {}
+            void visit(controllers::local::ExitGameAction &entry) {}
+            void visit(controllers::local::DeckAction &entry) {}
 
         protected:
         private:

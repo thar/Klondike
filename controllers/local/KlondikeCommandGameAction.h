@@ -8,39 +8,29 @@
 #include "../../utils/MenuEntry.h"
 #include "../UndoRedoController.h"
 
-class KlondikeCommandGameAction : public MenuEntry
+namespace controllers
 {
-public:
-    KlondikeCommandGameAction(std::string gameActionName, std::shared_ptr<KlondikeCommand> gameCommand,
-                              std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
-            MenuEntry(gameActionName), gameCommandPrototype_(gameCommand), gameCommand_(nullptr),
-            undoRedoController_(undoRedoController)
-    {}
-    void init()
+    namespace local
     {
-        gameCommand_ = gameCommandPrototype_->clone();
-    }
-    void doAction()
-    {
-        if (gameCommand_->validate())
+        class KlondikeCommandGameAction : public MenuEntry
         {
-            gameCommand_->execute();
-            undoRedoController_->addCommand(gameCommand_);
-        }
-    }
-    void accept(MenuEntryVisitor &menuEntryVisitor) { menuEntryVisitor.visit(*this); }
-    void accept(KlondikeCommandVisitor& visitor)
-    {
-        gameCommand_->accept(visitor);
-    }
+        public:
+            KlondikeCommandGameAction(std::string gameActionName, std::shared_ptr<KlondikeCommand> gameCommand,
+                                      std::shared_ptr<controllers::UndoRedoController> undoRedoController);
+            void init();
+            void doAction();
+            void accept(MenuEntryVisitor &menuEntryVisitor);
+            void accept(KlondikeCommandVisitor& visitor);
 
-protected:
-private:
-    std::shared_ptr<KlondikeCommand> gameCommandPrototype_;
-    std::shared_ptr<KlondikeCommand> gameCommand_;
-    std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
+        protected:
+        private:
+            std::shared_ptr<KlondikeCommand> gameCommandPrototype_;
+            std::shared_ptr<KlondikeCommand> gameCommand_;
+            std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
 
-};
+        };
+    }
+}
 
 
 #endif //KLONDIKE_KLONDIKECOMMANDGAMEACTION_H
