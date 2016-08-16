@@ -3,10 +3,6 @@
 controllers::local::LocalActionListController::LocalActionListController()
         : actionListHeader_(nullptr)
 {}
-ActionList& controllers::local::LocalActionListController::getActionList()
-{
-    return entryList_;
-}
 void controllers::local::LocalActionListController::addAction(std::shared_ptr<MenuEntry> action)
 {
     entryList_.push_back(action);
