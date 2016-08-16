@@ -4,7 +4,6 @@
 #include <memory>
 #include "../GameController.h"
 #include "../ActionListController.h"
-#include "../AutomaticActionListController.h"
 #include "../AbandonController.h"
 #include "../ExitController.h"
 #include "DeckControllerBuilder.h"
@@ -22,55 +21,14 @@ namespace controllers
         class LocalLogic : public ::Logic, public controllers::GameController
         {
         public:
-            LocalLogic() : playerType_(UNINITIALIZED), deckController_(nullptr), gameActionsController_(nullptr),
-                           loadGameController_(nullptr), abandonController_(nullptr), exitController_(nullptr),
-                           game_(nullptr), abruptExit_(false)
-            {
-                playerChooseController_ = PlayerChooseControllerBuilder(*this).getPlayerChooseController();
-            };
+            LocalLogic();
 
-            std::shared_ptr<controllers::OperationController> getOperationController()
-            {
-                if(abruptExit_)
-                    return exitController_;
-                else if(UNINITIALIZED == playerType_)
-                    return playerChooseController_;
-                else if(!game_)
-                {
-                    if (!loadGameController_)
-                        return deckController_;
-                    else
-                        return loadGameController_;
-                }
-                else if(!game_->isFinished())
-                    return gameActionsController_;
-                else
-                    return abandonController_;
-            }
+            std::shared_ptr<controllers::OperationController> getOperationController();
 
-            void setPlayer(PlayerType playerType)
-            {
-                playerType_ = playerType;
-                deckController_ = DeckControllerBuilder(*this, playerType_).getDeckController();
-                //loadGameController_ = LoadGameControllerBuilder(*playerController_, *this).getGameControllerBuilder():
-            }
-            void setDeck(std::string deckPath)
-            {
-                game_ = std::make_shared<Game>(GameDeck(deckPath));
-                gameActionsController_ = GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
-            }
-            void exitGame()
-            {
-                playerType_ = UNINITIALIZED;
-                game_.reset();
-                abruptExit_ = true;
-            }
-            void abandonGame()
-            {
-                playerType_ = UNINITIALIZED;
-                game_.reset();
-                abruptExit_ = false;
-            }
+            void setPlayer(PlayerType playerType);
+            void setDeck(std::string deckPath);
+            void exitGame();
+            void abandonGame();
 
         protected:
 

@@ -17,7 +17,8 @@ std::shared_ptr<controllers::ActionListController> controllers::local::DeckContr
     {
         case USER:
             deckController =
-                    std::make_shared<controllers::local::UserActionListController>(std::make_shared<StringActionListHeader>("Select Deck"));
+                    std::make_shared<controllers::local::UserActionListController>();
+            deckController->setHeader(std::make_shared<StringActionListHeader>("Select Deck"));
             break;
         case DEMO:
             deckController = std::make_shared<controllers::local::AutomaticDeckActionListController>();

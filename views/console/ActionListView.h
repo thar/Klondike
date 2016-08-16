@@ -6,6 +6,9 @@
 #include "../../controllers/local/MenuEntryVisitor.h"
 #include "HeaderActionListView.h"
 
+#include "KlondikeCommandGameActionView.h"
+#include "../../controllers/local/KlondikeCommandGameAction.h"
+
 namespace views
 {
     namespace console
@@ -14,11 +17,23 @@ namespace views
         {
         public:
             void interact(controllers::ActionListController &controller);
+            void automaticInteract(controllers::ActionListController &controller);
+
+            void visit(KlondikeCommandGameAction &entry)
+            {
+                entry.init();
+                KlondikeCommandGameActionView().interact(entry);
+            }
+            void visit(UndoGameAction &entry) {}
+            void visit(RedoGameAction &entry) {}
+            void visit(GiveUpGameAction &entry) {}
+            void visit(ExitGameAction &entry) {}
+            void visit(DeckAction &entry) {}
 
         protected:
         private:
-            void printMenu(std::vector<std::shared_ptr<MenuEntry>>& actionList);
-            std::shared_ptr<MenuEntry> getUserInput(std::vector<std::shared_ptr<MenuEntry>>& actionList);
+            void printMenu(controllers::ActionListController &controller);
+            std::shared_ptr<MenuEntry> getUserInput(controllers::ActionListController &controller);
         };
     }
 }

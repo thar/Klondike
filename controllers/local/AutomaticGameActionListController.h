@@ -1,28 +1,34 @@
 #ifndef KLONDIKE_AUTOMATICGAMEACTIONLISTCONTROLLER_H
 #define KLONDIKE_AUTOMATICGAMEACTIONLISTCONTROLLER_H
 
-#include "../AutomaticActionListController.h"
 #include "GameActionListHeader.h"
-
+#include "LocalActionListController.h"
+#include "MenuEntryVisitor.h"
+#include "KlondikeCommandGameAction.h"
 
 namespace controllers
 {
     namespace local
     {
-        class AutomaticGameActionListController : public controllers::AutomaticActionListController
+        class AutomaticGameActionListController : public LocalActionListController, public MenuEntryVisitor
         {
         public:
             AutomaticGameActionListController(Game& game);
-            std::vector<std::shared_ptr<MenuEntry>>& getActionList();
-            void addAction(std::shared_ptr<MenuEntry> action);
             void accept(controllers::OperationControllerVisitor& visitor);
-            std::shared_ptr<MenuEntry> getAction();
-            ActionListHeader& getHeader();
+            std::shared_ptr<MenuEntry> getAutomaticAction();
+
+            void visit(KlondikeCommandGameAction &entry)
+            {
+                entry.init();
+            }
+            void visit(UndoGameAction &entry) {}
+            void visit(RedoGameAction &entry) {}
+            void visit(GiveUpGameAction &entry) {}
+            void visit(ExitGameAction &entry) {}
+            void visit(DeckAction &entry) {}
         protected:
         private:
-            std::vector<std::shared_ptr<MenuEntry>> actionList_;
             Game& game_;
-            GameActionListHeader gameActionListHeader_;
         };
     }
 }
