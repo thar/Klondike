@@ -15,5 +15,5 @@ std::shared_ptr<MenuEntry> controllers::local::AutomaticGameActionListController
     //algorithm that chooses the action from the list and the game
     std::shared_ptr<MenuEntry> selectedAction = entryList_[0];
     selectedAction->accept(*this);
-    return entryList_[0];
+    return selectedAction;
 }
