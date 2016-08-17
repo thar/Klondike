@@ -3,6 +3,7 @@
 #include "UserActionListController.h"
 #include "AutomaticDeckActionListController.h"
 #include "DeckAction.h"
+#include "Localization.h"
 
 controllers::local::DeckControllerBuilder::DeckControllerBuilder(controllers::GameController& gameController,
                                                                  controllers::PlayerType player) :
@@ -18,7 +19,9 @@ std::shared_ptr<controllers::ActionListController> controllers::local::DeckContr
         case USER:
             deckController =
                     std::make_shared<controllers::local::UserActionListController>();
-            deckController->setHeader(std::make_shared<StringActionListHeader>("Select Deck"));
+            deckController->setHeader(std::make_shared<StringActionListHeader>(
+                    Localization::getInstance().getValue(localization::SELECT) +
+                            " " + Localization::getInstance().getValue(localization::DECK)));
             break;
         case DEMO:
             deckController = std::make_shared<controllers::local::AutomaticDeckActionListController>();

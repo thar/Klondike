@@ -1,5 +1,5 @@
 #include "ActionListView.h"
-
+#include "Localization.h"
 
 void views::console::ActionListView::interact(controllers::ActionListController &controller)
 {
@@ -13,7 +13,7 @@ void views::console::ActionListView::automaticInteract(controllers::ActionListCo
     HeaderActionListView().show(controller.getHeader());
     printMenu(controller);
     std::shared_ptr<MenuEntry> entry = controller.getAutomaticAction();
-    std::cout << "Selected action: " << entry->getName() << std::endl;
+    std::cout << Localization::getInstance().getValue(localization::SELECTED_ACTION) << entry->getName() << std::endl;
     entry->doAction();
 }
 void views::console::ActionListView::printMenu(controllers::ActionListController &controller)
@@ -32,9 +32,9 @@ std::shared_ptr<MenuEntry> views::console::ActionListView::getUserInput(controll
     do
     {
         if (0 >= option || size < option)
-            std::cout << "Please, chose an option in range" << std::endl;
+            std::cout << Localization::getInstance().getValue(localization::OPTION_IN_RANGE) << std::endl;
         printMenu(controller);
-        std::cout << "Option? [1-" << size << "]: " << std::endl;
+        std::cout << Localization::getInstance().getValue(localization::OPTION) << "? [1-" << size << "]: " << std::endl;
         std::cin >> option;
     } while (0 >= option || size < option);
     return *(controller.begin() + (option - 1));

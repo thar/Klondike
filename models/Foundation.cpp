@@ -1,6 +1,14 @@
 #include <iostream>
 #include "Foundation.h"
+#include "Localization.h"
 
+Foundation::Foundation(std::set<std::string> suitsNames) : PilesGroup(suitsNames, Localization::getInstance().getValue(localization::FOUNDATION))
+{
+};
+bool Foundation::isCardPushable(Card &card)
+{
+    return isCardPushable(card.getSuitName(), card);
+}
 bool Foundation::isCardPushable(const std::string &pileName, Card &card)
 {
     bool resultValue = false;
@@ -16,7 +24,6 @@ bool Foundation::isCardPushable(const std::string &pileName, Card &card)
     }
     return resultValue;
 }
-
 void Foundation::pushCard(Card &card)
 {
     assert(isCardPushable(card.getSuitName(), card));
