@@ -1,4 +1,5 @@
 #include "KlondikeCommandGameActionView.h"
+#include "Localization.h"
 #include <iostream>
 
 void views::console::KlondikeCommandGameActionView::interact(controllers::local::KlondikeCommandGameAction &entry)
@@ -7,9 +8,8 @@ void views::console::KlondikeCommandGameActionView::interact(controllers::local:
 }
 void views::console::KlondikeCommandGameActionView::visit(FoundationToTableauCommand& command)
 {
-    command.setOriginPile(std::to_string(getUserInput("Origin pile? [1,7]: ")));
-    command.setCardsToMove(getUserInput( "Number of cards to move? [X,X]: "));
-    command.setDestinyPile(std::to_string(getUserInput("Destiny pile? [1,7]: ")));
+    command.setOriginPile(std::to_string(getUserInput(Localization::getInstance().getValue(localization::ORIGIN_PILE) + "? [1,4]: ")));
+    command.setDestinyPile(std::to_string(getUserInput(Localization::getInstance().getValue(localization::DESTINY_PILE) + "? [1,7]: ")));
 }
 void views::console::KlondikeCommandGameActionView::visit(StockToWaistCommand& command)
 {
@@ -17,13 +17,13 @@ void views::console::KlondikeCommandGameActionView::visit(StockToWaistCommand& c
 }
 void views::console::KlondikeCommandGameActionView::visit(TableauToFoundationCommand& command)
 {
-    command.setOriginPile(std::to_string(getUserInput("Origin pile? [1,7]: ")));
+    command.setOriginPile(std::to_string(getUserInput(Localization::getInstance().getValue(localization::ORIGIN_PILE) + "? [1,7]: ")));
 }
 void views::console::KlondikeCommandGameActionView::visit(TableauToTableauCommand& command)
 {
-    command.setOriginPile(std::to_string(getUserInput("Origin pile? [1,7]: ")));
-    command.setCardsToMove(getUserInput( "Number of cards to move? [X,X]: "));
-    command.setDestinyPile(std::to_string(getUserInput("Destiny pile? [1,7]: ")));
+    command.setOriginPile(std::to_string(getUserInput(Localization::getInstance().getValue(localization::ORIGIN_PILE) + "? [1,7]: ")));
+    command.setCardsToMove(getUserInput( Localization::getInstance().getValue(localization::NUMBER_OF_CARDS) + ": "));
+    command.setDestinyPile(std::to_string(getUserInput(Localization::getInstance().getValue(localization::DESTINY_PILE) + "? [1,7]: ")));
 }
 void views::console::KlondikeCommandGameActionView::visit(WaistToFoundationCommand& command)
 {
@@ -35,7 +35,7 @@ void views::console::KlondikeCommandGameActionView::visit(WaistToStockCommand& c
 }
 void views::console::KlondikeCommandGameActionView::visit(WaistToTableauCommand& command)
 {
-    command.setDestinyPile(std::to_string(getUserInput("Destiny pile? [1,7]: ")));
+    command.setDestinyPile(std::to_string(getUserInput(Localization::getInstance().getValue(localization::DESTINY_PILE) + "? [1,7]: ")));
 }
 unsigned int views::console::KlondikeCommandGameActionView::getUserInput(std::string message)
 {

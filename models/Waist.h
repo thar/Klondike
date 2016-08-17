@@ -8,11 +8,9 @@
 class Waist : public  PilesGroup
 {
 public:
-    Waist() : PilesGroup({Waist::pileName}, "descarte") {};
+    Waist();
     static const std::string pileName;
-
-    bool isCardPushable(const std::string &pileName, Card &card)
-    { return true; }
+    bool isCardPushable(const std::string &pileName, Card &card);
 
 protected:
 private:
