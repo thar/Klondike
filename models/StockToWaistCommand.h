@@ -24,6 +24,7 @@ public:
 private:
     Stock &origin_;
     Waist &destiny_;
+    Pile destinyPileCards;
 
 };
 

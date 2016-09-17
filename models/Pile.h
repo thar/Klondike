@@ -25,6 +25,7 @@ public:
     void reverse();
     Card& front();
     Card& back();
+    Card& getCard(int position);
     unsigned int size() const;
 
     const std::string getSuit() const;

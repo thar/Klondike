@@ -92,6 +92,20 @@ Card& Pile::back()
     return cards_.back();
 }
 
+Card &Pile::getCard(int position)
+{
+    if (position >= 0)
+    {
+        assert(position < cards_.size());
+        return cards_[position];
+    }
+    else
+    {
+        assert(-position <= cards_.size());
+        return cards_[cards_.size() + position];
+    }
+}
+
 std::ostream& operator<<(std::ostream& os, const Pile& obj)
 {
     for (auto& card : obj.cards_)
