@@ -17,7 +17,7 @@ bool Foundation::isCardPushable(const std::string &pileName, Card &card)
     {
         Pile &destinyPile = getPile(suitName);
         if ((destinyPile.size() == 0 && card.isAce()) ||
-            (destinyPile.size() > 0 && destinyPile.back().isPrevValue(card)))
+            (destinyPile.size() > 0 && destinyPile.back().isNextValue(card)))
         {
             resultValue = true;
         }

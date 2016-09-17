@@ -7,15 +7,28 @@ void StockToWaistCommand::execute()
     tempPile.turnCardsUp();
     tempPile.reverse();
     cardsToMove_ = tempPile.size();
-    Pile waistPile = destiny_.actionPopAll(destinyPile_);
-    waistPile.turnCardsDown();
-    waistPile.appendPile(tempPile);
-    destiny_.actionPush(waistPile, Waist::pileName);
+    Pile tempDestinyPileCards = destiny_.actionPop(3, destinyPile_);
+    unsigned int reversedDestinyCards = 0;
+    for (auto& card : tempDestinyPileCards)
+    {
+        if (card.isFaceUp())
+            reversedDestinyCards++;
+    }
+    destinyPileCards = tempDestinyPileCards.popPile(reversedDestinyCards);
+    tempDestinyPileCards.turnCardsDown();
+    destinyPileCards.turnCardsDown();
+
+    destiny_.actionPush(tempDestinyPileCards, Waist::pileName);
+    destiny_.actionPush(destinyPileCards, Waist::pileName);
+    destiny_.actionPush(tempPile, destinyPile_);
 }
 
 void StockToWaistCommand::undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
+    destiny_.actionPop(destinyPileCards.size(), destinyPile_);
+    destinyPileCards.turnCardsUp();
+    destiny_.actionPush(destinyPileCards, destinyPile_);
     tempPile.turnCardsDown();
     tempPile.reverse();
     origin_.actionPush(tempPile, originPile_);

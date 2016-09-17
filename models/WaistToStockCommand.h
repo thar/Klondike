@@ -9,8 +9,8 @@
 class WaistToStockCommand : public KlondikeCommand
 {
 public:
-    WaistToStockCommand(Stock &stock, Waist &waist, int &score) : KlondikeCommand(score, 0), origin_(stock),
-                                                                  destiny_(waist)
+    WaistToStockCommand(Stock &stock, Waist &waist, int &score) : KlondikeCommand(score, 0), origin_(waist),
+                                                                  destiny_(stock)
     {
         originPile_ = Waist::pileName;
         destinyPile_ = Stock::pileName;
@@ -22,8 +22,8 @@ public:
     std::shared_ptr<KlondikeCommand> clone();
 
 private:
-    Stock &origin_;
-    Waist &destiny_;
+    Waist &origin_;
+    Stock &destiny_;
 
 };
 

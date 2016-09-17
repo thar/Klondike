@@ -30,7 +30,7 @@ void WaistToStockCommand::undo()
 
 void WaistToStockCommand::__validate()
 {
-    valid_ = origin_.getRemainingCards(destinyPile_) == 0;
+    valid_ = destiny_.getRemainingCards(destinyPile_) == 0;
 }
 
 std::shared_ptr<KlondikeCommand> WaistToStockCommand::clone()
