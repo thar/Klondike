@@ -10,6 +10,7 @@ public:
     Game(GameDeck gameDeck);
     std::shared_ptr<KlondikeCommand> getCommand(unsigned int index);
     bool isFinished();
+    int getScore () const { return score_; }
 
 protected:
 private:

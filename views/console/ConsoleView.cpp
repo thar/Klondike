@@ -1,4 +1,5 @@
 #include "ConsoleView.h"
+#include "ScoreView.h"
 
 
 void views::console::ConsoleView::interact(controllers::OperationController &operationController)
@@ -16,4 +17,9 @@ void views::console::ConsoleView::visit(controllers::local::AutomaticDeckActionL
 void views::console::ConsoleView::visit(controllers::local::AutomaticGameActionListController& controller)
 {
     ActionListView().automaticInteract(controller);
+}
+
+void views::console::ConsoleView::visit(controllers::local::LocalScoreController &controller)
+{
+    ScoreView().interact(controller);
 }

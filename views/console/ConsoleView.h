@@ -7,6 +7,7 @@
 #include "../../controllers/local/UserActionListController.h"
 #include "../../controllers/local/AutomaticDeckActionListController.h"
 #include "../../controllers/local/AutomaticGameActionListController.h"
+#include "../../controllers/local/LocalScoreController.h"
 
 
 namespace views
@@ -20,6 +21,7 @@ namespace views
             void visit(controllers::local::UserActionListController& controller);
             void visit(controllers::local::AutomaticDeckActionListController& controller);
             void visit(controllers::local::AutomaticGameActionListController& controller);
+            void visit(controllers::local::LocalScoreController& controller);
 
         protected:
         private:
