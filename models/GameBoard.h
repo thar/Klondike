@@ -36,6 +36,13 @@ public:
         return waist_;
     }
 
+    bool isGameFinished()
+    {
+        return tableau_.getNumberOfCardsInGroup() == 0 &&
+                stock_.getNumberOfCardsInGroup() == 0 &&
+                waist_.getNumberOfCardsInGroup() == 0;
+    }
+
 private:
     Foundation foundation_;
     Tableau tableau_;
