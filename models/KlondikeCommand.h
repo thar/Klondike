@@ -19,6 +19,9 @@ public:
     };
     virtual std::shared_ptr<KlondikeCommand> clone() = 0;
 
+    virtual std::set<std::string> getOriginPiles() = 0;
+    virtual std::set<std::string> getDestinyPiles() = 0;
+
     void setOriginPile(std::string originPile)
     { originPile_ = originPile; }
 

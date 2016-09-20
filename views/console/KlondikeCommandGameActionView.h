@@ -27,6 +27,7 @@ namespace views
             void visit(WaistToStockCommand& command);
             void visit(WaistToTableauCommand& command);
             unsigned int getUserInput(std::string message);
+            std::string getOptionsInput(std::string message, std::set<std::string> options);
         protected:
         private:
         };

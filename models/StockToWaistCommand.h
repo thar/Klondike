@@ -21,6 +21,9 @@ public:
     void __validate();
     std::shared_ptr<KlondikeCommand> clone();
 
+    std::set<std::string> getOriginPiles() { return origin_.getPilesNames(); }
+    std::set<std::string> getDestinyPiles() { return destiny_.getPilesNames(); }
+
 private:
     Stock &origin_;
     Waist &destiny_;
