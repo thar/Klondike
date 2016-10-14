@@ -65,3 +65,9 @@ void controllers::local::LocalLogic::abandonGame()
     game_.reset();
     abruptExit_ = false;
 }
+
+void controllers::local::LocalLogic::setRandomNumberGeneratorSeed(unsigned int seed)
+{
+    randomSeed_ = seed;
+    std::srand(randomSeed_);
+}
