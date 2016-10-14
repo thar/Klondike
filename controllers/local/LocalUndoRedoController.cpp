@@ -4,27 +4,27 @@ void controllers::local::LocalUndoRedoController::undo()
 {
     if(!undoStack_.empty())
     {
-        redoStack_.push(undoStack_.top());
-        undoStack_.pop();
-        redoStack_.top()->undo();
+        redoStack_.push_back(undoStack_.back());
+        undoStack_.pop_back();
+        redoStack_.back()->undo();
     }
 }
 void controllers::local::LocalUndoRedoController::redo()
 {
     if(!redoStack_.empty())
     {
-        undoStack_.push(redoStack_.top());
-        redoStack_.pop();
-        undoStack_.top()->execute();
+        undoStack_.push_back(redoStack_.back());
+        redoStack_.pop_back();
+        undoStack_.back()->execute();
     }
 }
 void controllers::local::LocalUndoRedoController::addCommand(std::shared_ptr<KlondikeCommand> command)
 {
     clearRedoStack();
-    undoStack_.push(command);
+    undoStack_.push_back(command);
 }
 void controllers::local::LocalUndoRedoController::clearRedoStack()
 {
-    std::stack<std::shared_ptr<KlondikeCommand>> tempStack;
+    std::list<std::shared_ptr<KlondikeCommand>> tempStack;
     std::swap(redoStack_, tempStack);
 }
