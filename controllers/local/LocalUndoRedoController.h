@@ -1,7 +1,7 @@
 #ifndef KLONDIKE_LOCALUDOREDOCONTROLLER_H
 #define KLONDIKE_LOCALUDOREDOCONTROLLER_H
 
-#include <stack>
+#include <list>
 #include "../UndoRedoController.h"
 
 namespace controllers
@@ -17,8 +17,8 @@ namespace controllers
         protected:
             void clearRedoStack();
         private:
-            std::stack<std::shared_ptr<KlondikeCommand>> undoStack_;
-            std::stack<std::shared_ptr<KlondikeCommand>> redoStack_;
+            std::list<std::shared_ptr<KlondikeCommand>> undoStack_;
+            std::list<std::shared_ptr<KlondikeCommand>> redoStack_;
         };
     }
 }
