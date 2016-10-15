@@ -1,9 +1,11 @@
+#include <Localization.h>
 #include "AutomaticDeckActionListController.h"
 
 
 controllers::local::AutomaticDeckActionListController::AutomaticDeckActionListController()
 {
-    setHeader(std::make_shared<StringActionListHeader>("Select Deck"));
+    setHeader(std::make_shared<StringActionListHeader>(Localization::getInstance().getValue(localization::SELECT) + " " +
+                                                               Localization::getInstance().getValue(localization::DECK)));
 }
 
 void controllers::local::AutomaticDeckActionListController::accept(controllers::OperationControllerVisitor& visitor)

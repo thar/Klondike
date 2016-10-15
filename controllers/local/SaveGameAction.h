@@ -21,7 +21,6 @@ namespace controllers
         private:
             static std::string gamesFolder;
             std::string fileName_;
-            std::string deckPath_;
             GameController& gameController_;
             std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
         };
