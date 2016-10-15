@@ -37,6 +37,8 @@ namespace controllers
             std::shared_ptr<controllers::OperationController> getOperationController();
 
             void setPlayer(PlayerType playerType);
+            void newGame();
+            void loadGame();
             void setDeck(std::string deckPath);
             void exitGame();
             void abandonGame();
