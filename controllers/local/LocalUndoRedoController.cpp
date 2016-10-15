@@ -30,7 +30,7 @@ void controllers::local::LocalUndoRedoController::clearRedoStack()
     std::swap(redoStack_, tempStack);
 }
 
-void controllers::local::LocalUndoRedoController::saveUndoList(controllers::UndoListSaver &undoListSaver)
+void controllers::local::LocalUndoRedoController::saveUndoList(controllers::GameSaver &undoListSaver)
 {
     for (auto& movement : undoStack_)
     {

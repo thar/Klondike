@@ -2,19 +2,20 @@
 #include <Localization.h>
 #include "SaveGameAction.h"
 #include "MenuEntryVisitor.h"
-#include "LocalUndoListSaver.h"
+#include "LocalGameSaver.h"
 
 std::string controllers::local::SaveGameAction::gamesFolder("savedGames/");
 
-controllers::local::SaveGameAction::SaveGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
-        MenuEntry(Localization::getInstance().getValue(localization::SAVE_GAME)), undoRedoController_(undoRedoController)
+controllers::local::SaveGameAction::SaveGameAction(GameController& gameController, std::shared_ptr<controllers::UndoRedoController> undoRedoController) :
+        MenuEntry(Localization::getInstance().getValue(localization::SAVE_GAME)), gameController_(gameController), undoRedoController_(undoRedoController)
 {
 
 }
 
 void controllers::local::SaveGameAction::doAction()
 {
-    LocalUndoListSaver saver(gamesFolder + fileName_);
+    LocalGameSaver saver(gamesFolder + fileName_);
+    gameController_.save(saver);
     undoRedoController_->saveUndoList(saver);
 }
 

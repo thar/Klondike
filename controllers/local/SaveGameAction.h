@@ -13,7 +13,7 @@ namespace controllers
         class SaveGameAction : public MenuEntry
         {
         public:
-            SaveGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController);
+            SaveGameAction(GameController& gameController, std::shared_ptr<controllers::UndoRedoController> undoRedoController);
             void doAction();
             void accept(MenuEntryVisitor &menuEntryVisitor);
             bool setFileName(std::string fileName, bool overwrite);
@@ -21,6 +21,8 @@ namespace controllers
         private:
             static std::string gamesFolder;
             std::string fileName_;
+            std::string deckPath_;
+            GameController& gameController_;
             std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
         };
     }

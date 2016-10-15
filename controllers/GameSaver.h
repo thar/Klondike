@@ -5,9 +5,11 @@
 #include "../models/KlondikeCommand.h"
 namespace controllers
 {
-    class UndoListSaver
+    class GameSaver
     {
     public:
+        virtual void addRandomSeed(unsigned int seed) = 0;
+        virtual void addDeckPath(std::string deckPath) = 0;
         virtual void addCommand(KlondikeCommand& command) = 0;
     };
 }

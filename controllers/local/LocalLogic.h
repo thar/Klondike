@@ -43,6 +43,7 @@ namespace controllers
             void exitGame();
             void abandonGame();
             void setRandomNumberGeneratorSeed(unsigned int seed);
+            void save(GameSaver& gameSaver);
 
         protected:
 
@@ -59,6 +60,7 @@ namespace controllers
             std::shared_ptr<controllers::ActionListController> exitController_;
             std::shared_ptr<Game> game_;
             bool abruptExit_;
+            std::string deckPath_;
             unsigned int randomSeed_;
         };
     }
