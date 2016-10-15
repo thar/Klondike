@@ -13,8 +13,6 @@ public:
     KlondikeCommandShop();
     void addCommand(std::shared_ptr<KlondikeCommand> command);
     std::shared_ptr<KlondikeCommand> getCommand(unsigned int commandIndex);
-    //auto begin() { return commands_.begin(); }
-    //auto end() { return commands_.end(); }
     unsigned int size() const;
 protected:
 private:
