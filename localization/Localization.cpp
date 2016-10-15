@@ -19,7 +19,7 @@ Localization::Localization()
     languajeValuesMap_[DECK] = "Deck";
     languajeValuesMap_[OPTION] = "Option";
     languajeValuesMap_[STOCK] = "Stock";
-    languajeValuesMap_[WAIST] = "Waist";
+    languajeValuesMap_[WASTE] = "Waste";
     languajeValuesMap_[FOUNDATION] = "Fountadion";
     languajeValuesMap_[TABLEAU] = "Tableau";
     languajeValuesMap_[MOVE_FROM] = "Move from";

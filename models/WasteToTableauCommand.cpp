@@ -1,6 +1,6 @@
-#include "WaistToTableauCommand.h"
+#include "WasteToTableauCommand.h"
 
-void WaistToTableauCommand::__execute()
+void WasteToTableauCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 1;
@@ -8,13 +8,13 @@ void WaistToTableauCommand::__execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void WaistToTableauCommand::__undo()
+void WasteToTableauCommand::__undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     origin_.actionPush(tempPile, originPile_);
 }
 
-void WaistToTableauCommand::__validate()
+void WasteToTableauCommand::__validate()
 {
     cardsToMove_ = 1;
     Pile tempPile = origin_.actionPop(cardsToMove_, originPile_);
@@ -29,7 +29,7 @@ void WaistToTableauCommand::__validate()
     origin_.actionPush(tempPile, originPile_);
 }
 
-std::shared_ptr<KlondikeCommand> WaistToTableauCommand::clone()
+std::shared_ptr<KlondikeCommand> WasteToTableauCommand::clone()
 {
-    return std::make_shared<WaistToTableauCommand>(*this);
+    return std::make_shared<WasteToTableauCommand>(*this);
 }

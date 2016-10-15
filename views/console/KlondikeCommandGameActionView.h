@@ -3,12 +3,12 @@
 
 #include "../../models/KlondikeCommandVisitor.h"
 #include "../../models/FoundationToTableauCommand.h"
-#include "../../models/StockToWaistCommand.h"
+#include "../../models/StockToWasteCommand.h"
 #include "../../models/TableauToFoundationCommand.h"
 #include "../../models/TableauToTableauCommand.h"
-#include "../../models/WaistToFoundationCommand.h"
-#include "../../models/WaistToStockCommand.h"
-#include "../../models/WaistToTableauCommand.h"
+#include "../../models/WasteToFoundationCommand.h"
+#include "../../models/WasteToStockCommand.h"
+#include "../../models/WasteToTableauCommand.h"
 #include "../../controllers/local/KlondikeCommandGameAction.h"
 
 namespace views
@@ -20,12 +20,12 @@ namespace views
         public:
             void interact(controllers::local::KlondikeCommandGameAction &entry);
             void visit(FoundationToTableauCommand& command);
-            void visit(StockToWaistCommand& command);
+            void visit(StockToWasteCommand& command);
             void visit(TableauToFoundationCommand& command);
             void visit(TableauToTableauCommand& command);
-            void visit(WaistToFoundationCommand& command);
-            void visit(WaistToStockCommand& command);
-            void visit(WaistToTableauCommand& command);
+            void visit(WasteToFoundationCommand& command);
+            void visit(WasteToStockCommand& command);
+            void visit(WasteToTableauCommand& command);
             unsigned int getUserInput(std::string message);
             std::string getOptionsInput(std::string message, std::set<std::string> options);
         protected:

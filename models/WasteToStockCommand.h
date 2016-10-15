@@ -4,15 +4,15 @@
 
 #include "KlondikeCommand.h"
 #include "Stock.h"
-#include "Waist.h"
+#include "Waste.h"
 
-class WaistToStockCommand : public KlondikeCommand
+class WasteToStockCommand : public KlondikeCommand
 {
 public:
-    WaistToStockCommand(Stock &stock, Waist &waist, int &score) : KlondikeCommand(score, 0), origin_(waist),
+    WasteToStockCommand(Stock &stock, Waste &waist, int &score) : KlondikeCommand(score, 0), origin_(waist),
                                                                   destiny_(stock)
     {
-        originPile_ = Waist::pileName;
+        originPile_ = Waste::pileName;
         destinyPile_ = Stock::pileName;
     }
     void __execute();
@@ -25,7 +25,7 @@ public:
     std::set<std::string> getDestinyPiles() { return destiny_.getPilesNames(); }
 
 private:
-    Waist &origin_;
+    Waste &origin_;
     Stock &destiny_;
 
 };
