@@ -20,30 +20,14 @@ controllers::local::GameActionsControllerBuilder::GameActionsControllerBuilder(G
 
 std::shared_ptr<controllers::ActionListController> controllers::local::GameActionsControllerBuilder::getGameActionsController(PlayerType playerType)
 {
-    std::shared_ptr<controllers::ActionListController> gameActionsController;
-    switch (playerType)
-    {
-        case USER:
-            gameActionsController =
-                    std::make_shared<controllers::local::UserActionListController>();
-            gameActionsController->setHeader(std::make_shared<GameActionListHeader>(game_));
-            break;
-        case DEMO:
-            gameActionsController = std::make_shared<controllers::local::AutomaticGameActionListController>(game_);
-            gameActionsController->setHeader(std::make_shared<GameActionListHeader>(game_));
-            break;
-        default:
-            return nullptr;
-    }
+    std::shared_ptr<controllers::ActionListController> gameActionsController = newGameActionsController(playerType);
+    if (gameActionsController == nullptr)
+        return nullptr;
     std::shared_ptr<UndoRedoController> undoRedoController = std::make_shared<LocalUndoRedoController>();
     addKlondikeCommandGameActions(*gameActionsController, undoRedoController);
     if(USER == playerType)
     {
-        gameActionsController->addAction(std::make_shared<UndoGameAction>(undoRedoController));
-        gameActionsController->addAction(std::make_shared<RedoGameAction>(undoRedoController));
-        gameActionsController->addAction(std::make_shared<SaveGameAction>(gameController_, undoRedoController));
-        gameActionsController->addAction(std::make_shared<GiveUpGameAction>(gameController_));
-        gameActionsController->addAction(std::make_shared<ExitGameAction>(gameController_));
+        addUserSpecificGameActions(gameActionsController, undoRedoController);
     }
     return gameActionsController;
 }
@@ -100,4 +84,35 @@ void controllers::local::GameActionsControllerBuilder::addKlondikeCommandGameAct
                     Localization::getInstance().getValue(localization::MOVE_TO) + " " +
                     Localization::getInstance().getValue(localization::TABLEAU), game_.getCommand(6),
                                                         undoRedoController));
+}
+
+std::shared_ptr<controllers::ActionListController>
+controllers::local::GameActionsControllerBuilder::newGameActionsController(controllers::PlayerType playerType)
+{
+    std::shared_ptr<controllers::ActionListController> gameActionsController;
+    switch (playerType)
+    {
+        case USER:
+            gameActionsController =
+                    std::make_shared<controllers::local::UserActionListController>();
+            break;
+        case DEMO:
+            gameActionsController = std::make_shared<controllers::local::AutomaticGameActionListController>(game_);
+            break;
+        default:
+            gameActionsController = nullptr;
+    }
+    if (gameActionsController != nullptr)
+        gameActionsController->setHeader(std::make_shared<GameActionListHeader>(game_));
+    return gameActionsController;
+}
+
+void controllers::local::GameActionsControllerBuilder::addUserSpecificGameActions(
+        std::shared_ptr<controllers::ActionListController> gameActionsController, std::shared_ptr<UndoRedoController> undoRedoController)
+{
+    gameActionsController->addAction(std::make_shared<UndoGameAction>(undoRedoController));
+    gameActionsController->addAction(std::make_shared<RedoGameAction>(undoRedoController));
+    gameActionsController->addAction(std::make_shared<SaveGameAction>(gameController_, undoRedoController));
+    gameActionsController->addAction(std::make_shared<GiveUpGameAction>(gameController_));
+    gameActionsController->addAction(std::make_shared<ExitGameAction>(gameController_));
 }
