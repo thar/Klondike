@@ -1,8 +1,8 @@
 #include "LocalLogic.h"
 #include "LocalScoreController.h"
-#include "ExitGameAction.h"
-#include "GiveUpGameAction.h"
 #include "UserActionListController.h"
+#include "StartGameControllerBuilder.h"
+#include "ExitControllerBuilder.h"
 
 
 controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), playerType_(UNINITIALIZED), deckController_(nullptr), gameActionsController_(nullptr),
@@ -10,9 +10,8 @@ controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), 
                exitController_(nullptr), game_(nullptr), abruptExit_(false)
 {
     playerChooseController_ = PlayerChooseControllerBuilder(*this).getPlayerChooseController();
-    exitController_ = std::make_shared<controllers::local::UserActionListController>();
-    exitController_->addAction(std::make_shared<GiveUpGameAction>(*this));
-    exitController_->addAction(std::make_shared<ExitGameAction>(*this));
+    exitController_ = ExitControllerBuilder(*this).getExitController();
+    startGameController_ = StartGameControllerBuilder(*this).getStartGameController();
 };
 
 std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic::getOperationController()
@@ -26,7 +25,7 @@ std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic
             case PLAYER_NOT_SELECTED:
                 return playerChooseController_;
             case GAME_NOT_STARTED:
-                return nullptr; //loadOrNew
+                return startGameController_;
             case GAME_NEW:
                 return deckController_;
             case GAME_LOAD:
@@ -49,7 +48,7 @@ void controllers::local::LocalLogic::setPlayer(PlayerType playerType)
 {
     playerType_ = playerType;
     deckController_ = DeckControllerBuilder(*this, playerType_).getDeckController();
-    gameState_ = playerType == USER ? GAME_NEW : GAME_NEW;
+    gameState_ = playerType == USER ? GAME_NOT_STARTED : GAME_NEW;
     //loadGameController_ = LoadGameControllerBuilder(*playerController_, *this).getGameControllerBuilder():
 }
 void controllers::local::LocalLogic::setDeck(std::string deckPath)
@@ -77,4 +76,14 @@ void controllers::local::LocalLogic::setRandomNumberGeneratorSeed(unsigned int s
 {
     randomSeed_ = seed;
     std::srand(randomSeed_);
+}
+
+void controllers::local::LocalLogic::newGame()
+{
+    gameState_ = GAME_NEW;
+}
+
+void controllers::local::LocalLogic::loadGame()
+{
+    gameState_ = GAME_LOAD;
 }
