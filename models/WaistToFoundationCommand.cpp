@@ -1,6 +1,6 @@
 #include "WaistToFoundationCommand.h"
 
-void WaistToFoundationCommand::execute()
+void WaistToFoundationCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 1;
@@ -9,7 +9,7 @@ void WaistToFoundationCommand::execute()
     destiny_.pushCard(tempPile.back());
 }
 
-void WaistToFoundationCommand::undo()
+void WaistToFoundationCommand::__undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     origin_.actionPush(tempPile, originPile_);

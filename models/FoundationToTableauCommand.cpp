@@ -1,6 +1,6 @@
 #include "FoundationToTableauCommand.h"
 
-void FoundationToTableauCommand::execute()
+void FoundationToTableauCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 1;
@@ -8,7 +8,7 @@ void FoundationToTableauCommand::execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void FoundationToTableauCommand::undo()
+void FoundationToTableauCommand::__undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     origin_.actionPush(tempPile, originPile_);

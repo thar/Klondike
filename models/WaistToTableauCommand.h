@@ -14,9 +14,9 @@ public:
         originPile_ = Waist::pileName;
     }
 
-    void execute();
+    void __execute();
 
-    void undo();
+    void __undo();
     void accept(KlondikeCommandVisitor& visitor) { visitor.visit(*this); }
 
     void __validate();

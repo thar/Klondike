@@ -14,9 +14,9 @@ public:
                                                                                        destiny_(tableau)
     { }
 
-    void execute();
+    void __execute();
 
-    void undo();
+    void __undo();
 
     void accept(KlondikeCommandVisitor& visitor) { visitor.visit(*this); }
 

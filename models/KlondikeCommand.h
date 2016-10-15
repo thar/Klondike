@@ -9,8 +9,18 @@
 class KlondikeCommand
 {
 public:
-    virtual void execute() = 0;
-    virtual void undo() = 0;
+    virtual void __execute() = 0;
+    virtual void __undo() = 0;
+    void execute()
+    {
+        __execute();
+        score_ += movementScore_;
+    };
+    void undo()
+    {
+        __undo();
+        score_ -= movementScore_;
+    };
     virtual void accept(KlondikeCommandVisitor& visitor) = 0;
     bool validate()
     {

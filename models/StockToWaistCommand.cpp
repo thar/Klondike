@@ -1,6 +1,6 @@
 #include "StockToWaistCommand.h"
 
-void StockToWaistCommand::execute()
+void StockToWaistCommand::__execute()
 {
     assert(valid_);
     Pile tempPile = origin_.actionPop(3, originPile_);
@@ -23,7 +23,7 @@ void StockToWaistCommand::execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void StockToWaistCommand::undo()
+void StockToWaistCommand::__undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     destiny_.actionPop(destinyPileCards.size(), destinyPile_);
