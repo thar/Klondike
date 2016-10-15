@@ -36,6 +36,8 @@ namespace localization
         LOAD_GAME,
         SPANISH,
         FRENCH,
+        SCORE,
+        TOP_SCORE,
     };
 }
 
