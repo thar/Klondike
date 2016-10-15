@@ -57,7 +57,6 @@ namespace controllers
             std::shared_ptr<controllers::ActionListController> loadGameController_;
             std::shared_ptr<controllers::ActionListController> startGameController_;
             std::shared_ptr<controllers::AbandonController> abandonController_;
-            //std::shared_ptr<controllers::ExitController> exitController_;
             std::shared_ptr<controllers::ActionListController> exitController_;
             std::shared_ptr<Game> game_;
             bool abruptExit_;

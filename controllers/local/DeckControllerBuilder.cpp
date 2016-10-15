@@ -29,7 +29,7 @@ std::shared_ptr<controllers::ActionListController> controllers::local::DeckContr
         default:
             return nullptr;
     }
-    deckController->addAction(std::make_shared<DeckAction>(gameController_, "Spanish", "config/decks/spanishDeck.txt"));
-    deckController->addAction(std::make_shared<DeckAction>(gameController_, "French", "config/decks/frenchDeck.txt"));
+    deckController->addAction(std::make_shared<DeckAction>(gameController_, Localization::getInstance().getValue(localization::SPANISH), "config/decks/spanishDeck.txt"));
+    deckController->addAction(std::make_shared<DeckAction>(gameController_, Localization::getInstance().getValue(localization::FRENCH), "config/decks/frenchDeck.txt"));
     return deckController;
 }

@@ -41,4 +41,6 @@ Localization::Localization()
     languajeValuesMap_[CHOOSE_FILE] = "Choose file";
     languajeValuesMap_[NEW_GAME] = "New game";
     languajeValuesMap_[LOAD_GAME] = "Load game";
+    languajeValuesMap_[SPANISH] = "Spanish";
+    languajeValuesMap_[FRENCH] = "French";
 }

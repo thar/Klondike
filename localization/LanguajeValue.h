@@ -34,6 +34,8 @@ namespace localization
         CHOOSE_FILE,
         NEW_GAME,
         LOAD_GAME,
+        SPANISH,
+        FRENCH,
     };
 }
 
