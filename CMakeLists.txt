@@ -8,9 +8,12 @@ add_subdirectory(models)
 add_subdirectory(views)
 add_subdirectory(controllers)
 
-set(SOURCE_FILES main.cpp Klondike.cpp Klondike.h Logic.h View.h controllers/ScoreController.h)
+set(SOURCE_FILES main.cpp Klondike.cpp Klondike.h Logic.h View.h controllers/ScoreController.h controllers/UndoListSaver.h)
 add_executable(Klondike ${SOURCE_FILES})
 target_link_libraries(Klondike GameLib KlondikeConsoleViewLib localControllersLib localizationLib)
 add_custom_command(TARGET Klondike POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/config $<TARGET_FILE_DIR:Klondike>/config)
+add_custom_command(TARGET Klondike POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/savedGames $<TARGET_FILE_DIR:Klondike>/savedGames)

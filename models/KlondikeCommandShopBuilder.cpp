@@ -19,3 +19,44 @@ KlondikeCommandShop KlondikeCommandShopBuilder::createCommandShop(GameBoard &boa
     shop.addCommand(std::make_shared<FoundationToTableauCommand>(board.getFoundation(), board.getTableau(), score));
     return shop;
 }
+
+unsigned int KlondikeCommandShopBuilder::getCommandIndex(KlondikeCommand &command)
+{
+    command.accept(*this);
+    return index_;
+}
+
+void KlondikeCommandShopBuilder::visit(StockToWaistCommand &command)
+{
+    index_ = 0;
+}
+
+void KlondikeCommandShopBuilder::visit(WaistToStockCommand &command)
+{
+    index_ = 1;
+}
+
+void KlondikeCommandShopBuilder::visit(WaistToFoundationCommand &command)
+{
+    index_ = 2;
+}
+
+void KlondikeCommandShopBuilder::visit(WaistToTableauCommand &command)
+{
+    index_ = 3;
+}
+
+void KlondikeCommandShopBuilder::visit(TableauToFoundationCommand &command)
+{
+    index_ = 4;
+}
+
+void KlondikeCommandShopBuilder::visit(TableauToTableauCommand &command)
+{
+    index_ = 5;
+}
+
+void KlondikeCommandShopBuilder::visit(FoundationToTableauCommand &command)
+{
+    index_ = 6;
+}

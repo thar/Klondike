@@ -40,8 +40,7 @@ std::shared_ptr<controllers::ActionListController> controllers::local::GameActio
     {
         gameActionsController->addAction(std::make_shared<UndoGameAction>(undoRedoController));
         gameActionsController->addAction(std::make_shared<RedoGameAction>(undoRedoController));
-
-        gameActionsController->addAction(std::make_shared<SaveGameAction>(game_));
+        gameActionsController->addAction(std::make_shared<SaveGameAction>(undoRedoController));
         gameActionsController->addAction(std::make_shared<GiveUpGameAction>(gameController_));
         gameActionsController->addAction(std::make_shared<ExitGameAction>(gameController_));
     }

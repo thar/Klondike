@@ -14,6 +14,7 @@ namespace controllers
             void undo();
             void redo();
             void addCommand(std::shared_ptr<KlondikeCommand>);
+            void saveUndoList(UndoListSaver& undoListSaver);
         protected:
             void clearRedoStack();
         private:

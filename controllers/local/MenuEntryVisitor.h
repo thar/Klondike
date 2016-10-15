@@ -11,6 +11,7 @@ namespace controllers
         class GiveUpGameAction;
         class ExitGameAction;
         class DeckAction;
+        class SaveGameAction;
     }
 }
 
@@ -23,6 +24,7 @@ public:
     virtual void visit(controllers::local::GiveUpGameAction &action) = 0;
     virtual void visit(controllers::local::ExitGameAction &action) = 0;
     virtual void visit(controllers::local::DeckAction &action) = 0;
+    virtual void visit(controllers::local::SaveGameAction &action) = 0;
 };
 
 

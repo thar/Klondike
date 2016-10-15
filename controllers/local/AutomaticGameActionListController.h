@@ -26,6 +26,7 @@ namespace controllers
             void visit(GiveUpGameAction &entry) {}
             void visit(ExitGameAction &entry) {}
             void visit(DeckAction &entry) {}
+            void visit(SaveGameAction &entry) {}
         protected:
         private:
             Game& game_;

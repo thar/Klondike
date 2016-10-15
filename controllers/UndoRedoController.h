@@ -2,6 +2,7 @@
 #define KLONDIKE_UNDOREDOCONTROLLER_H
 
 #include <memory>
+#include "UndoListSaver.h"
 #include "../models/KlondikeCommand.h"
 
 namespace controllers
@@ -12,6 +13,7 @@ namespace controllers
         virtual void undo() = 0;
         virtual void redo() = 0;
         virtual void addCommand(std::shared_ptr<KlondikeCommand>) = 0;
+        virtual void saveUndoList(UndoListSaver& undoListSaver) = 0;
     protected:
     private:
     };

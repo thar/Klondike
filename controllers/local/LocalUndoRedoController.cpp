@@ -1,4 +1,5 @@
 #include "LocalUndoRedoController.h"
+#include "../../models/KlondikeCommandShopBuilder.h"
 
 void controllers::local::LocalUndoRedoController::undo()
 {
@@ -27,4 +28,12 @@ void controllers::local::LocalUndoRedoController::clearRedoStack()
 {
     std::list<std::shared_ptr<KlondikeCommand>> tempStack;
     std::swap(redoStack_, tempStack);
+}
+
+void controllers::local::LocalUndoRedoController::saveUndoList(controllers::UndoListSaver &undoListSaver)
+{
+    for (auto& movement : undoStack_)
+    {
+        undoListSaver.addCommand(*movement);
+    }
 }

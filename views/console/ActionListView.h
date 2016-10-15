@@ -29,6 +29,7 @@ namespace views
             void visit(controllers::local::GiveUpGameAction &entry) {}
             void visit(controllers::local::ExitGameAction &entry) {}
             void visit(controllers::local::DeckAction &entry) {}
+            void visit(controllers::local::SaveGameAction &entry);
 
         protected:
         private:

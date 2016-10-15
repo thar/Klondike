@@ -1,5 +1,6 @@
 #include "ActionListView.h"
 #include "Localization.h"
+#include "../../controllers/local/SaveGameAction.h"
 
 void views::console::ActionListView::interact(controllers::ActionListController &controller)
 {
@@ -38,4 +39,33 @@ std::shared_ptr<MenuEntry> views::console::ActionListView::getUserInput(controll
         std::cin >> option;
     } while (0 >= option || size < option);
     return *(controller.begin() + (option - 1));
+}
+
+void views::console::ActionListView::visit(controllers::local::SaveGameAction &entry)
+{
+    std::string fileName;
+    bool fileNameStored;
+    do
+    {
+        std::cout << "Enter file name: " << std::endl;
+        std::cin >> fileName;
+        fileNameStored = entry.setFileName(fileName, false);
+        if (!fileNameStored)
+        {
+            std::cout << "File exists. What do you want to do?" << std::endl;
+            int option = 0;
+            do
+            {
+                if (0 >= option || 2 < option)
+                    std::cout << Localization::getInstance().getValue(localization::OPTION_IN_RANGE) << std::endl;
+                std::cout << "0 -> Enter new name" << std::endl;
+                std::cout << "1 -> Overwrite" << std::endl;
+                std::cin >> option;
+            } while (0 >= option || 2 < option);
+            if (option == 1)
+            {
+                fileNameStored = entry.setFileName(fileName, true);
+            }
+        }
+    } while(!fileNameStored);
 }

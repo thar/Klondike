@@ -3,6 +3,7 @@
 
 #include "PilesGroup.h"
 #include "KlondikeCommandVisitor.h"
+#include "KlondikeCommandSaver.h"
 #include <memory>
 
 class KlondikeCommand
@@ -30,6 +31,13 @@ public:
 
     void setCardsToMove(unsigned int cardsToMove)
     { cardsToMove_ = cardsToMove; }
+
+    void save(KlondikeCommandSaver& saver)
+    {
+        saver.addOrigin(originPile_);
+        saver.addDestiny(destinyPile_);
+        saver.addNumberOfCards(cardsToMove_);
+    }
 
 protected:
     KlondikeCommand(int &score, int movementScore)
