@@ -11,7 +11,7 @@ void views::console::KlondikeCommandGameActionView::visit(FoundationToTableauCom
     command.setOriginPile(getOptionsInput(Localization::getInstance().getValue(localization::ORIGIN_PILE), command.getOriginPiles()));
     command.setDestinyPile((getOptionsInput(Localization::getInstance().getValue(localization::DESTINY_PILE), command.getDestinyPiles())));
 }
-void views::console::KlondikeCommandGameActionView::visit(StockToWaistCommand& command)
+void views::console::KlondikeCommandGameActionView::visit(StockToWasteCommand& command)
 {
 
 }
@@ -25,15 +25,15 @@ void views::console::KlondikeCommandGameActionView::visit(TableauToTableauComman
     command.setCardsToMove(getUserInput( Localization::getInstance().getValue(localization::NUMBER_OF_CARDS) + ": "));
     command.setDestinyPile((getOptionsInput(Localization::getInstance().getValue(localization::DESTINY_PILE), command.getDestinyPiles())));
 }
-void views::console::KlondikeCommandGameActionView::visit(WaistToFoundationCommand& command)
+void views::console::KlondikeCommandGameActionView::visit(WasteToFoundationCommand& command)
 {
 
 }
-void views::console::KlondikeCommandGameActionView::visit(WaistToStockCommand& command)
+void views::console::KlondikeCommandGameActionView::visit(WasteToStockCommand& command)
 {
 
 }
-void views::console::KlondikeCommandGameActionView::visit(WaistToTableauCommand& command)
+void views::console::KlondikeCommandGameActionView::visit(WasteToTableauCommand& command)
 {
     command.setDestinyPile((getOptionsInput(Localization::getInstance().getValue(localization::DESTINY_PILE), command.getDestinyPiles())));
 }

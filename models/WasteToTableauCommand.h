@@ -2,16 +2,16 @@
 #define KLONDIKE_WAISTTOTABLEAU_H
 
 #include "KlondikeCommand.h"
-#include "Waist.h"
+#include "Waste.h"
 #include "Tableau.h"
 
-class WaistToTableauCommand : public KlondikeCommand
+class WasteToTableauCommand : public KlondikeCommand
 {
 public:
-    WaistToTableauCommand(Waist &waist, Tableau &tableau, int &score) : KlondikeCommand(score, 5), origin_(waist),
+    WasteToTableauCommand(Waste &waist, Tableau &tableau, int &score) : KlondikeCommand(score, 5), origin_(waist),
                                                                         destiny_(tableau)
     {
-        originPile_ = Waist::pileName;
+        originPile_ = Waste::pileName;
     }
 
     void __execute();
@@ -27,7 +27,7 @@ public:
     std::set<std::string> getDestinyPiles() { return destiny_.getPilesNames(); }
 
 private:
-    Waist &origin_;
+    Waste &origin_;
     Tableau &destiny_;
 };
 

@@ -55,26 +55,26 @@ void controllers::local::GameActionsControllerBuilder::addKlondikeCommandGameAct
                     Localization::getInstance().getValue(localization::MOVE_FROM) + " " +
                             Localization::getInstance().getValue(localization::STOCK) + " " +
                             Localization::getInstance().getValue(localization::MOVE_TO) + " " +
-                            Localization::getInstance().getValue(localization::WAIST), game_.getCommand(0),
+                            Localization::getInstance().getValue(localization::WASTE), game_.getCommand(0),
                                                         undoRedoController));
     gameActionsController.addAction(
             std::make_shared<KlondikeCommandGameAction>(
                     Localization::getInstance().getValue(localization::MOVE_FROM) + " " +
-                    Localization::getInstance().getValue(localization::WAIST) + " " +
+                    Localization::getInstance().getValue(localization::WASTE) + " " +
                     Localization::getInstance().getValue(localization::MOVE_TO) + " " +
                     Localization::getInstance().getValue(localization::STOCK), game_.getCommand(1),
                                                         undoRedoController));
     gameActionsController.addAction(
             std::make_shared<KlondikeCommandGameAction>(
                     Localization::getInstance().getValue(localization::MOVE_FROM) + " " +
-                    Localization::getInstance().getValue(localization::WAIST) + " " +
+                    Localization::getInstance().getValue(localization::WASTE) + " " +
                     Localization::getInstance().getValue(localization::MOVE_TO) + " " +
                     Localization::getInstance().getValue(localization::FOUNDATION), game_.getCommand(2),
                                                         undoRedoController));
     gameActionsController.addAction(
             std::make_shared<KlondikeCommandGameAction>(
                     Localization::getInstance().getValue(localization::MOVE_FROM) + " " +
-                    Localization::getInstance().getValue(localization::WAIST) + " " +
+                    Localization::getInstance().getValue(localization::WASTE) + " " +
                     Localization::getInstance().getValue(localization::MOVE_TO) + " " +
                     Localization::getInstance().getValue(localization::TABLEAU), game_.getCommand(3),
                                                         undoRedoController));

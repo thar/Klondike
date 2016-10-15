@@ -3,16 +3,16 @@
 
 
 #include "KlondikeCommand.h"
-#include "Waist.h"
+#include "Waste.h"
 #include "Foundation.h"
 
-class WaistToFoundationCommand : public KlondikeCommand
+class WasteToFoundationCommand : public KlondikeCommand
 {
 public:
-    WaistToFoundationCommand(Waist &waist, Foundation &foundation, int &score) : KlondikeCommand(score, 10),
+    WasteToFoundationCommand(Waste &waist, Foundation &foundation, int &score) : KlondikeCommand(score, 10),
                                                                                  origin_(waist), destiny_(foundation)
     {
-        originPile_ = Waist::pileName;
+        originPile_ = Waste::pileName;
     }
     void __execute();
     void __undo();
@@ -24,7 +24,7 @@ public:
     std::set<std::string> getDestinyPiles() { return destiny_.getPilesNames(); }
 
 private:
-    Waist &origin_;
+    Waste &origin_;
     Foundation &destiny_;
 
 };

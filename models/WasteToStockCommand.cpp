@@ -1,6 +1,6 @@
-#include "WaistToStockCommand.h"
+#include "WasteToStockCommand.h"
 
-void WaistToStockCommand::__execute()
+void WasteToStockCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 0;
@@ -17,7 +17,7 @@ void WaistToStockCommand::__execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void WaistToStockCommand::__undo()
+void WasteToStockCommand::__undo()
 {
     Pile tempPile = destiny_.actionPopAll(destinyPile_);
     tempPile.turnCardsDown();
@@ -28,12 +28,12 @@ void WaistToStockCommand::__undo()
     origin_.actionPush(tempPile, originPile_);
 }
 
-void WaistToStockCommand::__validate()
+void WasteToStockCommand::__validate()
 {
     valid_ = destiny_.getRemainingCards(destinyPile_) == 0;
 }
 
-std::shared_ptr<KlondikeCommand> WaistToStockCommand::clone()
+std::shared_ptr<KlondikeCommand> WasteToStockCommand::clone()
 {
-    return std::make_shared<WaistToStockCommand>(*this);
+    return std::make_shared<WasteToStockCommand>(*this);
 }

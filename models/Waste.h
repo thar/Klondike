@@ -5,10 +5,10 @@
 #include "Pile.h"
 #include "PilesGroup.h"
 
-class Waist : public  PilesGroup
+class Waste : public  PilesGroup
 {
 public:
-    Waist();
+    Waste();
     static const std::string pileName;
     bool isCardPushable(const std::string &pileName, Card &card);
 

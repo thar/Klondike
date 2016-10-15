@@ -1,6 +1,6 @@
-#include "StockToWaistCommand.h"
+#include "StockToWasteCommand.h"
 
-void StockToWaistCommand::__execute()
+void StockToWasteCommand::__execute()
 {
     assert(valid_);
     Pile tempPile = origin_.actionPop(3, originPile_);
@@ -18,12 +18,12 @@ void StockToWaistCommand::__execute()
     tempDestinyPileCards.turnCardsDown();
     destinyPileCards.turnCardsDown();
 
-    destiny_.actionPush(tempDestinyPileCards, Waist::pileName);
-    destiny_.actionPush(destinyPileCards, Waist::pileName);
+    destiny_.actionPush(tempDestinyPileCards, Waste::pileName);
+    destiny_.actionPush(destinyPileCards, Waste::pileName);
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void StockToWaistCommand::__undo()
+void StockToWasteCommand::__undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     destiny_.actionPop(destinyPileCards.size(), destinyPile_);
@@ -34,12 +34,12 @@ void StockToWaistCommand::__undo()
     origin_.actionPush(tempPile, originPile_);
 }
 
-void StockToWaistCommand::__validate()
+void StockToWasteCommand::__validate()
 {
     valid_ = origin_.getRemainingCards(originPile_) > 0;
 }
 
-std::shared_ptr<KlondikeCommand> StockToWaistCommand::clone()
+std::shared_ptr<KlondikeCommand> StockToWasteCommand::clone()
 {
-    return std::make_shared<StockToWaistCommand>(*this);
+    return std::make_shared<StockToWasteCommand>(*this);
 }

@@ -6,7 +6,7 @@
 #include "Foundation.h"
 #include "Tableau.h"
 #include "Stock.h"
-#include "Waist.h"
+#include "Waste.h"
 
 class GameBoard
 {
@@ -31,7 +31,7 @@ public:
         return stock_;
     }
 
-    Waist &getWaist()
+    Waste &getWaist()
     {
         return waist_;
     }
@@ -47,7 +47,7 @@ private:
     Foundation foundation_;
     Tableau tableau_;
     Stock stock_;
-    Waist waist_;
+    Waste waist_;
 
     friend std::ostream& operator<<(std::ostream& os, const GameBoard& obj);
 

@@ -1,8 +1,8 @@
 #include "KlondikeCommandShopBuilder.h"
-#include "StockToWaistCommand.h"
-#include "WaistToStockCommand.h"
-#include "WaistToFoundationCommand.h"
-#include "WaistToTableauCommand.h"
+#include "StockToWasteCommand.h"
+#include "WasteToStockCommand.h"
+#include "WasteToFoundationCommand.h"
+#include "WasteToTableauCommand.h"
 #include "TableauToFoundationCommand.h"
 #include "TableauToTableauCommand.h"
 #include "FoundationToTableauCommand.h"
@@ -10,10 +10,10 @@
 KlondikeCommandShop KlondikeCommandShopBuilder::createCommandShop(GameBoard &board, int& score)
 {
     KlondikeCommandShop shop;
-    shop.addCommand(std::make_shared<StockToWaistCommand>(board.getStock(), board.getWaist(), score));
-    shop.addCommand(std::make_shared<WaistToStockCommand>(board.getStock(), board.getWaist(), score));
-    shop.addCommand(std::make_shared<WaistToFoundationCommand>(board.getWaist(), board.getFoundation(), score));
-    shop.addCommand(std::make_shared<WaistToTableauCommand>(board.getWaist(), board.getTableau(), score));
+    shop.addCommand(std::make_shared<StockToWasteCommand>(board.getStock(), board.getWaist(), score));
+    shop.addCommand(std::make_shared<WasteToStockCommand>(board.getStock(), board.getWaist(), score));
+    shop.addCommand(std::make_shared<WasteToFoundationCommand>(board.getWaist(), board.getFoundation(), score));
+    shop.addCommand(std::make_shared<WasteToTableauCommand>(board.getWaist(), board.getTableau(), score));
     shop.addCommand(std::make_shared<TableauToFoundationCommand>(board.getTableau(), board.getFoundation(), score));
     shop.addCommand(std::make_shared<TableauToTableauCommand>(board.getTableau(), board.getTableau(), score));
     shop.addCommand(std::make_shared<FoundationToTableauCommand>(board.getFoundation(), board.getTableau(), score));
@@ -26,22 +26,22 @@ unsigned int KlondikeCommandShopBuilder::getCommandIndex(KlondikeCommand &comman
     return index_;
 }
 
-void KlondikeCommandShopBuilder::visit(StockToWaistCommand &command)
+void KlondikeCommandShopBuilder::visit(StockToWasteCommand &command)
 {
     index_ = 0;
 }
 
-void KlondikeCommandShopBuilder::visit(WaistToStockCommand &command)
+void KlondikeCommandShopBuilder::visit(WasteToStockCommand &command)
 {
     index_ = 1;
 }
 
-void KlondikeCommandShopBuilder::visit(WaistToFoundationCommand &command)
+void KlondikeCommandShopBuilder::visit(WasteToFoundationCommand &command)
 {
     index_ = 2;
 }
 
-void KlondikeCommandShopBuilder::visit(WaistToTableauCommand &command)
+void KlondikeCommandShopBuilder::visit(WasteToTableauCommand &command)
 {
     index_ = 3;
 }

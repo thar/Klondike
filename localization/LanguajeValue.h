@@ -12,7 +12,7 @@ namespace localization
         DECK,
         OPTION,
         STOCK,
-        WAIST,
+        WASTE,
         FOUNDATION,
         TABLEAU,
         MOVE_FROM,
