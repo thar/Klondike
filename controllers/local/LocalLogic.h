@@ -2,6 +2,7 @@
 #define KLONDIKE_LOCALLOGIC_H
 
 #include <memory>
+#include <iostream>
 #include "../GameController.h"
 #include "../ActionListController.h"
 #include "../AbandonController.h"
@@ -49,6 +50,11 @@ namespace controllers
             void save(GameSaver& gameSaver);
             void restore(controllers::GameSaver &gameSaver);
 
+            void registerSignalHandler();
+            static void signalHandler (int signum){
+                instance->abandonGame();
+            }
+
         protected:
 
         private:
@@ -57,6 +63,7 @@ namespace controllers
             std::shared_ptr<Game> game_;
             std::string deckPath_;
             unsigned int randomSeed_;
+            static LocalLogic* instance;
         };
     }
 }

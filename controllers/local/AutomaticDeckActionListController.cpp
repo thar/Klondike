@@ -1,5 +1,6 @@
 #include <Localization.h>
 #include "AutomaticDeckActionListController.h"
+#include "../../utils/RandomSelector.h"
 
 
 controllers::local::AutomaticDeckActionListController::AutomaticDeckActionListController()
@@ -14,5 +15,5 @@ void controllers::local::AutomaticDeckActionListController::accept(controllers::
 }
 std::shared_ptr<MenuEntry> controllers::local::AutomaticDeckActionListController::getAutomaticAction()
 {
-    return entryList_[0];
+    return *select_randomly(entryList_.begin(), entryList_.end());
 }

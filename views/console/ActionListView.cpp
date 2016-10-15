@@ -14,7 +14,7 @@ void views::console::ActionListView::automaticInteract(controllers::ActionListCo
     HeaderActionListView().show(controller.getHeader());
     printMenu(controller);
     std::shared_ptr<MenuEntry> entry = controller.getAutomaticAction();
-    std::cout << Localization::getInstance().getValue(localization::SELECTED_ACTION) << entry->getName() << std::endl;
+    std::cout << Localization::getInstance().getValue(localization::SELECTED_ACTION) << ": " << entry->getName() << std::endl;
     entry->doAction();
 }
 void views::console::ActionListView::printMenu(controllers::ActionListController &controller)
