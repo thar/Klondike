@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include "PlayerType.h"
+#include "GameSaver.h"
 
 namespace controllers
 {
@@ -17,6 +18,7 @@ namespace controllers
         virtual void exitGame() = 0;
         virtual void abandonGame() = 0;
         virtual void setRandomNumberGeneratorSeed(unsigned int seed) = 0;
+        virtual void save(GameSaver& gameSaver) = 0;
     protected:
     private:
     };

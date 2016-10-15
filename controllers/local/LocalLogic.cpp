@@ -7,7 +7,7 @@
 
 controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), playerType_(UNINITIALIZED), deckController_(nullptr), gameActionsController_(nullptr),
                loadGameController_(nullptr), startGameController_(nullptr), abandonController_(nullptr),
-               exitController_(nullptr), game_(nullptr), abruptExit_(false)
+               exitController_(nullptr), game_(nullptr), randomSeed_(0), deckPath_(""), abruptExit_(false)
 {
     playerChooseController_ = PlayerChooseControllerBuilder(*this).getPlayerChooseController();
     exitController_ = ExitControllerBuilder(*this).getExitController();
@@ -49,10 +49,10 @@ void controllers::local::LocalLogic::setPlayer(PlayerType playerType)
     playerType_ = playerType;
     deckController_ = DeckControllerBuilder(*this, playerType_).getDeckController();
     gameState_ = playerType == USER ? GAME_NOT_STARTED : GAME_NEW;
-    //loadGameController_ = LoadGameControllerBuilder(*playerController_, *this).getGameControllerBuilder():
 }
 void controllers::local::LocalLogic::setDeck(std::string deckPath)
 {
+    deckPath_ = deckPath;
     game_ = std::make_shared<Game>(GameDeck(deckPath));
     gameActionsController_ = GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
     gameState_ = GAME_STARTED;
@@ -86,4 +86,11 @@ void controllers::local::LocalLogic::newGame()
 void controllers::local::LocalLogic::loadGame()
 {
     gameState_ = GAME_LOAD;
+    //loadGameController_ = LoadGameControllerBuilder(*playerController_, *this).getGameControllerBuilder():
+}
+
+void controllers::local::LocalLogic::save(controllers::GameSaver &gameSaver)
+{
+    gameSaver.addDeckPath(deckPath_);
+    gameSaver.addRandomSeed(randomSeed_);
 }
