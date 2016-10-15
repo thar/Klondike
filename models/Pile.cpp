@@ -2,7 +2,6 @@
 
 void Pile::shuffle()
 {
-    std::srand(time(0));
     std::random_shuffle(std::begin(cards_), std::end(cards_));
 }
 

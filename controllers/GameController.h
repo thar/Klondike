@@ -19,6 +19,7 @@ namespace controllers
         virtual void abandonGame() = 0;
         virtual void setRandomNumberGeneratorSeed(unsigned int seed) = 0;
         virtual void save(GameSaver& gameSaver) = 0;
+        virtual void restore(GameSaver& gameSaver) = 0;
     protected:
     private:
     };

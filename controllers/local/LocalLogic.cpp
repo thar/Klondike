@@ -3,6 +3,7 @@
 #include "UserActionListController.h"
 #include "StartGameControllerBuilder.h"
 #include "ExitControllerBuilder.h"
+#include "LoadGameControllerBuilder.h"
 
 
 controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), playerType_(UNINITIALIZED), deckController_(nullptr), gameActionsController_(nullptr),
@@ -86,11 +87,19 @@ void controllers::local::LocalLogic::newGame()
 void controllers::local::LocalLogic::loadGame()
 {
     gameState_ = GAME_LOAD;
-    //loadGameController_ = LoadGameControllerBuilder(*playerController_, *this).getGameControllerBuilder():
+    loadGameController_ = LoadGameControllerBuilder(*this).getLoadController();
 }
 
 void controllers::local::LocalLogic::save(controllers::GameSaver &gameSaver)
 {
     gameSaver.addDeckPath(deckPath_);
     gameSaver.addRandomSeed(randomSeed_);
+}
+
+void controllers::local::LocalLogic::restore(controllers::GameSaver &gameSaver)
+{
+    setRandomNumberGeneratorSeed(gameSaver.getRandomSeed());
+    setDeck(gameSaver.getDeckPath());
+    gameSaver.restoreCommands(*game_);
+    //restore each command
 }
