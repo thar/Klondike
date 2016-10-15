@@ -3,7 +3,7 @@
 #include "LocalGameSaver.h"
 
 controllers::local::GameFromFileAction::GameFromFileAction(std::string filePath, controllers::GameController &controller) :
-        MenuEntry(filePath), filePath_(filePath), controller_(controller)
+        MenuEntry(filePath.substr(filePath.find_last_of("/") + 1)), filePath_(filePath), controller_(controller)
 {
 
 }
