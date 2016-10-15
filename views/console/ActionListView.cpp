@@ -47,22 +47,22 @@ void views::console::ActionListView::visit(controllers::local::SaveGameAction &e
     bool fileNameStored;
     do
     {
-        std::cout << "Enter file name: " << std::endl;
+        std::cout << Localization::getInstance().getValue(localization::FILE_NAME) << ": " << std::endl;
         std::cin >> fileName;
         fileNameStored = entry.setFileName(fileName, false);
         if (!fileNameStored)
         {
-            std::cout << "File exists. What do you want to do?" << std::endl;
+            std::cout << Localization::getInstance().getValue(localization::FILE_EXISTS) << std::endl;
             int option = 0;
             do
             {
                 if (0 >= option || 2 < option)
                     std::cout << Localization::getInstance().getValue(localization::OPTION_IN_RANGE) << std::endl;
-                std::cout << "0 -> Enter new name" << std::endl;
-                std::cout << "1 -> Overwrite" << std::endl;
+                std::cout << "1 ->" << Localization::getInstance().getValue(localization::NEW_FILE_NAME) << std::endl;
+                std::cout << "2 ->" << Localization::getInstance().getValue(localization::FILE_OVERWRITE) << std::endl;
                 std::cin >> option;
             } while (0 >= option || 2 < option);
-            if (option == 1)
+            if (option == 2)
             {
                 fileNameStored = entry.setFileName(fileName, true);
             }

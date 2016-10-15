@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <glob.h>
+#include <sys/stat.h>
 
 
 inline std::vector<std::string> globVector(const std::string& pattern){
@@ -16,6 +17,11 @@ inline std::vector<std::string> globVector(const std::string& pattern){
     }
     globfree(&glob_result);
     return files;
+}
+
+inline bool fileExists (const std::string& filePath) {
+    struct stat buffer;
+    return (stat (filePath.c_str(), &buffer) == 0);
 }
 
 

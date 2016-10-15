@@ -34,4 +34,11 @@ Localization::Localization()
     languajeValuesMap_[DESTINY_PILE] = "Destiny pile";
     languajeValuesMap_[SELECTED_ACTION] = "Selected action";
     languajeValuesMap_[OPTION_IN_RANGE] = "Please, chose an option in range";
+    languajeValuesMap_[FILE_NAME] = "Enter file name";
+    languajeValuesMap_[FILE_EXISTS] = "File exists. What do you want to do?";
+    languajeValuesMap_[NEW_FILE_NAME] = "Enter new name";
+    languajeValuesMap_[FILE_OVERWRITE] = "Overwrite";
+    languajeValuesMap_[CHOOSE_FILE] = "Choose file";
+    languajeValuesMap_[NEW_GAME] = "New game";
+    languajeValuesMap_[LOAD_GAME] = "Load game";
 }

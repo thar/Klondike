@@ -1,8 +1,9 @@
 
+#include <Localization.h>
 #include "NewGameAction.h"
 
 controllers::local::NewGameAction::NewGameAction(controllers::GameController &controller) :
-        MenuEntry("New game"), controller_(controller)
+        MenuEntry(Localization::getInstance().getValue(localization::NEW_GAME)), controller_(controller)
 {
 
 }

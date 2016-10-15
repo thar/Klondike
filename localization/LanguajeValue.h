@@ -27,6 +27,13 @@ namespace localization
         DESTINY_PILE,
         SELECTED_ACTION,
         OPTION_IN_RANGE,
+        FILE_NAME,
+        FILE_EXISTS,
+        NEW_FILE_NAME,
+        FILE_OVERWRITE,
+        CHOOSE_FILE,
+        NEW_GAME,
+        LOAD_GAME,
     };
 }
 
