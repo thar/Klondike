@@ -22,6 +22,16 @@ namespace controllers
         class LocalLogic : public ::Logic, public controllers::GameController
         {
         public:
+            enum GameState
+            {
+                PLAYER_NOT_SELECTED,
+                GAME_NOT_STARTED,
+                GAME_NEW,
+                GAME_LOAD,
+                GAME_STARTED,
+                GAME_FINISHED
+            };
+
             LocalLogic();
 
             std::shared_ptr<controllers::OperationController> getOperationController();
@@ -35,15 +45,16 @@ namespace controllers
         protected:
 
         private:
+            GameState gameState_;
             PlayerType playerType_;
             std::shared_ptr<controllers::ActionListController> playerChooseController_;
             std::shared_ptr<controllers::ActionListController> deckController_;
             std::shared_ptr<controllers::ActionListController> gameActionsController_;
             std::shared_ptr<controllers::ActionListController> loadGameController_;
+            std::shared_ptr<controllers::ActionListController> startGameController_;
             std::shared_ptr<controllers::AbandonController> abandonController_;
             //std::shared_ptr<controllers::ExitController> exitController_;
             std::shared_ptr<controllers::ActionListController> exitController_;
-            std::shared_ptr<controllers::ScoreController> scoreController_;
             std::shared_ptr<Game> game_;
             bool abruptExit_;
             unsigned int randomSeed_;
