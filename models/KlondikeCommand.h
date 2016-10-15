@@ -62,6 +62,7 @@ protected:
     const int movementScore_;
     std::string originPile_;
     std::string destinyPile_;
+    static int turnOverScore;
 };
 
 
