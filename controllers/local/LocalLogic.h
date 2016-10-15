@@ -30,7 +30,8 @@ namespace controllers
                 GAME_LOAD,
                 GAME_STARTED,
                 GAME_ABANDONED,
-                GAME_FINISHED
+                GAME_FINISHED,
+                ABRUPT_EXIT,
             };
 
             LocalLogic();
@@ -43,6 +44,7 @@ namespace controllers
             void setDeck(std::string deckPath);
             void exitGame();
             void abandonGame();
+            void restart();
             void setRandomNumberGeneratorSeed(unsigned int seed);
             void save(GameSaver& gameSaver);
             void restore(controllers::GameSaver &gameSaver);
@@ -52,15 +54,7 @@ namespace controllers
         private:
             GameState gameState_;
             PlayerType playerType_;
-            std::shared_ptr<controllers::ActionListController> playerChooseController_;
-            std::shared_ptr<controllers::ActionListController> deckController_;
-            std::shared_ptr<controllers::ActionListController> gameActionsController_;
-            std::shared_ptr<controllers::ActionListController> loadGameController_;
-            std::shared_ptr<controllers::ActionListController> startGameController_;
-            std::shared_ptr<controllers::AbandonController> abandonController_;
-            std::shared_ptr<controllers::ActionListController> exitController_;
             std::shared_ptr<Game> game_;
-            bool abruptExit_;
             std::string deckPath_;
             unsigned int randomSeed_;
         };
