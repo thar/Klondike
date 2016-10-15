@@ -18,7 +18,7 @@ void WasteToTableauCommand::__validate()
 {
     cardsToMove_ = 1;
     Pile tempPile = origin_.actionPop(cardsToMove_, originPile_);
-    if (destiny_.isCardPushable(destinyPile_, tempPile.front()))
+    if (tempPile.size() > 0 && destiny_.isCardPushable(destinyPile_, tempPile.front()))
     {
         valid_ = true;
     }

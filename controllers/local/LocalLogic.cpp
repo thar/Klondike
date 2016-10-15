@@ -5,10 +5,14 @@
 #include "ExitControllerBuilder.h"
 #include "LoadGameControllerBuilder.h"
 
+#include <signal.h>
+
+controllers::local::LocalLogic* controllers::local::LocalLogic::instance = nullptr;
 
 controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), playerType_(UNINITIALIZED),
                game_(nullptr), randomSeed_(0), deckPath_("")
 {
+    registerSignalHandler();
 };
 
 std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic::getOperationController()
@@ -26,11 +30,6 @@ std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic
         case GAME_STARTED:
             if(!game_->isFinished())
                 return GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
-            else
-            {
-                gameState_ = GAME_FINISHED;
-                return std::make_shared<controllers::local::LocalScoreController>(game_);
-            }
         case GAME_ABANDONED:
             gameState_ = GAME_FINISHED;
             return std::make_shared<controllers::local::LocalScoreController>(game_);
@@ -98,4 +97,16 @@ void controllers::local::LocalLogic::restore(controllers::GameSaver &gameSaver)
     setRandomNumberGeneratorSeed(gameSaver.getRandomSeed());
     setDeck(gameSaver.getDeckPath());
     gameSaver.restoreCommands(*game_);
+}
+
+void controllers::local::LocalLogic::registerSignalHandler()
+{
+    controllers::local::LocalLogic::instance = this;
+    struct sigaction sigIntHandler;
+
+    sigIntHandler.sa_handler = controllers::local::LocalLogic::signalHandler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+
+    sigaction(SIGINT, &sigIntHandler, NULL);
 }

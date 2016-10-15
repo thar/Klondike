@@ -30,6 +30,7 @@ std::shared_ptr<controllers::ActionListController> controllers::local::GameActio
             break;
         case DEMO:
             gameActionsController = std::make_shared<controllers::local::AutomaticGameActionListController>(game_);
+            gameActionsController->setHeader(std::make_shared<GameActionListHeader>(game_));
             break;
         default:
             return nullptr;
