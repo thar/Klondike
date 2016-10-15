@@ -7,7 +7,6 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 #include <cereal/archives/json.hpp>
-//#include <iostream>
 #include <fstream>
 
 namespace controllers
@@ -33,6 +32,18 @@ namespace controllers
             void addOrigin(std::string origin);
             void addDestiny(std::string destiny);
             void addNumberOfCards(unsigned int numberOfCards);
+            unsigned int getRandomSeed();
+            std::string getDeckPath();
+            void restoreCommands(Game& game);
+            void load()
+            {
+                std::ifstream inputstream(fileName_);
+                {
+                    cereal::JSONInputArchive input(inputstream);
+                    input(*this);
+                }
+                inputstream.close();
+            }
 
             template<class Archive>
             void serialize(Archive & archive)

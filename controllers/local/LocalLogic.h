@@ -44,6 +44,7 @@ namespace controllers
             void abandonGame();
             void setRandomNumberGeneratorSeed(unsigned int seed);
             void save(GameSaver& gameSaver);
+            void restore(controllers::GameSaver &gameSaver);
 
         protected:
 

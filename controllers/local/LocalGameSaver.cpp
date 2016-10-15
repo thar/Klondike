@@ -38,3 +38,26 @@ void controllers::local::LocalGameSaver::addDeckPath(std::string deckPath)
 {
     deckFilePath_ = deckPath;
 }
+
+unsigned int controllers::local::LocalGameSaver::getRandomSeed()
+{
+    return seed_;
+}
+
+std::string controllers::local::LocalGameSaver::getDeckPath()
+{
+    return deckFilePath_;
+}
+
+void controllers::local::LocalGameSaver::restoreCommands(Game &game)
+{
+    for (auto& commandData : commandList_)
+    {
+        auto command = game.getCommand(commandData.index);
+        command->setOriginPile(commandData.origin);
+        command->setDestinyPile(commandData.destiny);
+        command->setCardsToMove(commandData.numberOfCards);
+        command->validate();
+        command->execute();
+    }
+}
