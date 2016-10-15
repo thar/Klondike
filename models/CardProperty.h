@@ -14,6 +14,10 @@ protected:
     {
         return value_;
     }
+    std::string getPropertyString() const
+    {
+        return propertyString_;
+    }
 
 private:
     int value_;

@@ -4,7 +4,7 @@
 
 #include "../../utils/MenuEntry.h"
 #include "../GameController.h"
-#include "../../models/Game.h"
+#include "../UndoRedoController.h"
 
 namespace controllers
 {
@@ -13,12 +13,15 @@ namespace controllers
         class SaveGameAction : public MenuEntry
         {
         public:
-            SaveGameAction(Game& game);
+            SaveGameAction(std::shared_ptr<controllers::UndoRedoController> undoRedoController);
             void doAction();
             void accept(MenuEntryVisitor &menuEntryVisitor);
+            bool setFileName(std::string fileName, bool overwrite);
         protected:
         private:
-            Game& game_;
+            static std::string gamesFolder;
+            std::string fileName_;
+            std::shared_ptr<controllers::UndoRedoController> undoRedoController_;
         };
     }
 }
