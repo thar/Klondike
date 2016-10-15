@@ -29,6 +29,7 @@ namespace controllers
                 GAME_NEW,
                 GAME_LOAD,
                 GAME_STARTED,
+                GAME_ABANDONED,
                 GAME_FINISHED
             };
 

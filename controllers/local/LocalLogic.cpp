@@ -39,6 +39,9 @@ std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic
                     gameState_ = GAME_FINISHED;
                     return std::make_shared<controllers::local::LocalScoreController>(game_);
                 }
+            case GAME_ABANDONED:
+                gameState_ = GAME_FINISHED;
+                return std::make_shared<controllers::local::LocalScoreController>(game_);
             case GAME_FINISHED:
                 return exitController_;
         }
@@ -68,9 +71,8 @@ void controllers::local::LocalLogic::exitGame()
 void controllers::local::LocalLogic::abandonGame()
 {
     playerType_ = UNINITIALIZED;
-    game_.reset();
     abruptExit_ = false;
-    gameState_ = PLAYER_NOT_SELECTED;
+    gameState_ = GAME_ABANDONED;
 }
 
 void controllers::local::LocalLogic::setRandomNumberGeneratorSeed(unsigned int seed)
