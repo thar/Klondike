@@ -10,6 +10,7 @@ void TableauToFoundationCommand::__execute()
     {
         tempLastOriginCard.turnCardsUp();
         turnOriginCard_ = true;
+        score_ += KlondikeCommand::turnOverScore;
     }
     origin_.actionPush(tempLastOriginCard, originPile_);
     destinyPile_ = tempPile.getSuit();
@@ -20,6 +21,7 @@ void TableauToFoundationCommand::__undo()
 {
     if (turnOriginCard_)
     {
+        score_ -= KlondikeCommand::turnOverScore;
         Pile tempLastOriginCard = origin_.actionPop(1, originPile_);
         tempLastOriginCard.turnCardsDown();
         origin_.actionPush(tempLastOriginCard, originPile_);
