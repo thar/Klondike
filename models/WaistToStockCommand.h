@@ -15,8 +15,8 @@ public:
         originPile_ = Waist::pileName;
         destinyPile_ = Stock::pileName;
     }
-    void execute();
-    void undo();
+    void __execute();
+    void __undo();
     void accept(KlondikeCommandVisitor& visitor) { visitor.visit(*this); }
     void __validate();
     std::shared_ptr<KlondikeCommand> clone();

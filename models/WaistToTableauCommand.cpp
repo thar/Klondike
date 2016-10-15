@@ -1,6 +1,6 @@
 #include "WaistToTableauCommand.h"
 
-void WaistToTableauCommand::execute()
+void WaistToTableauCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 1;
@@ -8,7 +8,7 @@ void WaistToTableauCommand::execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void WaistToTableauCommand::undo()
+void WaistToTableauCommand::__undo()
 {
     Pile tempPile = destiny_.actionPop(cardsToMove_, destinyPile_);
     origin_.actionPush(tempPile, originPile_);

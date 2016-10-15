@@ -1,6 +1,6 @@
 #include "TableauToFoundationCommand.h"
 
-void TableauToFoundationCommand::execute()
+void TableauToFoundationCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 1;
@@ -16,7 +16,7 @@ void TableauToFoundationCommand::execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void TableauToFoundationCommand::undo()
+void TableauToFoundationCommand::__undo()
 {
     if (turnOriginCard_)
     {

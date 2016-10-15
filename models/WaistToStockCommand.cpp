@@ -1,6 +1,6 @@
 #include "WaistToStockCommand.h"
 
-void WaistToStockCommand::execute()
+void WaistToStockCommand::__execute()
 {
     assert(valid_);
     cardsToMove_ = 0;
@@ -17,7 +17,7 @@ void WaistToStockCommand::execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void WaistToStockCommand::undo()
+void WaistToStockCommand::__undo()
 {
     Pile tempPile = destiny_.actionPopAll(destinyPile_);
     tempPile.turnCardsDown();

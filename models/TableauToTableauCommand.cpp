@@ -1,6 +1,6 @@
 #include "TableauToTableauCommand.h"
 
-void TableauToTableauCommand::execute()
+void TableauToTableauCommand::__execute()
 {
     assert(valid_);
     Pile tempPile = origin_.actionPop(cardsToMove_, originPile_);
@@ -14,7 +14,7 @@ void TableauToTableauCommand::execute()
     destiny_.actionPush(tempPile, destinyPile_);
 }
 
-void TableauToTableauCommand::undo()
+void TableauToTableauCommand::__undo()
 {
     if (turnOriginCard_)
     {
