@@ -2,6 +2,7 @@
 #include "UserActionListController.h"
 #include "StringActionListHeader.h"
 #include "GameFromFileAction.h"
+#include "pathUtils.h"
 
 controllers::local::LoadGameControllerBuilder::LoadGameControllerBuilder(controllers::GameController &gameController) :
     gameController_(gameController)
@@ -14,6 +15,10 @@ std::shared_ptr<controllers::ActionListController> controllers::local::LoadGameC
     std::shared_ptr<controllers::ActionListController> loadController =
             std::make_shared<controllers::local::UserActionListController>();
     loadController->setHeader(std::make_shared<StringActionListHeader>("Choose file"));
-    loadController->addAction(std::make_shared<GameFromFileAction>("savedGames/test1", gameController_));
+    auto existingFiles = globVector("savedGames/*");
+    for (auto& file : existingFiles)
+    {
+        loadController->addAction(std::make_shared<GameFromFileAction>(file, gameController_));
+    }
     return loadController;
 }
