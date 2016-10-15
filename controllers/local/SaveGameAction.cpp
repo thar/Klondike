@@ -3,6 +3,7 @@
 #include "SaveGameAction.h"
 #include "MenuEntryVisitor.h"
 #include "LocalGameSaver.h"
+#include "pathUtils.h"
 
 std::string controllers::local::SaveGameAction::gamesFolder("savedGames/");
 
@@ -27,7 +28,11 @@ void controllers::local::SaveGameAction::accept(MenuEntryVisitor &menuEntryVisit
 
 bool controllers::local::SaveGameAction::setFileName(std::string fileName, bool overwrite)
 {
-    //check if file exists
-    fileName_ = fileName;
-    return true;
+    if (fileExists(gamesFolder + fileName) && !overwrite)
+        return false;
+    else
+    {
+        fileName_ = fileName;
+        return true;
+    }
 }
