@@ -38,6 +38,7 @@ namespace localization
         FRENCH,
         SCORE,
         TOP_SCORE,
+        RESTART_GAME,
     };
 }
 

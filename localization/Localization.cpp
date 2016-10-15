@@ -45,4 +45,5 @@ Localization::Localization()
     languajeValuesMap_[FRENCH] = "French";
     languajeValuesMap_[TOP_SCORE] = "Top scores";
     languajeValuesMap_[SCORE] = "Score";
+    languajeValuesMap_[RESTART_GAME] = "Continue";
 }
