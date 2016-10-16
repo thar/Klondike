@@ -23,10 +23,14 @@ std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic
             return PlayerChooseControllerBuilder(*this).getPlayerChooseController();
         case GAME_NOT_STARTED:
             return StartGameControllerBuilder(*this).getStartGameController();
+        case GAME_LOAD:
+        {
+            auto loadGameController = LoadGameControllerBuilder(*this).getLoadController();
+            if (loadGameController != nullptr)
+                return loadGameController;
+        }
         case GAME_NEW:
             return DeckControllerBuilder(*this, playerType_).getDeckController();
-        case GAME_LOAD:
-            return LoadGameControllerBuilder(*this).getLoadController();
         case GAME_STARTED:
             if(!game_->isFinished())
                 return GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
