@@ -14,7 +14,6 @@ public:
 
 protected:
 private:
-    static const unsigned int pilesSize;
 
 };
 

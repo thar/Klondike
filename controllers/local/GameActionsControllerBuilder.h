@@ -18,7 +18,7 @@ namespace controllers
         protected:
             void addKlondikeCommandGameActions(controllers::ActionListController& gameActionsController, std::shared_ptr<UndoRedoController> undoRedoController);
             std::shared_ptr<controllers::ActionListController> newGameActionsController(PlayerType playerType);
-            void addUserSpecificGameActions(std::shared_ptr<controllers::ActionListController> gameActionsController, std::shared_ptr<UndoRedoController> undoRedoController);
+            void addUserSpecificGameActions(controllers::ActionListController& gameActionsController, std::shared_ptr<UndoRedoController> undoRedoController);
         private:
             Game& game_;
             GameController& gameController_;

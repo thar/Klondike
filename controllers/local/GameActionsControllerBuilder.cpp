@@ -27,7 +27,7 @@ std::shared_ptr<controllers::ActionListController> controllers::local::GameActio
     addKlondikeCommandGameActions(*gameActionsController, undoRedoController);
     if(USER == playerType)
     {
-        addUserSpecificGameActions(gameActionsController, undoRedoController);
+        addUserSpecificGameActions(*gameActionsController, undoRedoController);
     }
     return gameActionsController;
 }
@@ -108,11 +108,11 @@ controllers::local::GameActionsControllerBuilder::newGameActionsController(contr
 }
 
 void controllers::local::GameActionsControllerBuilder::addUserSpecificGameActions(
-        std::shared_ptr<controllers::ActionListController> gameActionsController, std::shared_ptr<UndoRedoController> undoRedoController)
+        controllers::ActionListController& gameActionsController, std::shared_ptr<UndoRedoController> undoRedoController)
 {
-    gameActionsController->addAction(std::make_shared<UndoGameAction>(undoRedoController));
-    gameActionsController->addAction(std::make_shared<RedoGameAction>(undoRedoController));
-    gameActionsController->addAction(std::make_shared<SaveGameAction>(gameController_, undoRedoController));
-    gameActionsController->addAction(std::make_shared<GiveUpGameAction>(gameController_));
-    gameActionsController->addAction(std::make_shared<ExitGameAction>(gameController_));
+    gameActionsController.addAction(std::make_shared<UndoGameAction>(undoRedoController));
+    gameActionsController.addAction(std::make_shared<RedoGameAction>(undoRedoController));
+    gameActionsController.addAction(std::make_shared<SaveGameAction>(gameController_, undoRedoController));
+    gameActionsController.addAction(std::make_shared<GiveUpGameAction>(gameController_));
+    gameActionsController.addAction(std::make_shared<ExitGameAction>(gameController_));
 }
