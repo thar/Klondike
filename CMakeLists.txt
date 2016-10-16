@@ -8,7 +8,7 @@ add_subdirectory(models)
 add_subdirectory(views)
 add_subdirectory(controllers)
 
-set(SOURCE_FILES main.cpp Klondike.cpp Klondike.h Logic.h View.h controllers/ScoreController.h controllers/GameSaver.h utils/RandomSelector.h)
+set(SOURCE_FILES main.cpp Klondike.cpp Klondike.h Logic.h View.h)
 add_executable(Klondike ${SOURCE_FILES})
 target_link_libraries(Klondike GameLib KlondikeConsoleViewLib localControllersLib localizationLib)
 add_custom_command(TARGET Klondike POST_BUILD
