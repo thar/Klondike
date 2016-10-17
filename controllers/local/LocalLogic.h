@@ -64,6 +64,7 @@ namespace controllers
             std::string deckPath_;
             unsigned int randomSeed_;
             static LocalLogic* instance;
+            std::shared_ptr<controllers::ActionListController> gameActionsController_;
         };
     }
 }

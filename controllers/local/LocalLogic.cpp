@@ -10,7 +10,7 @@
 controllers::local::LocalLogic* controllers::local::LocalLogic::instance = nullptr;
 
 controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), playerType_(UNINITIALIZED),
-               game_(nullptr), randomSeed_(0), deckPath_("")
+               game_(nullptr), randomSeed_(0), deckPath_(""), gameActionsController_(nullptr)
 {
     registerSignalHandler();
 };
@@ -33,7 +33,7 @@ std::shared_ptr<controllers::OperationController> controllers::local::LocalLogic
             return DeckControllerBuilder(*this, playerType_).getDeckController();
         case GAME_STARTED:
             if(!game_->isFinished())
-                return GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
+                return gameActionsController_;
         case GAME_ABANDONED:
             gameState_ = GAME_FINISHED;
             return std::make_shared<controllers::local::LocalScoreController>(game_);
@@ -53,6 +53,7 @@ void controllers::local::LocalLogic::setDeck(std::string deckPath)
 {
     deckPath_ = deckPath;
     game_ = std::make_shared<Game>(GameDeck(deckPath));
+    gameActionsController_ = GameActionsControllerBuilder(*game_, *this).getGameActionsController(playerType_);
     gameState_ = GAME_STARTED;
 }
 void controllers::local::LocalLogic::exitGame()
