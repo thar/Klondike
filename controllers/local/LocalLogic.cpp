@@ -7,7 +7,7 @@
 
 #include <signal.h>
 
-controllers::local::LocalLogic* controllers::local::LocalLogic::instance = nullptr;
+controllers::local::LocalLogic* controllers::local::LocalLogic::signalHandlerInstance = nullptr;
 
 controllers::local::LocalLogic::LocalLogic() : gameState_(PLAYER_NOT_SELECTED), playerType_(UNINITIALIZED),
                game_(nullptr), randomSeed_(0), deckPath_(""), gameActionsController_(nullptr)
@@ -106,7 +106,7 @@ void controllers::local::LocalLogic::restore(controllers::GameSaver &gameSaver)
 
 void controllers::local::LocalLogic::registerSignalHandler()
 {
-    controllers::local::LocalLogic::instance = this;
+    controllers::local::LocalLogic::signalHandlerInstance = this;
     struct sigaction sigIntHandler;
 
     sigIntHandler.sa_handler = controllers::local::LocalLogic::signalHandler;

@@ -50,9 +50,8 @@ namespace controllers
             void save(GameSaver& gameSaver);
             void restore(controllers::GameSaver &gameSaver);
 
-            void registerSignalHandler();
             static void signalHandler (int signum){
-                instance->abandonGame();
+                signalHandlerInstance->abandonGame();
             }
 
         protected:
@@ -63,8 +62,15 @@ namespace controllers
             std::shared_ptr<Game> game_;
             std::string deckPath_;
             unsigned int randomSeed_;
-            static LocalLogic* instance;
             std::shared_ptr<controllers::ActionListController> gameActionsController_;
+
+            /*
+             * The static variable signalHandlerInstance is needed due to the limitations of the signal handling
+             * system. It is needed in this software to stop the demo mode.
+             * TODO: This stop mode does not work in all consoles, so a better solution should be investigated
+             */
+            void registerSignalHandler();
+            static LocalLogic* signalHandlerInstance;
         };
     }
 }
